@@ -14,6 +14,8 @@
 		E53778B427B2DE0C00AFE512 /* AsclepioneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778B327B2DE0C00AFE512 /* AsclepioneTests.swift */; };
 		E53778BE27B2DE0C00AFE512 /* AsclepioneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */; };
 		E53778C027B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */; };
+		E58BC64C27BA579D0042E620 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* Repository.swift */; };
+		E58BC64E27BA59E10042E620 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		E53778B927B2DE0C00AFE512 /* AsclepioneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsclepioneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITests.swift; sourceTree = "<group>"; };
 		E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E58BC64B27BA579D0042E620 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		E58BC64D27BA59E10042E620 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 				E53778A427B2DE0A00AFE512 /* ContentView.swift */,
 				E53778A627B2DE0C00AFE512 /* Assets.xcassets */,
 				E53778A827B2DE0C00AFE512 /* Preview Content */,
+				E58BC64B27BA579D0042E620 /* Repository.swift */,
+				E58BC64D27BA59E10042E620 /* Models.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -259,6 +265,8 @@
 			files = (
 				E53778A527B2DE0A00AFE512 /* ContentView.swift in Sources */,
 				E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */,
+				E58BC64C27BA579D0042E620 /* Repository.swift in Sources */,
+				E58BC64E27BA59E10042E620 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
