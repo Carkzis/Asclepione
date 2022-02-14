@@ -17,6 +17,7 @@
 		E53778B427B2DE0C00AFE512 /* AsclepioneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778B327B2DE0C00AFE512 /* AsclepioneTests.swift */; };
 		E53778BE27B2DE0C00AFE512 /* AsclepioneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */; };
 		E53778C027B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */; };
+		E551118327BAC14A007AE418 /* MockModelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockModelProvider.swift */; };
 		E58BC64C27BA579D0042E620 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* Repository.swift */; };
 		E58BC64E27BA59E10042E620 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* Models.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		E53778B927B2DE0C00AFE512 /* AsclepioneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsclepioneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITests.swift; sourceTree = "<group>"; };
 		E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E551118227BAC14A007AE418 /* MockModelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModelProvider.swift; sourceTree = "<group>"; };
 		E58BC64B27BA579D0042E620 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		E58BC64D27BA59E10042E620 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		FFE10F8C8F355FBB42536022 /* Pods-Asclepione-AsclepioneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; path = "Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				E53778A827B2DE0C00AFE512 /* Preview Content */,
 				E58BC64B27BA579D0042E620 /* Repository.swift */,
 				E58BC64D27BA59E10042E620 /* Models.swift */,
+				E551118227BAC14A007AE418 /* MockModelProvider.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -170,7 +173,6 @@
 				189709F6865385F38F3CE7F8 /* Pods-AsclepioneTests.debug.xcconfig */,
 				0B4C32634C901CECFA5D7E13 /* Pods-AsclepioneTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -376,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E551118327BAC14A007AE418 /* MockModelProvider.swift in Sources */,
 				E53778A527B2DE0A00AFE512 /* ContentView.swift in Sources */,
 				E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */,
 				E58BC64C27BA579D0042E620 /* Repository.swift in Sources */,
