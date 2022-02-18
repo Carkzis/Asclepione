@@ -22,6 +22,7 @@
 		E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedModels.swift */; };
 		E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */; };
 		E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072C27BFB9620047090B /* TestUtils.swift */; };
+		E5B3072F27BFC4950047090B /* CoronavirusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072E27BFC4950047090B /* CoronavirusAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		E58BC64D27BA59E10042E620 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
 		E5B3072C27BFB9620047090B /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		E5B3072E27BFC4950047090B /* CoronavirusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusAPI.swift; sourceTree = "<group>"; };
 		FFE10F8C8F355FBB42536022 /* Pods-Asclepione-AsclepioneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; path = "Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +139,7 @@
 				E53778A827B2DE0C00AFE512 /* Preview Content */,
 				E58BC64B27BA579D0042E620 /* Repository.swift */,
 				E58BC64D27BA59E10042E620 /* Models.swift */,
+				E5B3072E27BFC4950047090B /* CoronavirusAPI.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */,
 				E58BC64C27BA579D0042E620 /* Repository.swift in Sources */,
 				E58BC64E27BA59E10042E620 /* Models.swift in Sources */,
+				E5B3072F27BFC4950047090B /* CoronavirusAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

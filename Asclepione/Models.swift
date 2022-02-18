@@ -38,7 +38,7 @@ struct NewVaccinationsData: Decodable {
         case newPeopleWithSecondDose = "newPeopleVaccinatedSecondDoseByPublishDate"
         case newPeopleWithThirdDose = "newPeopleVaccinatedThirdInjectionByPublishDate"
         case newVaccinations = "newVaccinesGivenByPublishDate"
-        case newPeopleFullyVaccinated = "newPeopleVaccinedCompleteByVaccinationData"
+        case newPeopleFullyVaccinated = "newPeopleVaccinatedCompleteByVaccinationDate"
     }
 }
 
@@ -54,7 +54,7 @@ struct CumulativeVaccinationsData: Decodable {
         case cumulativeSecondDoses = "cumPeopleVaccinatedSecondDoseByPublishDate"
         case cumulativeThirdDoses = "cumPeopleVaccinatedThirdInjectionByPublishDate"
         case cumulativeVaccinations = "cumVaccinesGivenByPublishDate"
-        case cumulativeFullyVaccinated = "cumPeopleVaccineCompleteByPublishDate"
+        case cumulativeFullyVaccinated = "cumPeopleVaccinatedCompleteByVaccinationDate"
     }
 }
 
@@ -65,9 +65,9 @@ struct CumulativeVaccinationPercentageData: Decodable {
     let fullyVaccinatedPercentage: Int?
     
     enum CodingKeys: String, CodingKey {
-        case firstDoseUptakePercentage = "cumVaccinationFirstDoseUptakeByPublishDate"
+        case firstDoseUptakePercentage = "cumVaccinationFirstDoseUptakeByPublishDatePercentage"
         case secondDoseUptakePercentage = "cumVaccinationSecondDoseUptakeByPublishDatePercentage"
         case thirdDoseUptakePercentage = "cumVaccinationThirdInjectionUptakeByPublishDatePercentage"
-        case fullyVaccinatedPercentage = "cumVaccinationCompleteCoverageByPublishDataPercentage"
+        case fullyVaccinatedPercentage = "cumVaccinationCompleteCoverageByVaccinationDatePercentage"
     }
 }

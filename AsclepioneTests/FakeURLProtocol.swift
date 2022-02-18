@@ -6,11 +6,20 @@
 //
 
 import Foundation
+import Alamofire
 
 class FakeURLProtocol: URLProtocol {
     
     private var currentTask: URLSessionTask?
     static var response: MockResponse!
+    
+    /**
+     Create a URLSession created when needed that does not use persistent storage.
+     */
+    private lazy var session: URLSession = {
+        let config = URLSessionConfiguration.ephemeral
+        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
+    }()
     
     /**
      If this returns true, it means we can alter the response.
@@ -34,9 +43,10 @@ class FakeURLProtocol: URLProtocol {
     }
     
     /**
-     Cancel the current task as soon as we start loading it, as we don't want to run a network request.
+     Create and cancel the current task as soon as we start loading it, as we don't want to run a network request.
      */
     override func startLoading() {
+        currentTask = session.dataTask(with: request.urlRequest!)
         currentTask?.cancel()
     }
     
@@ -72,9 +82,18 @@ extension FakeURLProtocol: URLSessionDataDelegate {
     }
     
     /**
-     This will be called after we cancel the request in startLoading(), and informs the client that the protocol implementation finished loading.
+     This will be called after we cancel the request in startLoading(), and informs the client that the protocol implementation finished loading,
+     as well as what the response was.
      */
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        switch FakeURLProtocol.response {
+        case .error(let error)?:
+            client?.urlProtocol(self, didFailWithError: error)
+        case .success(let httpResponse)?:
+            client?.urlProtocol(self, didReceive: httpResponse, cacheStoragePolicy: .notAllowed)
+        default:
+            break
+        }
         client?.urlProtocolDidFinishLoading(self)
     }
 }
