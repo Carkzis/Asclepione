@@ -11,7 +11,7 @@ import XCTest
 
 class CoronavirusAPITests: XCTestCase {
     
-    private var sut: CoronavirusAPI!
+    private var sut: ServiceAPIProtocol!
 
     // Get a session configured to use the FakeURLProtocol.
     let sessionManager: Session = {
@@ -21,16 +21,16 @@ class CoronavirusAPITests: XCTestCase {
     }()
     
     override func setUpWithError() throws {
-        sut = CoronavirusAPI(sessionManager: sessionManager)
+        sut = CoronavirusServiceAPI(sessionManager: sessionManager)
     }
 
     override func tearDownWithError() throws {
         sut = nil
     }
 
-    func testStatusCodeOf200ReturnsAStatusCodeOf200() throws {
+    func testStatusCodeOf200ReturnsSuccessfulResponse() throws {
         // Given a 200 status code.
-        FakeURLProtocol.responseWithCode(code: 200)
+        FakeURLProtocol.getSuccessfulResponse()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
         
         // When we get a result from the mocked API.
@@ -39,13 +39,13 @@ class CoronavirusAPITests: XCTestCase {
             expectation.fulfill()
         }
         
-        // Then, we get a 200 status code as a response after a few seconds.
+        // Then, we get a succesful response after a few seconds.
         wait(for: [expectation], timeout: 3)
     }
     
     func testErrorsReturnAResponseWithErrors() throws {
         // Given that we get a response with errors.
-        FakeURLProtocol.responseWithErrors()
+        FakeURLProtocol.getResponseWithErrors()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
         
         // When we get a result from the mocked API.
@@ -54,7 +54,7 @@ class CoronavirusAPITests: XCTestCase {
             expectation.fulfill()
         }
         
-        // Then, we get a 200 status code as a response after a few seconds.
+        // Then, we get an error as a response after a few seconds.
         wait(for: [expectation], timeout: 3)
     }
 

@@ -13,7 +13,6 @@ import Foundation
 enum MockResponse {
     case error(Error)
     case response(HTTPURLResponse)
-    case data(Data)
 }
 
 /**

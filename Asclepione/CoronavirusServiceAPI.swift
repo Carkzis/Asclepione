@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class CoronavirusAPI {
+class CoronavirusServiceAPI: ServiceAPIProtocol {
     
     /**
      This is an Alamofire Session.
