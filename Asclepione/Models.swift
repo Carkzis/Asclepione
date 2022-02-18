@@ -16,6 +16,14 @@ struct VaccinationData: Decodable {
     let newVaccinationsData: NewVaccinationsData
     let cumulativeVaccinationData: CumulativeVaccinationsData
     let cumulativeVaccinationPercentageData: CumulativeVaccinationPercentageData
+    
+    init(_ date: String, _ newVaccinationsData: NewVaccinationsData, _ cumulativeVaccinationData: CumulativeVaccinationsData,
+         _ cumulativeVaccinationPercentageData: CumulativeVaccinationPercentageData) {
+        self.date = date
+        self.newVaccinationsData = newVaccinationsData
+        self.cumulativeVaccinationData = cumulativeVaccinationData
+        self.cumulativeVaccinationPercentageData = cumulativeVaccinationPercentageData
+    }
 }
 
 struct NewVaccinationsData: Decodable {

@@ -17,9 +17,11 @@
 		E53778B427B2DE0C00AFE512 /* AsclepioneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778B327B2DE0C00AFE512 /* AsclepioneTests.swift */; };
 		E53778BE27B2DE0C00AFE512 /* AsclepioneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */; };
 		E53778C027B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */; };
-		E551118327BAC14A007AE418 /* MockModelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockModelProvider.swift */; };
 		E58BC64C27BA579D0042E620 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* Repository.swift */; };
 		E58BC64E27BA59E10042E620 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* Models.swift */; };
+		E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedModels.swift */; };
+		E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */; };
+		E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072C27BFB9620047090B /* TestUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,9 +60,11 @@
 		E53778B927B2DE0C00AFE512 /* AsclepioneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsclepioneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITests.swift; sourceTree = "<group>"; };
 		E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		E551118227BAC14A007AE418 /* MockModelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModelProvider.swift; sourceTree = "<group>"; };
+		E551118227BAC14A007AE418 /* MockedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedModels.swift; sourceTree = "<group>"; };
 		E58BC64B27BA579D0042E620 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		E58BC64D27BA59E10042E620 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
+		E5B3072C27BFB9620047090B /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		FFE10F8C8F355FBB42536022 /* Pods-Asclepione-AsclepioneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; path = "Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,7 +137,6 @@
 				E53778A827B2DE0C00AFE512 /* Preview Content */,
 				E58BC64B27BA579D0042E620 /* Repository.swift */,
 				E58BC64D27BA59E10042E620 /* Models.swift */,
-				E551118227BAC14A007AE418 /* MockModelProvider.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -149,7 +152,10 @@
 		E53778B227B2DE0C00AFE512 /* AsclepioneTests */ = {
 			isa = PBXGroup;
 			children = (
+				E551118227BAC14A007AE418 /* MockedModels.swift */,
 				E53778B327B2DE0C00AFE512 /* AsclepioneTests.swift */,
+				E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */,
+				E5B3072C27BFB9620047090B /* TestUtils.swift */,
 			);
 			path = AsclepioneTests;
 			sourceTree = "<group>";
@@ -187,6 +193,7 @@
 				E537789B27B2DE0A00AFE512 /* Sources */,
 				E537789C27B2DE0A00AFE512 /* Frameworks */,
 				E537789D27B2DE0A00AFE512 /* Resources */,
+				D893600B8D49F935194171F7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -224,6 +231,7 @@
 				E53778B527B2DE0C00AFE512 /* Sources */,
 				E53778B627B2DE0C00AFE512 /* Frameworks */,
 				E53778B727B2DE0C00AFE512 /* Resources */,
+				3739C4752482578A88897825 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -327,6 +335,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3739C4752482578A88897825 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B389414512F2A99FF2DE0D4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -347,6 +372,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D893600B8D49F935194171F7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Asclepione/Pods-Asclepione-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Asclepione/Pods-Asclepione-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Asclepione/Pods-Asclepione-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F21310629FC1AEF6E7394C7C /* [CP] Check Pods Manifest.lock */ = {
@@ -378,7 +420,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E551118327BAC14A007AE418 /* MockModelProvider.swift in Sources */,
 				E53778A527B2DE0A00AFE512 /* ContentView.swift in Sources */,
 				E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */,
 				E58BC64C27BA579D0042E620 /* Repository.swift in Sources */,
@@ -390,7 +431,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */,
+				E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */,
 				E53778B427B2DE0C00AFE512 /* AsclepioneTests.swift in Sources */,
+				E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

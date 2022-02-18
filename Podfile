@@ -6,6 +6,7 @@ target 'Asclepione' do
   use_frameworks!
 
   # Pods for Asclepione
+  pod 'Alamofire', '~> 5.5'
 
   target 'AsclepioneTests' do
     inherit! :search_paths

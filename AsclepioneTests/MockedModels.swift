@@ -6,30 +6,40 @@
 //
 
 import Foundation
+@testable import Asclepione
 
-class MockModelProvider {
-    static func retrieveMockVaccinationDataArray(amountOfItems: Int) -> [VaccinationData] {
-        let mockVaccinationData = retrieveMockVaccinationDataItem()
+extension ResponseData {
+    static func retrieveResponseData(amountOfItems: Int) -> ResponseData {
+        let mockVaccinationData = VaccinationData.retrieveMockVaccinationDataItem()
         let vaccinationDataArray = Array(repeating: mockVaccinationData, count: amountOfItems)
-        return vaccinationDataArray
+        let wrappedData = ResponseData(data: vaccinationDataArray)
+        return wrappedData
     }
-    
+}
+
+extension VaccinationData {
     static func retrieveMockVaccinationDataItem() -> VaccinationData {
         let mockDate = "1900-01-01"
-        return VaccinationData(date: mockDate,
-                                newVaccinationsData: retrieveMockNewVaccinationsData(),
-                                cumulativeVaccinationData: retrieveMockCumulativeVaccinationsData(),
-                                cumulativeVaccinationPercentageData: retrieveMockCumulativeVaccinationsPercentages())
+        return VaccinationData(mockDate,
+                               NewVaccinationsData.retrieveMockNewVaccinationsData(),
+                               CumulativeVaccinationsData.retrieveMockCumulativeVaccinationsData(),
+                               CumulativeVaccinationPercentageData.retrieveMockCumulativeVaccinationsPercentages())
     }
-    
+}
+
+extension NewVaccinationsData {
     static func retrieveMockNewVaccinationsData() -> NewVaccinationsData {
         return NewVaccinationsData(newPeopleWithFirstDose: 100, newPeopleWithSecondDose: 100, newPeopleWithThirdDose: 100, newVaccinations: 300, newPeopleFullyVaccinated: 100)
     }
-    
+}
+
+extension CumulativeVaccinationsData {
     static func retrieveMockCumulativeVaccinationsData() -> CumulativeVaccinationsData {
         return CumulativeVaccinationsData(cumulativeFirstDoses: 1000, cumulativeSecondDoses: 1000, cumulativeThirdDoses: 1000, cumulativeVaccinations: 3000, cumulativeFullyVaccinated: 1000)
     }
-    
+}
+
+extension CumulativeVaccinationPercentageData {
     static func retrieveMockCumulativeVaccinationsPercentages() -> CumulativeVaccinationPercentageData {
         return CumulativeVaccinationPercentageData(firstDoseUptakePercentage: 10, secondDoseUptakePercentage: 10, thirdDoseUptakePercentage: 10, fullyVaccinatedPercentage: 10)
     }
