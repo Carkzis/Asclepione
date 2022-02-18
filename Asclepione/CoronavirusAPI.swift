@@ -48,12 +48,21 @@ class CoronavirusAPI {
         return parameters
     }
     
-    func retrieveFromWebAPI() {
+    func retrieveFromWebAPI(completion: @escaping (Result<Data?, Error>) -> Void) {
         sessionManager.request(url, method: .get, parameters: getParameters(), encoding: URLEncoding.default, headers: nil)
             .response { (response) in
-                // Need to sort this out.
-                print(response.data!)
+                switch response.result {
+                case .success(let data):
+                    completion(.success(data))
+                case .failure(let afFailure):
+                    completion(.failure(afFailure))
             }
+        }
     }
     
+}
+
+enum Response {
+    case error(Error)
+    case success(HTTPURLResponse)
 }

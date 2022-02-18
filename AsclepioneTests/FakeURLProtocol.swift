@@ -69,7 +69,7 @@ class FakeURLProtocol: URLProtocol {
      */
     static func responseWithCode(code: Int) {
         let httpResponse = HTTPURLResponse(url: URL(string: "http://a.website.com")!, statusCode: code, httpVersion: nil, headerFields: nil)!
-        FakeURLProtocol.response = MockResponse.success(httpResponse)
+        FakeURLProtocol.response = MockResponse.response(httpResponse)
     }
 }
 
@@ -89,8 +89,11 @@ extension FakeURLProtocol: URLSessionDataDelegate {
         switch FakeURLProtocol.response {
         case .error(let error)?:
             client?.urlProtocol(self, didFailWithError: error)
-        case .success(let httpResponse)?:
+        case .response(let httpResponse)?:
+            print(httpResponse.statusCode)
             client?.urlProtocol(self, didReceive: httpResponse, cacheStoragePolicy: .notAllowed)
+        case .data(let data)?:
+            client?.urlProtocol(self, didLoad: data)
         default:
             break
         }

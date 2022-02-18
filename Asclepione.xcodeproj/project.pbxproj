@@ -23,6 +23,7 @@
 		E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */; };
 		E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072C27BFB9620047090B /* TestUtils.swift */; };
 		E5B3072F27BFC4950047090B /* CoronavirusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072E27BFC4950047090B /* CoronavirusAPI.swift */; };
+		E5B3073127BFD7030047090B /* CoronavirusAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
 		E5B3072C27BFB9620047090B /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		E5B3072E27BFC4950047090B /* CoronavirusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusAPI.swift; sourceTree = "<group>"; };
+		E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusAPITests.swift; sourceTree = "<group>"; };
 		FFE10F8C8F355FBB42536022 /* Pods-Asclepione-AsclepioneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; path = "Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +161,7 @@
 				E53778B327B2DE0C00AFE512 /* AsclepioneTests.swift */,
 				E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */,
 				E5B3072C27BFB9620047090B /* TestUtils.swift */,
+				E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */,
 			);
 			path = AsclepioneTests;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5B3073127BFD7030047090B /* CoronavirusAPITests.swift in Sources */,
 				E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */,
 				E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */,
 				E53778B427B2DE0C00AFE512 /* AsclepioneTests.swift in Sources */,

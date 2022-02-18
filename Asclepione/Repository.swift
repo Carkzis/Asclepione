@@ -12,14 +12,14 @@ protocol RepositoryProtocol {
     func retrieveVaccinationData() -> AnyPublisher<VaccinationData, Error>
 }
 
-struct FakeRepository: RepositoryProtocol {
+struct FakeRepository {
     
     var networkError = true
     
-    func retrieveVaccinationData() -> AnyPublisher<VaccinationData, Error> {
-        let response: Result<VaccinationData, Error> = networkError ? .failure(<#T##Error#>) : .success(<#T##VaccinationData#>)
-        
-        return response.publisher.eraseToAnyPublisher()
-    }
+//    func retrieveVaccinationData() -> AnyPublisher<VaccinationData, Error> {
+//        let response: Result<VaccinationData, Error> = networkError ? .failure(<#T##Error#>) : .success(<#T##VaccinationData#>)
+//
+//        return response.publisher.eraseToAnyPublisher()
+//    }
     
 }

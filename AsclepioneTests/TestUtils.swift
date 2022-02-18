@@ -12,7 +12,8 @@ import Foundation
  */
 enum MockResponse {
     case error(Error)
-    case success(HTTPURLResponse)
+    case response(HTTPURLResponse)
+    case data(Data)
 }
 
 /**
