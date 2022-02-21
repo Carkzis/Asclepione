@@ -27,48 +27,41 @@ class CoronavirusAPITests: XCTestCase {
     override func tearDownWithError() throws {
         sut = nil
     }
-
-//    func testStatusCodeOf200ReturnsSuccessfulResponse() throws {
-//        // Given a 200 status code.
-//        FakeURLProtocol.getSuccessfulResponse()
-//        let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
-//
-//        // When we get a result from the mocked API.
-//        sut.retrieveFromWebAPI() { (result) in
-//            XCTAssertTrue(result .isSuccess)
-//            expectation.fulfill()
-//        }
-//
-//        // Then, we get a succesful response after a few seconds.
-//        wait(for: [expectation], timeout: 3)
-//    }
-//
-//    func testErrorsReturnAResponseWithErrors() throws {
-//        // Given that we get a response with errors.
-//        FakeURLProtocol.getResponseWithErrors()
-//        let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
-//
-//        // When we get a result from the mocked API.
-//        sut.retrieveFromWebAPI() { (result) in
-//            XCTAssertTrue(result .isFailure)
-//            expectation.fulfill()
-//        }
-//
-//        // Then, we get an error as a response after a few seconds.
-//        wait(for: [expectation], timeout: 3)
-//    }
     
-    func testCombine() throws {
+    func testStatusCodeOf200ReturnsSuccessfulResponse() throws {
+        // Given a succesful response.
         FakeURLProtocol.getSuccessfulResponse()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
-        // TODO: This is failing because ResponseData is nil, but it doesn't like being Optional.
-        let cancellable = sut.retrieveFromWebAPI().sink { (result) in
-            print(result.error)
-            if result.error == nil {
+        
+        // When we get a result from the mocked API.
+        let cancellable = sut.retrieveFromWebAPI().sink { (dataResponse) in
+            if dataResponse.error == nil {
+                XCTAssertTrue(dataResponse.result.isSuccess)
                 expectation.fulfill()
             }
         }
+        
+        // Then, we get a succesful response after a few seconds.
         wait(for: [expectation], timeout: 3)
+        cancellable.cancel() // This is just to silence the warning.
+    }
+    
+    func testErrorsReturnAResponseWithErrors() throws {
+        // Given that we get a response with errors.
+        FakeURLProtocol.getResponseWithErrors()
+        let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
+        
+        // When we get a result from the mocked API.
+        let cancellable = sut.retrieveFromWebAPI().sink { (dataResponse) in
+            if dataResponse.error != nil {
+                XCTAssertTrue(dataResponse.result.isFailure)
+                expectation.fulfill()
+            }
+        }
+        
+        // Then, we get an error as a response after a few seconds.
+        wait(for: [expectation], timeout: 3)
+        cancellable.cancel() // This is just to silence the warning.
     }
 
 }

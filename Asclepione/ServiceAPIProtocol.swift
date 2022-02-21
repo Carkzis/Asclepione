@@ -10,12 +10,11 @@ import Combine
 import Alamofire
 
 protocol ServiceAPIProtocol {
-//    func retrieveFromWebAPI(completion: @escaping (Result<Any?, Error>) -> Void)
-    func retrieveFromWebAPI(area: AreaName) -> AnyPublisher<DataResponse<ResponseData, AFError>, Never>
+    func retrieveFromWebAPI(area: AreaName) -> AnyPublisher<DataResponse<ResponseDTO, AFError>, Never>
 }
 
 extension ServiceAPIProtocol {
-    func retrieveFromWebAPI(_ areaName: AreaName = .england) -> AnyPublisher<DataResponse<ResponseData, AFError>, Never> {
+    func retrieveFromWebAPI(_ areaName: AreaName = .england) -> AnyPublisher<DataResponse<ResponseDTO, AFError>, Never> {
         return retrieveFromWebAPI(area: areaName)
     }
 }

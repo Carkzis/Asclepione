@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol RepositoryProtocol {
-    func retrieveVaccinationData() -> AnyPublisher<VaccinationData, Error>
+    func retrieveVaccinationData() -> AnyPublisher<VaccinationDataDTO, Error>
 }
 
 struct FakeRepository {

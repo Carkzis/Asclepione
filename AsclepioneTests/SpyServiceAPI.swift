@@ -1,15 +1,3 @@
-//
-//  SpyServiceAPI.swift
-//  AsclepioneTests
-//
-//  Created by Marc Jowett on 18/02/2022.
-//
-
-import Foundation
-@testable import Asclepione
-
-//class SpyServiceAPI: ServiceAPIProtocol {
-//    func retrieveFromWebAPI(completion: @escaping (Result<Any?, Error>) -> Void) {
-//        completion(.success(nil))
-//    }
-//}
+/**
+ Instead of this, we will just create the correct data on getting the successful response.
+ */

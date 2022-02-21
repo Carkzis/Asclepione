@@ -8,22 +8,22 @@
 import Foundation
 import Alamofire
 
-struct ResponseData: Decodable, EmptyResponse {
-    static func emptyValue() -> ResponseData {
-        return ResponseData(data: nil)
+struct ResponseDTO: Decodable, EmptyResponse {
+    static func emptyValue() -> ResponseDTO {
+        return ResponseDTO(data: nil)
     }
     
-    var data: [VaccinationData]? = nil
+    var data: [VaccinationDataDTO]? = nil
 }
 
-struct VaccinationData: Decodable {
+struct VaccinationDataDTO: Decodable {
     let date: String
-    let newVaccinationsData: NewVaccinationsData
-    let cumulativeVaccinationData: CumulativeVaccinationsData
-    let cumulativeVaccinationPercentageData: CumulativeVaccinationPercentageData
+    let newVaccinationsData: NewVaccinationsDataDTO
+    let cumulativeVaccinationData: CumulativeVaccinationsDataDTO
+    let cumulativeVaccinationPercentageData: CumulativeVaccinationPercentageDataDTO
     
-    init(_ date: String, _ newVaccinationsData: NewVaccinationsData, _ cumulativeVaccinationData: CumulativeVaccinationsData,
-         _ cumulativeVaccinationPercentageData: CumulativeVaccinationPercentageData) {
+    init(_ date: String, _ newVaccinationsData: NewVaccinationsDataDTO, _ cumulativeVaccinationData: CumulativeVaccinationsDataDTO,
+         _ cumulativeVaccinationPercentageData: CumulativeVaccinationPercentageDataDTO) {
         self.date = date
         self.newVaccinationsData = newVaccinationsData
         self.cumulativeVaccinationData = cumulativeVaccinationData
@@ -31,7 +31,7 @@ struct VaccinationData: Decodable {
     }
 }
 
-struct NewVaccinationsData: Decodable {
+struct NewVaccinationsDataDTO: Decodable {
     let newPeopleWithFirstDose: Int?
     let newPeopleWithSecondDose: Int?
     let newPeopleWithThirdDose: Int?
@@ -48,7 +48,7 @@ struct NewVaccinationsData: Decodable {
     }
 }
 
-struct CumulativeVaccinationsData: Decodable {
+struct CumulativeVaccinationsDataDTO: Decodable {
     let cumulativeFirstDoses: Int?
     let cumulativeSecondDoses: Int?
     let cumulativeThirdDoses: Int?
@@ -65,7 +65,7 @@ struct CumulativeVaccinationsData: Decodable {
     }
 }
 
-struct CumulativeVaccinationPercentageData: Decodable {
+struct CumulativeVaccinationPercentageDataDTO: Decodable {
     let firstDoseUptakePercentage: Int?
     let secondDoseUptakePercentage: Int?
     let thirdDoseUptakePercentage: Int?
