@@ -9,7 +9,7 @@ import Foundation
 @testable import Asclepione
 
 class SpyServiceAPI: ServiceAPIProtocol {
-    func retrieveFromWebAPI(completion: @escaping (Result<Data?, Error>) -> Void) {
+    func retrieveFromWebAPI(completion: @escaping (Result<Any?, Error>) -> Void) {
         completion(.success(nil))
     }
 }

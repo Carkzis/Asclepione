@@ -38,6 +38,7 @@ struct NewVaccinationsData: Decodable {
         case newPeopleWithSecondDose = "newPeopleVaccinatedSecondDoseByPublishDate"
         case newPeopleWithThirdDose = "newPeopleVaccinatedThirdInjectionByPublishDate"
         case newVaccinations = "newVaccinesGivenByPublishDate"
+        // This is England only, the other countries use "newPeopleVaccinatedCompleteByPublishDate".
         case newPeopleFullyVaccinated = "newPeopleVaccinatedCompleteByVaccinationDate"
     }
 }
@@ -54,6 +55,7 @@ struct CumulativeVaccinationsData: Decodable {
         case cumulativeSecondDoses = "cumPeopleVaccinatedSecondDoseByPublishDate"
         case cumulativeThirdDoses = "cumPeopleVaccinatedThirdInjectionByPublishDate"
         case cumulativeVaccinations = "cumVaccinesGivenByPublishDate"
+        // This is England only, the other countries use "newPeopleVaccinatedCompleteByPublishDate".
         case cumulativeFullyVaccinated = "cumPeopleVaccinatedCompleteByVaccinationDate"
     }
 }
@@ -68,6 +70,8 @@ struct CumulativeVaccinationPercentageData: Decodable {
         case firstDoseUptakePercentage = "cumVaccinationFirstDoseUptakeByPublishDatePercentage"
         case secondDoseUptakePercentage = "cumVaccinationSecondDoseUptakeByPublishDatePercentage"
         case thirdDoseUptakePercentage = "cumVaccinationThirdInjectionUptakeByPublishDatePercentage"
+        // This is England only, the other countries use "newPeopleVaccinatedCompleteByPublishDate".
         case fullyVaccinatedPercentage = "cumVaccinationCompleteCoverageByVaccinationDatePercentage"
     }
 }
+

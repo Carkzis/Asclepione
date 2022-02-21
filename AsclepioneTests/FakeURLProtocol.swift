@@ -91,7 +91,6 @@ extension FakeURLProtocol: URLSessionDataDelegate {
         case .error(let error)?:
             client?.urlProtocol(self, didFailWithError: error)
         case .response(let httpResponse)?:
-            print(httpResponse.statusCode)
             client?.urlProtocol(self, didReceive: httpResponse, cacheStoragePolicy: .notAllowed)
         default:
             break

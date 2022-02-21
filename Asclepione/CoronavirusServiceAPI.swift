@@ -20,9 +20,16 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
     }
     
     let url = "https://api.coronavirus.data.gov.uk/v1/data"
-
-    private func getParameters() -> Parameters {
-        let filters = "areaType=nation"
+    
+    /**
+     Returns the latest result for an area (country) of the UK from the Coronavirus Open Data API (APIv1).
+     */
+    private func getParametersForAreaOfUK(_ areaName: AreaName = .england, _ areaType: String = "nation") -> Parameters {
+        // Note, for
+        let areaName = "England"
+        let areaType = "nation"
+        let filters = "areaType=\(areaType);areaName=\(areaName.description)"
+        let latestBy = "newVaccinesGivenByPublishDate"
         let structure =
             ["newPeopleVaccinatedFirstDoseByPublishDate",
             "newPeopleVaccinatedSecondDoseByPublishDate",
@@ -43,17 +50,23 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
             
         let parameters: Parameters = [
             "filters": "\(filters)",
-            "structure": "\(structure)"
+            "structure": "\(structure)",
+            "latestBy": "\(latestBy)"
         ]
         return parameters
     }
     
-    func retrieveFromWebAPI(completion: @escaping (Result<Data?, Error>) -> Void) {
-        sessionManager.request(url, method: .get, parameters: getParameters(), encoding: URLEncoding.default, headers: nil)
+    func retrieveFromWebAPI(completion: @escaping (Result<Any?, Error>) -> Void) {
+        sessionManager.request(url, method: .get, parameters: getParametersForAreaOfUK(), encoding: URLEncoding.default, headers: nil)
             .response { (response) in
+                let statusCode = response.response?.statusCode
                 switch response.result {
                 case .success(let data):
-                    completion(.success(data))
+                    if let unwrappedData = data {
+                        completion(.success(unwrappedData))
+                    } else {
+                        completion(.success(statusCode))
+                    }
                 case .failure(let afFailure):
                     completion(.failure(afFailure))
             }
@@ -62,7 +75,18 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
     
 }
 
-enum Response {
-    case error(Error)
-    case success(HTTPURLResponse)
+enum AreaName {
+    case england
+    case scotland
+    case ni
+    case wales
+    
+    var description: String {
+        switch self {
+        case .england: return "England"
+        case .scotland: return "Scotland"
+        case .ni: return "Northern Ireland"
+        case .wales: return "Wales"
+        }
+    }
 }

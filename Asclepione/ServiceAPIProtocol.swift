@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ServiceAPIProtocol {
-    func retrieveFromWebAPI(completion: @escaping (Result<Data?, Error>) -> Void)
+    func retrieveFromWebAPI(completion: @escaping (Result<Any?, Error>) -> Void)
 }
