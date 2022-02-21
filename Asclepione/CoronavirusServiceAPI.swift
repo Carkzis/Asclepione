@@ -74,10 +74,10 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
 //    }
 //
     
-    func retrieveFromWebAPI(_ areaName: AreaName = .england) -> AnyPublisher<DataResponse<ResponseData, AFError>, Never> {
+    func retrieveFromWebAPI(area: AreaName = .england) -> AnyPublisher<DataResponse<ResponseData, AFError>, Never> {
         return sessionManager.request(url, method: .get, parameters: getParametersForArea(), encoding: URLEncoding.default, headers: nil)
             .validate()
-            .publishDecodable(type: ResponseData.self)
+            .publishDecodable(type: ResponseData.self, emptyResponseCodes: [200])
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }

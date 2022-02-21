@@ -6,8 +6,13 @@
 //
 
 import Foundation
+import Alamofire
 
-struct ResponseData: Decodable {
+struct ResponseData: Decodable, EmptyResponse {
+    static func emptyValue() -> ResponseData {
+        return ResponseData(data: nil)
+    }
+    
     var data: [VaccinationData]? = nil
 }
 

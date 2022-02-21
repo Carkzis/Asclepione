@@ -61,9 +61,14 @@ class CoronavirusAPITests: XCTestCase {
     func testCombine() throws {
         FakeURLProtocol.getSuccessfulResponse()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
-        sut.retrieveFromWebAPI().sink {
-            
+        // TODO: This is failing because ResponseData is nil, but it doesn't like being Optional.
+        let cancellable = sut.retrieveFromWebAPI().sink { (result) in
+            print(result.error)
+            if result.error == nil {
+                expectation.fulfill()
+            }
         }
+        wait(for: [expectation], timeout: 3)
     }
 
 }
