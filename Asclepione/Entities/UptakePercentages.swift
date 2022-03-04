@@ -23,6 +23,8 @@ extension UptakePercentages {
     @NSManaged public var id: String?
     @NSManaged public var secondDoseUptakePercentage: Float
     @NSManaged public var thirdDoseUptakePercentage: Float
+    
+    static var entityName: String { return "UptakePercentages" }
 
 }
 

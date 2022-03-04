@@ -25,7 +25,7 @@ class FakeRepository: RepositoryProtocol {
         }
     }
     
-    func convertDTOtoEntities(dto: ResponseDTO) {
+    private func convertDTOtoEntities(dto: ResponseDTO) {
         let unwrappedDTO = unwrapDTO(dtoToUnwrap: dto)
         let latestNewVaccinations = convertDTOtoNewVaccinations(unwrappedDTO: unwrappedDTO)
         let latestCumulativeVaccinations = convertDTOtoCumulativeVaccinations(unwrappedDTO: unwrappedDTO)

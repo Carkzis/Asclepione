@@ -24,6 +24,8 @@ extension CumulativeVaccinations {
     @NSManaged public var date: Date?
     @NSManaged public var id: String?
     @NSManaged public var cumulativeVaccinations: Int16
+    
+    static var entityName: String { return "CumulativeVaccinations" }
 
 }
 

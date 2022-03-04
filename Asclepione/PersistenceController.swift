@@ -33,7 +33,8 @@ struct PersistenceController {
             do {
                 try context.save()
             } catch {
-                print("Error saving to database.")
+                context.rollback()
+                print("Error saving to database, changes rolled back.")
             }
         }
     }

@@ -24,6 +24,8 @@ extension NewVaccinations {
     @NSManaged public var newSecondDoses: Int16
     @NSManaged public var newThirdDoses: Int16
     @NSManaged public var newVaccinations: Int16
+    
+    static var entityName: String { return "NewVaccinations" }
 
 }
 
