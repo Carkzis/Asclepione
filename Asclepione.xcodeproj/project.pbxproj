@@ -29,7 +29,6 @@
 		E5B3072F27BFC4950047090B /* CoronavirusServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */; };
 		E5B3073127BFD7030047090B /* CoronavirusAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */; };
 		E5B3073327BFFE540047090B /* ServiceAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3073227BFFE540047090B /* ServiceAPIProtocol.swift */; };
-		E5B3073527C001250047090B /* SpyServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3073427C001250047090B /* SpyServiceAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +79,6 @@
 		E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusServiceAPI.swift; sourceTree = "<group>"; };
 		E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusAPITests.swift; sourceTree = "<group>"; };
 		E5B3073227BFFE540047090B /* ServiceAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPIProtocol.swift; sourceTree = "<group>"; };
-		E5B3073427C001250047090B /* SpyServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyServiceAPI.swift; sourceTree = "<group>"; };
 		FFE10F8C8F355FBB42536022 /* Pods-Asclepione-AsclepioneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; path = "Target Support Files/Pods-Asclepione-AsclepioneUITests/Pods-Asclepione-AsclepioneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,7 +174,6 @@
 				E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */,
 				E5B3072C27BFB9620047090B /* TestUtils.swift */,
 				E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */,
-				E5B3073427C001250047090B /* SpyServiceAPI.swift */,
 				E5001AFF27C694E400A71509 /* APIPlayground.swift */,
 				E51A5C7027D2086400E499BD /* FakeRepository.swift */,
 				E51A5C7227D210DE00E499BD /* RespositoryTests.swift */,
@@ -461,7 +458,6 @@
 			files = (
 				E5B3073127BFD7030047090B /* CoronavirusAPITests.swift in Sources */,
 				E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */,
-				E5B3073527C001250047090B /* SpyServiceAPI.swift in Sources */,
 				E51A5C7127D2086400E499BD /* FakeRepository.swift in Sources */,
 				E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */,
 				E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */,

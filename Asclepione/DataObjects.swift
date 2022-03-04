@@ -19,6 +19,7 @@ struct ResponseDTO: Decodable, EmptyResponse {
 
 struct VaccinationDataDTO: Decodable {
     let date: String
+    let areaName: String
 
     let newPeopleWithFirstDose: Int?
     let newPeopleWithSecondDose: Int?
@@ -36,6 +37,7 @@ struct VaccinationDataDTO: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case date = "date"
+        case areaName = "areaName"
 
         case newPeopleWithFirstDose = "newPeopleVaccinatedFirstDoseByPublishDate"
         case newPeopleWithSecondDose = "newPeopleVaccinatedSecondDoseByPublishDate"
