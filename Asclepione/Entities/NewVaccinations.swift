@@ -23,6 +23,7 @@ extension NewVaccinations {
     @NSManaged public var newFirstDoses: Int16
     @NSManaged public var newSecondDoses: Int16
     @NSManaged public var newThirdDoses: Int16
+    @NSManaged public var newVaccinations: Int16
 
 }
 

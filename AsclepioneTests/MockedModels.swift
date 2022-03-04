@@ -23,4 +23,5 @@ extension VaccinationDataDTO {
         let mockRegion = "England"
         return VaccinationDataDTO(date: mockDate, areaName: mockRegion, newPeopleWithFirstDose: 100, newPeopleWithSecondDose: 100, newPeopleWithThirdDose: 100, newVaccinations: 300, cumulativeFirstDoses: 1000, cumulativeSecondDoses: 1000, cumulativeThirdDoses: 1000, cumulativeVaccinations: 3000, firstDoseUptakePercentage: 10, secondDoseUptakePercentage: 10, thirdDoseUptakePercentage: 10)
     }
+
 }

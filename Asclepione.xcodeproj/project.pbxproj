@@ -12,10 +12,9 @@
 		B640B7D5D545D52CD137E3ED /* Pods_AsclepioneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8985E12C1B6B900CA36FDFC6 /* Pods_AsclepioneTests.framework */; };
 		E5001B0027C694E400A71509 /* APIPlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001AFF27C694E400A71509 /* APIPlayground.swift */; };
 		E51A5C7127D2086400E499BD /* FakeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7027D2086400E499BD /* FakeRepository.swift */; };
-		E51A5C7327D210DE00E499BD /* RespositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7227D210DE00E499BD /* RespositoryTests.swift */; };
+		E51A5C7327D210DE00E499BD /* RepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7227D210DE00E499BD /* RepositoryTests.swift */; };
 		E51A5C7627D2170F00E499BD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */; };
 		E51A5C7827D2196100E499BD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7727D2196100E499BD /* PersistenceController.swift */; };
-		E51A5C7A27D229E400E499BD /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7927D229E400E499BD /* Entities.swift */; };
 		E51A5CA527D22F6D00E499BD /* NewVaccinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C9F27D22F6D00E499BD /* NewVaccinations.swift */; };
 		E51A5CA727D22F6D00E499BD /* UptakePercentages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5CA127D22F6D00E499BD /* UptakePercentages.swift */; };
 		E51A5CA927D22F6D00E499BD /* CumulativeVaccinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5CA327D22F6D00E499BD /* CumulativeVaccinations.swift */; };
@@ -25,6 +24,7 @@
 		E53778AA27B2DE0C00AFE512 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53778A927B2DE0C00AFE512 /* Preview Assets.xcassets */; };
 		E53778BE27B2DE0C00AFE512 /* AsclepioneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */; };
 		E53778C027B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */; };
+		E55359AD27D258DE005F0643 /* MockedEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55359AC27D258DE005F0643 /* MockedEntities.swift */; };
 		E58BC64C27BA579D0042E620 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* Repository.swift */; };
 		E58BC64E27BA59E10042E620 /* DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* DataObjects.swift */; };
 		E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedModels.swift */; };
@@ -63,10 +63,9 @@
 		A119C81176ABC0CC04C0B116 /* Pods_Asclepione.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Asclepione.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5001AFF27C694E400A71509 /* APIPlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPlayground.swift; sourceTree = "<group>"; };
 		E51A5C7027D2086400E499BD /* FakeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRepository.swift; sourceTree = "<group>"; };
-		E51A5C7227D210DE00E499BD /* RespositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespositoryTests.swift; sourceTree = "<group>"; };
+		E51A5C7227D210DE00E499BD /* RepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTests.swift; sourceTree = "<group>"; };
 		E51A5C7527D2170F00E499BD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E51A5C7727D2196100E499BD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		E51A5C7927D229E400E499BD /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		E51A5C9F27D22F6D00E499BD /* NewVaccinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVaccinations.swift; sourceTree = "<group>"; };
 		E51A5CA127D22F6D00E499BD /* UptakePercentages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UptakePercentages.swift; sourceTree = "<group>"; };
 		E51A5CA327D22F6D00E499BD /* CumulativeVaccinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CumulativeVaccinations.swift; sourceTree = "<group>"; };
@@ -80,6 +79,7 @@
 		E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITests.swift; sourceTree = "<group>"; };
 		E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E551118227BAC14A007AE418 /* MockedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedModels.swift; sourceTree = "<group>"; };
+		E55359AC27D258DE005F0643 /* MockedEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEntities.swift; sourceTree = "<group>"; };
 		E58BC64B27BA579D0042E620 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		E58BC64D27BA59E10042E620 /* DataObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataObjects.swift; sourceTree = "<group>"; };
 		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
@@ -174,7 +174,6 @@
 				E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */,
 				E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */,
 				E51A5C7727D2196100E499BD /* PersistenceController.swift */,
-				E51A5C7927D229E400E499BD /* Entities.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -196,7 +195,8 @@
 				E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */,
 				E5001AFF27C694E400A71509 /* APIPlayground.swift */,
 				E51A5C7027D2086400E499BD /* FakeRepository.swift */,
-				E51A5C7227D210DE00E499BD /* RespositoryTests.swift */,
+				E51A5C7227D210DE00E499BD /* RepositoryTests.swift */,
+				E55359AC27D258DE005F0643 /* MockedEntities.swift */,
 			);
 			path = AsclepioneTests;
 			sourceTree = "<group>";
@@ -470,7 +470,6 @@
 				E51A5CA727D22F6D00E499BD /* UptakePercentages.swift in Sources */,
 				E5B3073327BFFE540047090B /* ServiceAPIProtocol.swift in Sources */,
 				E51A5CA927D22F6D00E499BD /* CumulativeVaccinations.swift in Sources */,
-				E51A5C7A27D229E400E499BD /* Entities.swift in Sources */,
 				E5B3072F27BFC4950047090B /* CoronavirusServiceAPI.swift in Sources */,
 				E51A5C7827D2196100E499BD /* PersistenceController.swift in Sources */,
 			);
@@ -486,7 +485,8 @@
 				E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */,
 				E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */,
 				E5001B0027C694E400A71509 /* APIPlayground.swift in Sources */,
-				E51A5C7327D210DE00E499BD /* RespositoryTests.swift in Sources */,
+				E51A5C7327D210DE00E499BD /* RepositoryTests.swift in Sources */,
+				E55359AD27D258DE005F0643 /* MockedEntities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

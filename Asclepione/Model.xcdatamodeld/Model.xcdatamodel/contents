@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CumulativeVaccinations" representedClassName=".CumulativeVaccinations" syncable="YES">
         <attribute name="areaName" optional="YES" attributeType="String"/>
         <attribute name="cumulativeFirstDoses" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -15,6 +15,7 @@
         <attribute name="newFirstDoses" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="newSecondDoses" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="newThirdDoses" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="newVaccinations" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="UptakePercentages" representedClassName=".UptakePercentages" syncable="YES">
         <attribute name="areaName" optional="YES" attributeType="String"/>
@@ -26,7 +27,7 @@
     </entity>
     <elements>
         <element name="CumulativeVaccinations" positionX="-54" positionY="0" width="128" height="119"/>
-        <element name="NewVaccinations" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="NewVaccinations" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="UptakePercentages" positionX="-36" positionY="9" width="128" height="119"/>
     </elements>
 </model>

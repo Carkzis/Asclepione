@@ -8,7 +8,7 @@
 import XCTest
 @testable import Asclepione
 
-class RespositoryTests: XCTestCase {
+class RepositoryTests: XCTestCase {
     
     var sut: FakeRepository!
 
@@ -49,4 +49,14 @@ class RespositoryTests: XCTestCase {
         XCTAssertTrue(responseCount == 4)
     }
 
+    func testGenerateEntitiesWithReproducibleUniqueIdentifiersOnSuccessfulNetworkResponse() throws {
+        // Given there is not a network error.
+        sut.networkError = false
+        
+        // When a request to refresh the data via the network is called.
+        sut.refreshVaccinationData()
+        
+        // Then we get three separate entity objects.
+        XCTAssertFalse(sut.newVaccinationsEntities.isEmpty)
+    }
 }

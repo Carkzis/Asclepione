@@ -27,3 +27,4 @@ extension CumulativeVaccinations {
 }
 
 extension CumulativeVaccinations : Identifiable {}
+
