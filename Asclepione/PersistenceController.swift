@@ -26,4 +26,15 @@ struct PersistenceController {
             }
         }
     }
+    
+    func save() {
+        let context = container.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print("Error saving to database.")
+            }
+        }
+    }
 }
