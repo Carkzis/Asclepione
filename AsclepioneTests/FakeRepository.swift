@@ -13,8 +13,8 @@ class FakeRepository: RepositoryProtocol {
     var responseData: ResponseDTO? = nil
     
     var newVaccinationsEntities: [MockNewVaccinations] = []
-    var cumulativeVaccinationsEntities: [CumulativeVaccinations] = []
-    var uptakePercentages: [UptakePercentages] = []
+    var cumulativeVaccinationsEntities: [MockCumulativeVaccinations] = []
+    var uptakePercentages: [MockUptakePercentages] = []
     
     func refreshVaccinationData() {
         if networkError == true {
@@ -27,15 +27,57 @@ class FakeRepository: RepositoryProtocol {
     
     func convertDTOtoEntities(dto: ResponseDTO) {
         let unwrappedDTO = unwrapDTO(dtoToUnwrap: dto)
-        newVaccinationsEntities = unwrappedDTO.map {
+        let latestNewVaccinations = convertDTOtoNewVaccinations(unwrappedDTO: unwrappedDTO)
+        let latestCumulativeVaccinations = convertDTOtoCumulativeVaccinations(unwrappedDTO: unwrappedDTO)
+        let latestUptakePercentages = convertDTOtoUptakePercentages(unwrappedDTO: unwrappedDTO)
+        insertResultsIntoLocalDatabase(latestNewVaccinations, latestCumulativeVaccinations, latestUptakePercentages)
+    }
+    
+    private func insertResultsIntoLocalDatabase(_ latestNewVaccinations: [MockNewVaccinations],
+                                                _ latestCumulativeVaccinations: [MockCumulativeVaccinations],
+                                                _ latestUptakePercentages: [MockUptakePercentages]) {
+        newVaccinationsEntities = latestNewVaccinations
+        cumulativeVaccinationsEntities = latestCumulativeVaccinations
+        uptakePercentages = latestUptakePercentages
+    }
+    
+    private func convertDTOtoNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [MockNewVaccinations] {
+        return unwrappedDTO.map {
             let vaccination = MockNewVaccinations()
-            vaccination.id = createReproducibleUniqueID(date: $0.date, areaType: $0.date)
+            vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
             vaccination.areaName = $0.areaName
             vaccination.date = transformStringIntoDate(dateAsString: $0.date)
             vaccination.newFirstDoses = Int16($0.newPeopleWithFirstDose!)
             vaccination.newSecondDoses = Int16($0.newPeopleWithSecondDose!)
             vaccination.newThirdDoses = Int16($0.newPeopleWithThirdDose!)
             vaccination.newVaccinations = Int16($0.newVaccinations!)
+            return vaccination
+        }
+    }
+    
+    private func convertDTOtoCumulativeVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [MockCumulativeVaccinations] {
+        return unwrappedDTO.map {
+            let vaccination = MockCumulativeVaccinations()
+            vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
+            vaccination.areaName = $0.areaName
+            vaccination.date = transformStringIntoDate(dateAsString: $0.date)
+            vaccination.cumulativeFirstDoses = Int16($0.cumulativeFirstDoses!)
+            vaccination.cumulativeSecondDoses = Int16($0.cumulativeSecondDoses!)
+            vaccination.cumulativeThirdDoses = Int16($0.cumulativeThirdDoses!)
+            vaccination.cumulativeVaccinations = Int16($0.cumulativeVaccinations!)
+            return vaccination
+        }
+    }
+    
+    private func convertDTOtoUptakePercentages(unwrappedDTO: [VaccinationDataDTO]) -> [MockUptakePercentages] {
+        return unwrappedDTO.map {
+            let vaccination = MockUptakePercentages()
+            vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
+            vaccination.areaName = $0.areaName
+            vaccination.date = transformStringIntoDate(dateAsString: $0.date)
+            vaccination.firstDoseUptakePercentage = $0.firstDoseUptakePercentage!
+            vaccination.secondDoseUptakePercentage = $0.secondDoseUptakePercentage!
+            vaccination.thirdDoseUptakePercentage = $0.thirdDoseUptakePercentage!
             return vaccination
         }
     }
@@ -48,8 +90,8 @@ class FakeRepository: RepositoryProtocol {
         }
     }
     
-    private func createReproducibleUniqueID(date: String, areaType: String) -> String {
-        return "\(date)\(areaType)"
+    private func createReproducibleUniqueID(date: String, areaName: String) -> String {
+        return "\(date)\(areaName)"
     }
     
     private func transformStringIntoDate(dateAsString: String) -> Date {

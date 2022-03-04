@@ -17,7 +17,7 @@ class MockNewVaccinations {
     public var newVaccinations: Int16 = 0
 }
 
-class MockedUptakePercentages {
+class MockUptakePercentages {
     public var areaName: String?
     public var date: Date?
     public var firstDoseUptakePercentage: Float =  0.0
@@ -27,9 +27,11 @@ class MockedUptakePercentages {
 }
 
 class MockCumulativeVaccinations {
+    public var areaName: String?
     public var cumulativeFirstDoses: Int16 = 0
     public var cumulativeSecondDoses: Int16 = 0
     public var cumulativeThirdDoses: Int16 = 0
     public var date: Date?
     public var id: String?
+    public var cumulativeVaccinations: Int16 = 0
 }

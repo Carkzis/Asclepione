@@ -50,13 +50,34 @@ class RepositoryTests: XCTestCase {
     }
 
     func testGenerateEntitiesWithReproducibleUniqueIdentifiersOnSuccessfulNetworkResponse() throws {
-        // Given there is not a network error.
+        // Given there is not a network error, and we have a unique reproducible id.
         sut.networkError = false
+        let date = "1900-01-01"
+        let areaName = "England"
+        let expectedID = date + areaName
         
         // When a request to refresh the data via the network is called.
         sut.refreshVaccinationData()
         
         // Then we get three separate entity objects.
         XCTAssertFalse(sut.newVaccinationsEntities.isEmpty)
+        XCTAssertTrue(sut.newVaccinationsEntities.count == 4)
+        XCTAssertTrue(sut.newVaccinationsEntities[0].newFirstDoses == 100)
+        XCTAssertFalse(sut.cumulativeVaccinationsEntities.isEmpty)
+        XCTAssertTrue(sut.cumulativeVaccinationsEntities.count == 4)
+        XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].cumulativeFirstDoses == 1000)
+        XCTAssertFalse(sut.uptakePercentages.isEmpty)
+        XCTAssertTrue(sut.uptakePercentages.count == 4)
+        XCTAssertTrue(sut.uptakePercentages[0].firstDoseUptakePercentage == 10)
+        
+        // And an unique but reproducible id.
+        XCTAssertTrue(sut.newVaccinationsEntities[0].id == expectedID)
+        XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].id == expectedID)
+        XCTAssertTrue(sut.uptakePercentages[0].id == expectedID)
+        
+        // And the date string is correctly converted into a Date object.
+        XCTAssertTrue(sut.newVaccinationsEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
+        XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
+        XCTAssertTrue(sut.uptakePercentages[0].date!.description == "1900-01-01 00:00:00 +0000")
     }
 }

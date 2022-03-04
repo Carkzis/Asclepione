@@ -23,6 +23,7 @@ extension CumulativeVaccinations {
     @NSManaged public var cumulativeThirdDoses: Int16
     @NSManaged public var date: Date?
     @NSManaged public var id: String?
+    @NSManaged public var cumulativeVaccinations: Int16
 
 }
 

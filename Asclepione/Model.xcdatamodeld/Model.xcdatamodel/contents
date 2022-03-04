@@ -5,6 +5,7 @@
         <attribute name="cumulativeFirstDoses" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="cumulativeSecondDoses" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="cumulativeThirdDoses" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="cumulativeVaccinations" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="String"/>
     </entity>
@@ -26,7 +27,7 @@
         <attribute name="thirdDoseUptakePercentage" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="CumulativeVaccinations" positionX="-54" positionY="0" width="128" height="119"/>
+        <element name="CumulativeVaccinations" positionX="-54" positionY="0" width="128" height="134"/>
         <element name="NewVaccinations" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="UptakePercentages" positionX="-36" positionY="9" width="128" height="119"/>
     </elements>
