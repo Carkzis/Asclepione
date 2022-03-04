@@ -28,7 +28,7 @@ class CoronavirusAPITests: XCTestCase {
         sut = nil
     }
     
-    func testStatusCodeOf200ReturnsSuccessfulResponse() throws {
+    func testSimulatingSuccessfulNetworkCallReturnsResultSuccessStateAsTrue() throws {
         // Given a succesful response.
         FakeURLProtocol.getSuccessfulResponse()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
@@ -46,8 +46,8 @@ class CoronavirusAPITests: XCTestCase {
         cancellable.cancel() // This is just to silence the warning.
     }
     
-    func testErrorsReturnAResponseWithErrors() throws {
-        // Given that we get a response with errors.
+    func testSimulatingNetworkCallWithErrorsReturnsResultFailureStateAsTrue() throws {
+        // Given that we simulate a network call response with errors.
         FakeURLProtocol.getResponseWithErrors()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
         

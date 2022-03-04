@@ -14,6 +14,7 @@ struct ResponseDTO: Decodable, EmptyResponse {
     }
     
     var data: [VaccinationDataDTO]? = nil
+    
 }
 
 struct VaccinationDataDTO: Decodable {
@@ -23,18 +24,15 @@ struct VaccinationDataDTO: Decodable {
     let newPeopleWithSecondDose: Int?
     let newPeopleWithThirdDose: Int?
     let newVaccinations: Int?
-    let newPeopleFullyVaccinated: Int?
 
     let cumulativeFirstDoses: Int?
     let cumulativeSecondDoses: Int?
     let cumulativeThirdDoses: Int?
     let cumulativeVaccinations: Int?
-    let cumulativeFullyVaccinated: Int?
 
     let firstDoseUptakePercentage: Float?
     let secondDoseUptakePercentage: Float?
     let thirdDoseUptakePercentage: Float?
-    let fullyVaccinatedPercentage: Float?
 
     enum CodingKeys: String, CodingKey {
         case date = "date"
@@ -43,21 +41,15 @@ struct VaccinationDataDTO: Decodable {
         case newPeopleWithSecondDose = "newPeopleVaccinatedSecondDoseByPublishDate"
         case newPeopleWithThirdDose = "newPeopleVaccinatedThirdInjectionByPublishDate"
         case newVaccinations = "newVaccinesGivenByPublishDate"
-        // This is England and Scotland only, the other countries use "newPeopleVaccinatedCompleteByPublishDate".
-        case newPeopleFullyVaccinated = "newPeopleVaccinatedCompleteByVaccinationDate"
-
+      
         case cumulativeFirstDoses = "cumPeopleVaccinatedFirstDoseByPublishDate"
         case cumulativeSecondDoses = "cumPeopleVaccinatedSecondDoseByPublishDate"
         case cumulativeThirdDoses = "cumPeopleVaccinatedThirdInjectionByPublishDate"
         case cumulativeVaccinations = "cumVaccinesGivenByPublishDate"
-        // This is England and Scotland only, the other countries use "newPeopleVaccinatedCompleteByPublishDate".
-        case cumulativeFullyVaccinated = "cumPeopleVaccinatedCompleteByVaccinationDate"
 
         case firstDoseUptakePercentage = "cumVaccinationFirstDoseUptakeByPublishDatePercentage"
         case secondDoseUptakePercentage = "cumVaccinationSecondDoseUptakeByPublishDatePercentage"
         case thirdDoseUptakePercentage = "cumVaccinationThirdInjectionUptakeByPublishDatePercentage"
-        // This is England and Scotland only, the other countries use "newPeopleVaccinatedCompleteByPublishDate".
-        case fullyVaccinatedPercentage = "cumVaccinationCompleteCoverageByVaccinationDatePercentage"
     }
 
 }
