@@ -13,6 +13,8 @@
 		E5001B0027C694E400A71509 /* APIPlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001AFF27C694E400A71509 /* APIPlayground.swift */; };
 		E51A5C7127D2086400E499BD /* FakeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7027D2086400E499BD /* FakeRepository.swift */; };
 		E51A5C7327D210DE00E499BD /* RespositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7227D210DE00E499BD /* RespositoryTests.swift */; };
+		E51A5C7627D2170F00E499BD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */; };
+		E51A5C7827D2196100E499BD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A5C7727D2196100E499BD /* PersistenceController.swift */; };
 		E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778A227B2DE0A00AFE512 /* AsclepioneApp.swift */; };
 		E53778A527B2DE0A00AFE512 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778A427B2DE0A00AFE512 /* ContentView.swift */; };
 		E53778A727B2DE0C00AFE512 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53778A627B2DE0C00AFE512 /* Assets.xcassets */; };
@@ -20,7 +22,7 @@
 		E53778BE27B2DE0C00AFE512 /* AsclepioneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */; };
 		E53778C027B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */; };
 		E58BC64C27BA579D0042E620 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* Repository.swift */; };
-		E58BC64E27BA59E10042E620 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* Models.swift */; };
+		E58BC64E27BA59E10042E620 /* DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* DataObjects.swift */; };
 		E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedModels.swift */; };
 		E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */; };
 		E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072C27BFB9620047090B /* TestUtils.swift */; };
@@ -59,6 +61,8 @@
 		E5001AFF27C694E400A71509 /* APIPlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPlayground.swift; sourceTree = "<group>"; };
 		E51A5C7027D2086400E499BD /* FakeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRepository.swift; sourceTree = "<group>"; };
 		E51A5C7227D210DE00E499BD /* RespositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespositoryTests.swift; sourceTree = "<group>"; };
+		E51A5C7527D2170F00E499BD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		E51A5C7727D2196100E499BD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		E537789F27B2DE0A00AFE512 /* Asclepione.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Asclepione.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53778A227B2DE0A00AFE512 /* AsclepioneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneApp.swift; sourceTree = "<group>"; };
 		E53778A427B2DE0A00AFE512 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,7 +74,7 @@
 		E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E551118227BAC14A007AE418 /* MockedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedModels.swift; sourceTree = "<group>"; };
 		E58BC64B27BA579D0042E620 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		E58BC64D27BA59E10042E620 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		E58BC64D27BA59E10042E620 /* DataObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataObjects.swift; sourceTree = "<group>"; };
 		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
 		E5B3072C27BFB9620047090B /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusServiceAPI.swift; sourceTree = "<group>"; };
@@ -149,8 +153,10 @@
 				E53778A627B2DE0C00AFE512 /* Assets.xcassets */,
 				E53778A827B2DE0C00AFE512 /* Preview Content */,
 				E58BC64B27BA579D0042E620 /* Repository.swift */,
-				E58BC64D27BA59E10042E620 /* Models.swift */,
+				E58BC64D27BA59E10042E620 /* DataObjects.swift */,
 				E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */,
+				E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */,
+				E51A5C7727D2196100E499BD /* PersistenceController.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -441,9 +447,11 @@
 				E53778A527B2DE0A00AFE512 /* ContentView.swift in Sources */,
 				E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */,
 				E58BC64C27BA579D0042E620 /* Repository.swift in Sources */,
-				E58BC64E27BA59E10042E620 /* Models.swift in Sources */,
+				E51A5C7627D2170F00E499BD /* Model.xcdatamodeld in Sources */,
+				E58BC64E27BA59E10042E620 /* DataObjects.swift in Sources */,
 				E5B3073327BFFE540047090B /* ServiceAPIProtocol.swift in Sources */,
 				E5B3072F27BFC4950047090B /* CoronavirusServiceAPI.swift in Sources */,
+				E51A5C7827D2196100E499BD /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +811,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E51A5C7527D2170F00E499BD /* Model.xcdatamodel */,
+			);
+			currentVersion = E51A5C7527D2170F00E499BD /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E537789727B2DE0A00AFE512 /* Project object */;
 }

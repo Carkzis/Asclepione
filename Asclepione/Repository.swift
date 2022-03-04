@@ -11,3 +11,9 @@ import Combine
 protocol RepositoryProtocol {
     func refreshVaccinationData()
 }
+
+struct Repository: RepositoryProtocol {
+    func refreshVaccinationData() {
+        // Not currently implemented.
+    }
+}
