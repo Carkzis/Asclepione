@@ -7,6 +7,10 @@
 
 import Foundation
 
+/**
+ These are for unit testing that DTOs are correctly translated into their respective entities.
+ */
+
 class MockNewVaccinations {
     public var areaName: String?
     public var date: Date?

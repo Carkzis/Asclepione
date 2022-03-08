@@ -80,4 +80,6 @@ class RepositoryTests: XCTestCase {
         XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
         XCTAssertTrue(sut.uptakePercentages[0].date!.description == "1900-01-01 00:00:00 +0000")
     }
+    
+    // TODO: Unit test using in-memory CoreData.
 }

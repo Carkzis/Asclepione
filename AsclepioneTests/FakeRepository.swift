@@ -17,6 +17,7 @@ class FakeRepository: RepositoryProtocol {
     var uptakePercentages: [MockUptakePercentages] = []
     
     func refreshVaccinationData() {
+        // TODO: This could be a Combine response.
         if networkError == true {
             print("There was a network error.")
         } else {
@@ -81,31 +82,5 @@ class FakeRepository: RepositoryProtocol {
             return vaccination
         }
     }
-    
-    private func unwrapDTO(dtoToUnwrap: ResponseDTO) -> [VaccinationDataDTO] {
-        if let unwrappedDTO = dtoToUnwrap.data {
-            return unwrappedDTO
-        } else {
-            return []
-        }
-    }
-    
-    private func createReproducibleUniqueID(date: String, areaName: String) -> String {
-        return "\(date)\(areaName)"
-    }
-    
-    private func transformStringIntoDate(dateAsString: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_UK")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        // TODO: May be better to throw an error here.
-        if let date = dateFormatter.date(from: dateAsString) {
-            return date
-        } else {
-            let defaultDate = "1900-01-01"
-            return dateFormatter.date(from: defaultDate)!
-        }
-    }
-    
     
 }

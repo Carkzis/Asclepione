@@ -25,6 +25,7 @@
 		E53778BE27B2DE0C00AFE512 /* AsclepioneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */; };
 		E53778C027B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */; };
 		E55359AD27D258DE005F0643 /* MockedEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55359AC27D258DE005F0643 /* MockedEntities.swift */; };
+		E57B2D9C27D8100D007E1D37 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2D9B27D8100D007E1D37 /* DataUtils.swift */; };
 		E58BC64C27BA579D0042E620 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* Repository.swift */; };
 		E58BC64E27BA59E10042E620 /* DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* DataObjects.swift */; };
 		E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedModels.swift */; };
@@ -80,6 +81,7 @@
 		E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E551118227BAC14A007AE418 /* MockedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedModels.swift; sourceTree = "<group>"; };
 		E55359AC27D258DE005F0643 /* MockedEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEntities.swift; sourceTree = "<group>"; };
+		E57B2D9B27D8100D007E1D37 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E58BC64B27BA579D0042E620 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		E58BC64D27BA59E10042E620 /* DataObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataObjects.swift; sourceTree = "<group>"; };
 		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */,
 				E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */,
 				E51A5C7727D2196100E499BD /* PersistenceController.swift */,
+				E57B2D9B27D8100D007E1D37 /* DataUtils.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E51A5CA527D22F6D00E499BD /* NewVaccinations.swift in Sources */,
+				E57B2D9C27D8100D007E1D37 /* DataUtils.swift in Sources */,
 				E53778A527B2DE0A00AFE512 /* ContentView.swift in Sources */,
 				E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */,
 				E58BC64C27BA579D0042E620 /* Repository.swift in Sources */,
