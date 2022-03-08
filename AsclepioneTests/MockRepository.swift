@@ -8,7 +8,7 @@
 import Foundation
 @testable import Asclepione
 
-class FakeRepository: RepositoryProtocol {
+class MockRepository: RepositoryProtocol {
     var networkError = false
     var responseData: ResponseDTO? = nil
     

@@ -8,12 +8,12 @@
 import XCTest
 @testable import Asclepione
 
-class RepositoryTests: XCTestCase {
+class RepositoryRemoteDataSourceTests: XCTestCase {
     
-    var sut: FakeRepository!
+    var sut: MockRepository!
 
     override func setUpWithError() throws {
-        sut = FakeRepository()
+        sut = MockRepository()
     }
 
     override func tearDownWithError() throws {
@@ -81,5 +81,4 @@ class RepositoryTests: XCTestCase {
         XCTAssertTrue(sut.uptakePercentages[0].date!.description == "1900-01-01 00:00:00 +0000")
     }
     
-    // TODO: Unit test using in-memory CoreData.
 }
