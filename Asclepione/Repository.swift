@@ -13,6 +13,10 @@ protocol RepositoryProtocol {
     func refreshVaccinationData()
 }
 
+extension RepositoryProtocol {
+    func insertResultsIntoLocalDatabase() {}
+}
+
 struct Repository: RepositoryProtocol {
     
     let persistenceContainer: NSPersistentContainer!
@@ -25,13 +29,13 @@ struct Repository: RepositoryProtocol {
         // Not currently implemented.
     }
     
-    private func convertDTOtoEntities(dto: ResponseDTO) {
+    func convertDTOtoEntities(dto: ResponseDTO) {
         let unwrappedDTO = unwrapDTO(dtoToUnwrap: dto)
         convertDTOtoNewVaccinations(unwrappedDTO: unwrappedDTO)
         insertResultsIntoLocalDatabase()
     }
     
-    private func insertResultsIntoLocalDatabase() {
+    func insertResultsIntoLocalDatabase() {
         PersistenceController.shared.save()
     }
     
