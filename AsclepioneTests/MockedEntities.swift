@@ -6,12 +6,13 @@
 //
 
 import Foundation
+@testable import Asclepione
 
 /**
  These are for unit testing that DTOs are correctly translated into their respective entities.
  */
 
-class MockNewVaccinations {
+class MockNewVaccinations: NV {
     public var areaName: String?
     public var date: Date?
     public var id: String?
@@ -21,7 +22,7 @@ class MockNewVaccinations {
     public var newVaccinations: Int16 = 0
 }
 
-class MockUptakePercentages {
+class MockUptakePercentages: UP {
     public var areaName: String?
     public var date: Date?
     public var firstDoseUptakePercentage: Float =  0.0
@@ -30,7 +31,7 @@ class MockUptakePercentages {
     public var thirdDoseUptakePercentage: Float = 0.0
 }
 
-class MockCumulativeVaccinations {
+class MockCumulativeVaccinations: CV {
     public var areaName: String?
     public var cumulativeFirstDoses: Int16 = 0
     public var cumulativeSecondDoses: Int16 = 0

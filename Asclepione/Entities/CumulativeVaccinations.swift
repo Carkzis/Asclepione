@@ -9,7 +9,17 @@
 import Foundation
 import CoreData
 
-public class CumulativeVaccinations: NSManagedObject {}
+protocol CV {
+    var areaName: String? { get set }
+    var cumulativeFirstDoses: Int16 { get set }
+    var cumulativeSecondDoses: Int16 { get set }
+    var cumulativeThirdDoses: Int16 { get set }
+    var date: Date? { get set }
+    var id: String? { get set }
+    var cumulativeVaccinations: Int16 { get set }
+}
+
+public class CumulativeVaccinations: NSManagedObject, CV {}
 
 extension CumulativeVaccinations {
 

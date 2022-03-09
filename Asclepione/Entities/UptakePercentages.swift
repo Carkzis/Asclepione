@@ -9,7 +9,16 @@
 import Foundation
 import CoreData
 
-public class UptakePercentages: NSManagedObject {}
+protocol UP {
+    var areaName: String? { get set }
+    var date: Date? { get set }
+    var firstDoseUptakePercentage: Float { get set }
+    var id: String? { get set }
+    var secondDoseUptakePercentage: Float { get set }
+    var thirdDoseUptakePercentage: Float { get set }
+}
+
+public class UptakePercentages: NSManagedObject, UP {}
 
 extension UptakePercentages {
 

@@ -9,7 +9,17 @@
 import Foundation
 import CoreData
 
-open class NewVaccinations: NSManagedObject {}
+protocol NV {
+    var areaName: String? { get set }
+    var date: Date? { get set }
+    var id: String? { get set }
+    var newFirstDoses: Int16 { get set }
+    var newSecondDoses: Int16 { get set }
+    var newThirdDoses: Int16 { get set }
+    var newVaccinations: Int16 { get set }
+}
+
+public class NewVaccinations: NSManagedObject, NV {}
 
 extension NewVaccinations {
 
@@ -17,13 +27,13 @@ extension NewVaccinations {
         return NSFetchRequest<NewVaccinations>(entityName: "NewVaccinations")
     }
 
-    @NSManaged open var areaName: String?
-    @NSManaged open var date: Date?
-    @NSManaged open var id: String?
-    @NSManaged open var newFirstDoses: Int16
-    @NSManaged open var newSecondDoses: Int16
-    @NSManaged open var newThirdDoses: Int16
-    @NSManaged open var newVaccinations: Int16
+    @NSManaged public var areaName: String?
+    @NSManaged public var date: Date?
+    @NSManaged public var id: String?
+    @NSManaged public var newFirstDoses: Int16
+    @NSManaged public var newSecondDoses: Int16
+    @NSManaged public var newThirdDoses: Int16
+    @NSManaged public var newVaccinations: Int16
     
     static var entityName: String { return "NewVaccinations" }
 
