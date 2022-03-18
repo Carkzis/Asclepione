@@ -18,7 +18,6 @@ class MockRepository: RepositoryProtocol {
     var uptakePercentages: [MockUptakePercentages] = []
     
     func refreshVaccinationData() {
-        // TODO: This could be a Combine response.
         if networkError == true {
             print("There was a network error.")
         } else {
