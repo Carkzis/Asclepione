@@ -30,7 +30,7 @@ class RepositoryUtils {
     private func convertDTOToNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
         unwrappedDTO.forEach {
             let uniqueId = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
-            if (isNewData(uniqueId: uniqueId, .newVaccinations)) {
+            if (isNewData(uniqueId: uniqueId, entityName: NewVaccinations.entityName)) {
                 let newEntry = NSEntityDescription.insertNewObject(
                     forEntityName: NewVaccinations.entityName, into: persistenceContainer.viewContext) as! NewVaccinations
                 newEntry.id = uniqueId
@@ -47,7 +47,7 @@ class RepositoryUtils {
     private func convertDTOToCumulativeVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
         unwrappedDTO.forEach {
             let uniqueId = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
-            if (isNewData(uniqueId: uniqueId, .cumulativeVaccinations)) {
+            if (isNewData(uniqueId: uniqueId, entityName: CumulativeVaccinations.entityName)) {
                 let newEntry = NSEntityDescription.insertNewObject(
                     forEntityName: CumulativeVaccinations.entityName, into: persistenceContainer.viewContext) as! CumulativeVaccinations
                 newEntry.id = uniqueId
@@ -64,7 +64,7 @@ class RepositoryUtils {
     private func convertDTOToUptakePercentages(unwrappedDTO: [VaccinationDataDTO]) {
         unwrappedDTO.forEach {
             let uniqueId = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
-            if (isNewData(uniqueId: uniqueId, .uptakePercentages)) {
+            if (isNewData(uniqueId: uniqueId, entityName: UptakePercentages.entityName)) {
                 let newEntry = NSEntityDescription.insertNewObject(
                     forEntityName: UptakePercentages.entityName, into: persistenceContainer.viewContext) as! UptakePercentages
             
@@ -78,35 +78,16 @@ class RepositoryUtils {
         }
     }
     
-    private func isNewData(uniqueId: String, _ dataType: FetchRequests) -> Bool {
+    private func isNewData(uniqueId: String, entityName: String) -> Bool {
         let requestPredicate = NSPredicate(format: "id = %@", uniqueId)
         var results = 0
         
-        switch (dataType) {
-        case .newVaccinations:
-            let fetchRequest = NSFetchRequest<NewVaccinations>(entityName: NewVaccinations.entityName)
-            fetchRequest.predicate = requestPredicate
-            do{
-                results = try persistenceContainer.viewContext.fetch(fetchRequest).count + results
-            } catch {
-                return false
-            }
-        case .cumulativeVaccinations:
-            let fetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
-            fetchRequest.predicate = requestPredicate
-            do {
-                results = try persistenceContainer.viewContext.fetch(fetchRequest).count + results
-            } catch {
-                return false
-            }
-        case .uptakePercentages:
-            let fetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
-            fetchRequest.predicate = requestPredicate
-            do {
-                results = try persistenceContainer.viewContext.fetch(fetchRequest).count + results
-            } catch {
-                return false
-            }
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
+        fetchRequest.predicate = requestPredicate
+        do{
+            results = try persistenceContainer.viewContext.fetch(fetchRequest).count + results
+        } catch {
+            return false
         }
         
         if results == 0 {
@@ -116,9 +97,4 @@ class RepositoryUtils {
         }
     }
         
-        enum FetchRequests: CaseIterable {
-            case newVaccinations
-            case cumulativeVaccinations
-            case uptakePercentages
-        }
 }
