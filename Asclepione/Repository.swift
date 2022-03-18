@@ -22,9 +22,9 @@ struct Repository: RepositoryProtocol {
     let persistenceController: PersistenceController!
     let persistenceContainer: NSPersistentContainer!
     
-    init(_ persistenceController: PersistenceController = PersistenceController.shared) {
-        self.persistenceController = persistenceController
-        persistenceContainer = persistenceController.container
+    init() {
+        self.persistenceController = PersistenceController.shared
+        self.persistenceContainer = PersistenceController.shared.container
     }
     
     func refreshVaccinationData() {
@@ -40,9 +40,6 @@ struct Repository: RepositoryProtocol {
     }
     
     private func insertResultsIntoLocalDatabase() {
-        print(PersistenceController.shared.container)
-        print(PersistenceController.shared.container)
-        print(persistenceContainer!)
         persistenceController.save()
     }
     

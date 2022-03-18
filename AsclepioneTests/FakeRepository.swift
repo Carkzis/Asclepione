@@ -22,7 +22,8 @@ class FakeRepository: RepositoryProtocol {
     }
     
     init() {
-        repository = Repository(PersistenceController(inMemory: true))
+        _ = PersistenceController(inMemory: true)
+        repository = Repository()
     }
     
 }
