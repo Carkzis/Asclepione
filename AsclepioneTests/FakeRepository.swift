@@ -10,19 +10,18 @@ import Foundation
 
 class FakeRepository: RepositoryProtocol {
     
-    let repository: Repository!
+    let repositoryUtils: RepositoryUtils!
     
     func refreshVaccinationData() {
         // This will grab fake data and convert it into entities.
         let mockData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
-        repository.convertDTOToEntities(dto: mockData)
+        repositoryUtils.convertDTOToEntities(dto: mockData)
     }
     
     init() {
-        print(PersistenceController.shared.container)
         _ = PersistenceController(inMemory: true)
-        repository = Repository()
-        print(PersistenceController.shared.container)
+        let persistenceContainer = PersistenceController.shared.container
+        self.repositoryUtils = RepositoryUtils(persistenceContainer: persistenceContainer)
     }
     
 }
