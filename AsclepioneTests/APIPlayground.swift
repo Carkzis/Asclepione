@@ -29,7 +29,7 @@ class APIPlayground: XCTestCase {
         // Given a succesful response.
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
         
-        // When we get a result from the mocked API.
+        // When we get a result from the API.
         let cancellable = sut.retrieveFromWebAPI().sink { (dataResponse) in
             if dataResponse.error == nil {
                 print(dataResponse.value!)

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreData
+import Alamofire
 
 protocol RepositoryProtocol {
     func refreshVaccinationData()
@@ -28,7 +29,18 @@ class Repository: RepositoryProtocol {
     }
     
     func refreshVaccinationData() {
-        // Not currently implemented.
+        let api = CoronavirusServiceAPI()
+        let cancellable = api.retrieveFromWebAPI().sink { (dataResponse) in
+            if dataResponse.error == nil {
+                if let vaccinationData = dataResponse.value {
+                    self.repositoryUtils.convertDTOToEntities(dto: vaccinationData)
+                }
+            } else {
+                print("Error obtaining data: \(String(describing: dataResponse.error))")
+            }
+        }
+        cancellable.cancel()
     }
     
+    // TODO: Obtain data from CoreData database using Combine.
 }

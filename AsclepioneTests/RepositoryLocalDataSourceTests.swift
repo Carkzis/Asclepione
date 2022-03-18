@@ -29,8 +29,6 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         // Given a FakeRepository and a blank in-memory database, when VaccinationData is refreshed.
         sut.refreshVaccinationData()
         
-        usleep(1000000)
-        
         // Then we can retrieve 1 item of data from each entity.
         let newVaccinationsFetchRequest = NSFetchRequest<NewVaccinations>(entityName: NewVaccinations.entityName)
         let cumVaccinationsFetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
@@ -56,8 +54,6 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         // Given a FakeRepository and a blank in-memory database, when VaccinationData is refreshed with unique data.
         sut.multipleUniqueDataItemsReceived = true
         sut.refreshVaccinationData()
-        
-        usleep(1000000)
         
         // Then we can retrieve multiple items of data from each entity, as they are unique.
         let newVaccinationsFetchRequest = NSFetchRequest<NewVaccinations>(entityName: NewVaccinations.entityName)
