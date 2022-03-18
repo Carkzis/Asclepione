@@ -11,10 +11,16 @@ import Foundation
 class FakeRepository: RepositoryProtocol {
     
     let repositoryUtils: RepositoryUtils!
+    var multipleUniqueDataItemsReceived = false
     
     func refreshVaccinationData() {
         // This will grab fake data and convert it into entities.
-        let mockData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
+        let mockData: ResponseDTO!
+        if (multipleUniqueDataItemsReceived) {
+            mockData = ResponseDTO.retrieveUniqueResponseData(amountOfItems: 4)
+        } else {
+            mockData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
+        }
         repositoryUtils.convertDTOToEntities(dto: mockData)
     }
     

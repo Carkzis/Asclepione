@@ -51,4 +51,32 @@ class RepositoryLocalDataSourceTests: XCTestCase {
             print("Something went wrong fetching employees: \(error)")
         }
     }
+    
+    func testSavingMultipleUniqueEntriesIntoCoreDataResultsInMultipleEntriesBeingStoredForEachEntity() throws {
+        // Given a FakeRepository and a blank in-memory database, when VaccinationData is refreshed with unique data.
+        sut.multipleUniqueDataItemsReceived = true
+        sut.refreshVaccinationData()
+        
+        usleep(1000000)
+        
+        // Then we can retrieve multiple items of data from each entity, as they are unique.
+        let newVaccinationsFetchRequest = NSFetchRequest<NewVaccinations>(entityName: NewVaccinations.entityName)
+        let cumVaccinationsFetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
+        let percentagesFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
+        do {
+            let newVaccinationsData = try managedObjectContext.fetch(newVaccinationsFetchRequest)
+            print("New Vaccinations: \(newVaccinationsData)")
+            XCTAssertTrue(newVaccinationsData.count > 1)
+
+            let cumVaccinationsData = try managedObjectContext.fetch(cumVaccinationsFetchRequest)
+            print("Cumulative Vaccinations: \(cumVaccinationsData)")
+            XCTAssertTrue(cumVaccinationsData.count > 1)
+
+            let percentagesData = try managedObjectContext.fetch(percentagesFetchRequest)
+            print("Uptake Percentages: \(percentagesData)")
+            XCTAssertTrue(percentagesData.count > 1)
+        } catch {
+            print("Something went wrong fetching employees: \(error)")
+        }
+    }
 }
