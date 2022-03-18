@@ -23,15 +23,15 @@ class MockRepository: RepositoryProtocol {
             print("There was a network error.")
         } else {
             responseData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
-            convertDTOtoEntities(dto: responseData!)
+            convertDTOToEntities(dto: responseData!)
         }
     }
     
-    private func convertDTOtoEntities(dto: ResponseDTO) {
+    private func convertDTOToEntities(dto: ResponseDTO) {
         let unwrappedDTO = unwrapDTO(dtoToUnwrap: dto)
-        let latestNewVaccinations = convertDTOtoNewVaccinations(unwrappedDTO: unwrappedDTO)
-        let latestCumulativeVaccinations = convertDTOtoCumulativeVaccinations(unwrappedDTO: unwrappedDTO)
-        let latestUptakePercentages = convertDTOtoUptakePercentages(unwrappedDTO: unwrappedDTO)
+        let latestNewVaccinations = convertDTOToNewVaccinations(unwrappedDTO: unwrappedDTO)
+        let latestCumulativeVaccinations = convertDTOToCumulativeVaccinations(unwrappedDTO: unwrappedDTO)
+        let latestUptakePercentages = convertDTOToUptakePercentages(unwrappedDTO: unwrappedDTO)
         insertResultsIntoLocalDatabase(latestNewVaccinations, latestCumulativeVaccinations, latestUptakePercentages)
     }
     
@@ -43,7 +43,7 @@ class MockRepository: RepositoryProtocol {
         uptakePercentages = latestUptakePercentages
     }
     
-    private func convertDTOtoNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [MockNewVaccinations] {
+    private func convertDTOToNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [MockNewVaccinations] {
         return unwrappedDTO.map {
             let vaccination = MockNewVaccinations()
             vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
@@ -57,7 +57,7 @@ class MockRepository: RepositoryProtocol {
         }
     }
     
-    private func convertDTOtoCumulativeVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [MockCumulativeVaccinations] {
+    private func convertDTOToCumulativeVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [MockCumulativeVaccinations] {
         return unwrappedDTO.map {
             let vaccination = MockCumulativeVaccinations()
             vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
@@ -71,7 +71,7 @@ class MockRepository: RepositoryProtocol {
         }
     }
     
-    private func convertDTOtoUptakePercentages(unwrappedDTO: [VaccinationDataDTO]) -> [MockUptakePercentages] {
+    private func convertDTOToUptakePercentages(unwrappedDTO: [VaccinationDataDTO]) -> [MockUptakePercentages] {
         return unwrappedDTO.map {
             let vaccination = MockUptakePercentages()
             vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)

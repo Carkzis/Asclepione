@@ -10,12 +10,14 @@ import Foundation
 
 class FakeRepository: RepositoryProtocol {
     
-    let repository: RepositoryProtocol!
+    let repository: Repository!
     
     func refreshVaccinationData() {
-        // TODO: Insert fake data into CoreData, but in memory.
+        // This will grab fake data and convert it into entities.
+        let mockData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
+        repository.convertDTOToEntities(dto: mockData)
         
-        // Remember, this just "saves" the changes to the database!
+        // This saves the entities into the database.
         repository.insertResultsIntoLocalDatabase()
     }
     

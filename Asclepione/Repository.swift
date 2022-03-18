@@ -19,9 +19,11 @@ extension RepositoryProtocol {
 
 struct Repository: RepositoryProtocol {
     
+    let persistenceController: PersistenceController!
     let persistenceContainer: NSPersistentContainer!
     
     init(_ persistenceController: PersistenceController = PersistenceController.shared) {
+        self.persistenceController = persistenceController
         persistenceContainer = persistenceController.container
     }
     
@@ -29,19 +31,24 @@ struct Repository: RepositoryProtocol {
         // Not currently implemented.
     }
     
-    func convertDTOtoEntities(dto: ResponseDTO) {
+    func convertDTOToEntities(dto: ResponseDTO) {
         let unwrappedDTO = unwrapDTO(dtoToUnwrap: dto)
-        convertDTOtoNewVaccinations(unwrappedDTO: unwrappedDTO)
+        convertDTOToNewVaccinations(unwrappedDTO: unwrappedDTO)
+        convertDTOToCumulativeVaccinations(unwrappedDTO: unwrappedDTO)
+        convertDTOToUptakePercentages(unwrappedDTO: unwrappedDTO)
         insertResultsIntoLocalDatabase()
     }
     
-    func insertResultsIntoLocalDatabase() {
-        PersistenceController.shared.save()
+    private func insertResultsIntoLocalDatabase() {
+        print(PersistenceController.shared.container)
+        print(PersistenceController.shared.container)
+        print(persistenceContainer!)
+        persistenceController.save()
     }
     
-    private func convertDTOtoNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
+    private func convertDTOToNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
         // TODO: Check this works.
-        unwrappedDTO.forEach{
+        unwrappedDTO.forEach {
             let newEntry = NSEntityDescription.insertNewObject(
                 forEntityName: NewVaccinations.entityName, into: persistenceContainer.viewContext) as! NewVaccinations
         
@@ -52,6 +59,37 @@ struct Repository: RepositoryProtocol {
             newEntry.newSecondDoses = Int16($0.newPeopleWithSecondDose!)
             newEntry.newThirdDoses = Int16($0.newPeopleWithThirdDose!)
             newEntry.newVaccinations = Int16($0.newVaccinations!)
+        }
+    }
+    
+    private func convertDTOToCumulativeVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
+        // TODO: Check this works.
+        unwrappedDTO.forEach {
+            let newEntry = NSEntityDescription.insertNewObject(
+                forEntityName: CumulativeVaccinations.entityName, into: persistenceContainer.viewContext) as! CumulativeVaccinations
+
+            newEntry.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
+            newEntry.areaName = $0.areaName
+            newEntry.date = transformStringIntoDate(dateAsString: $0.date)
+            newEntry.cumulativeFirstDoses = Int16($0.cumulativeFirstDoses!)
+            newEntry.cumulativeSecondDoses = Int16($0.cumulativeSecondDoses!)
+            newEntry.cumulativeThirdDoses = Int16($0.cumulativeThirdDoses!)
+            newEntry.cumulativeVaccinations = Int16($0.cumulativeVaccinations!)
+        }
+    }
+    
+    private func convertDTOToUptakePercentages(unwrappedDTO: [VaccinationDataDTO]) {
+        // TODO: Check this works.
+        unwrappedDTO.forEach {
+            let newEntry = NSEntityDescription.insertNewObject(
+                forEntityName: UptakePercentages.entityName, into: persistenceContainer.viewContext) as! UptakePercentages
+            
+            newEntry.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
+            newEntry.areaName = $0.areaName
+            newEntry.date = transformStringIntoDate(dateAsString: $0.date)
+            newEntry.firstDoseUptakePercentage = $0.firstDoseUptakePercentage!
+            newEntry.secondDoseUptakePercentage = $0.secondDoseUptakePercentage!
+            newEntry.thirdDoseUptakePercentage = $0.thirdDoseUptakePercentage!
         }
     }
     
