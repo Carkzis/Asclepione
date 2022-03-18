@@ -8,15 +8,15 @@
 import Foundation
 import CoreData
 
-struct PersistenceController {
-    static let shared = PersistenceController()
-    
+final class PersistenceController {
+    static var shared = PersistenceController()
     let container: NSPersistentContainer
     
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Model")
         
         if inMemory {
+            PersistenceController.shared = self
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
         
@@ -25,6 +25,7 @@ struct PersistenceController {
                 fatalError("Error: \(error.localizedDescription)")
             }
         }
+        print(container)
     }
     
     func save() {

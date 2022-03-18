@@ -16,14 +16,13 @@ class FakeRepository: RepositoryProtocol {
         // This will grab fake data and convert it into entities.
         let mockData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
         repository.convertDTOToEntities(dto: mockData)
-        
-        // This saves the entities into the database.
-        repository.insertResultsIntoLocalDatabase()
     }
     
     init() {
+        print(PersistenceController.shared.container)
         _ = PersistenceController(inMemory: true)
         repository = Repository()
+        print(PersistenceController.shared.container)
     }
     
 }

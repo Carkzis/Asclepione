@@ -16,6 +16,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
     
     override func setUpWithError() throws {
         sut = FakeRepository()
+        print(PersistenceController.shared.container)
         managedObjectContext = PersistenceController.shared.container.viewContext
     }
 
@@ -38,11 +39,11 @@ class RepositoryLocalDataSourceTests: XCTestCase {
             let newVaccinationsData = try managedObjectContext.fetch(newVaccinationsFetchRequest)
             print("New Vaccinations: \(newVaccinationsData)")
             XCTAssertTrue(newVaccinationsData.count == 1)
-            
+
             let cumVaccinationsData = try managedObjectContext.fetch(cumVaccinationsFetchRequest)
             print("Cumulative Vaccinations: \(cumVaccinationsData)")
             XCTAssertTrue(cumVaccinationsData.count == 1)
-            
+
             let percentagesData = try managedObjectContext.fetch(percentagesFetchRequest)
             print("Uptake Percentages: \(percentagesData)")
             XCTAssertTrue(percentagesData.count == 1)

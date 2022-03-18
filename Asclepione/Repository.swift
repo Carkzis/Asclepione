@@ -19,11 +19,9 @@ extension RepositoryProtocol {
 
 struct Repository: RepositoryProtocol {
     
-    let persistenceController: PersistenceController!
     let persistenceContainer: NSPersistentContainer!
     
     init() {
-        self.persistenceController = PersistenceController.shared
         self.persistenceContainer = PersistenceController.shared.container
     }
     
@@ -40,7 +38,7 @@ struct Repository: RepositoryProtocol {
     }
     
     private func insertResultsIntoLocalDatabase() {
-        persistenceController.save()
+        PersistenceController.shared.save()
     }
     
     private func convertDTOToNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
