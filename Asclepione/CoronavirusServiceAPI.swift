@@ -12,6 +12,8 @@ import Combine
 class CoronavirusServiceAPI: ServiceAPIProtocol {
     
     private let SUCCESS_CODE = 200
+    private let url = "https://api.coronavirus.data.gov.uk/v1/data"
+    
     
     /**
      This is an Alamofire Session.
@@ -21,8 +23,6 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
     init(sessionManager: Session = Session.default) {
         self.sessionManager = sessionManager
     }
-    
-    let url = "https://api.coronavirus.data.gov.uk/v1/data"
     
     /**
      Returns the latest result for an area (country) of the UK from the Coronavirus Open Data API (APIv1).
@@ -57,14 +57,18 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
         return parameters
     }
     
+    /*
+     The data response, either a ResponseDTO or an AFError, will be published as the output.  The failure
+     type is never, as the network error is contained in the output.
+     */
     func retrieveFromWebAPI(area: AreaName = .england) -> AnyPublisher<DataResponse<ResponseDTO, AFError>, Never> {
         return sessionManager.request(url, method: .get, parameters: getParametersForArea(), encoding: URLEncoding.default, headers: nil)
             .validate()
-            .publishDecodable(type: ResponseDTO.self, emptyResponseCodes: [SUCCESS_CODE])
+            .publishDecodable(type: ResponseDTO.self, emptyResponseCodes: [SUCCESS_CODE]) // Allows an empty 200 response.
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
 }
 
 

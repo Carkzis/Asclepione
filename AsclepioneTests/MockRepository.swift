@@ -8,6 +8,10 @@
 import Foundation
 @testable import Asclepione
 
+/*
+ This is a mock repository that uses lists to hold mock data, used to test data transformation of remote data
+ objects into mock database entities.
+ */
 class MockRepository: RepositoryProtocol {
     
     var networkError = false

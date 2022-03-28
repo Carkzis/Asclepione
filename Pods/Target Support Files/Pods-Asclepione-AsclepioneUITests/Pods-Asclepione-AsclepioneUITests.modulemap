@@ -1,0 +1,6 @@
+framework module Pods_Asclepione_AsclepioneUITests {
+  umbrella header "Pods-Asclepione-AsclepioneUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -91,7 +91,7 @@ class EntityPublisher<Entity>: NSObject, NSFetchedResultsControllerDelegate, Pub
             
             
             cancellable = fetchPublisher.subject.sink(receiveCompletion: { completion in
-                // Tell the subscriber the publishing has finished.
+                // Tell sthe subscriber the publishing has finished.
                 subscriber.receive(completion: completion)
             }, receiveValue: { value in
                 // Give the subscriber the value received.
