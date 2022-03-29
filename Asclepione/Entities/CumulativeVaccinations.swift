@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-protocol CV {
+protocol CumulativeVaccinationsEntity {
     var areaName: String? { get set }
     var cumulativeFirstDoses: Int16 { get set }
     var cumulativeSecondDoses: Int16 { get set }
@@ -19,7 +19,7 @@ protocol CV {
     var cumulativeVaccinations: Int16 { get set }
 }
 
-public class CumulativeVaccinations: NSManagedObject, CV {}
+public class CumulativeVaccinations: NSManagedObject, CumulativeVaccinationsEntity {}
 
 extension CumulativeVaccinations {
 

@@ -16,9 +16,10 @@ class FakeRepository: RepositoryProtocol {
     let repositoryUtils: RepositoryUtils!
     var multipleUniqueDataItemsReceived = false
     
-    @Published var newVaccinations: [NewVaccinationsDomainObject] = []
-    @Published var cumVaccinations: [CumulativeVaccinationsDomainObject] = []
-    @Published var uptakePercentages: [UptakePercentageDomainObject] = []
+    // TODO: Other countries in UK to be added later.
+    @Published var newVaccinationsEngland: [NewVaccinationsDomainObject] = []
+    @Published var cumVaccinationsEngland: [CumulativeVaccinationsDomainObject] = []
+    @Published var uptakePercentagesEngland: [UptakePercentageDomainObject] = []
     
     func refreshVaccinationData() {
         // This will grab fake data and convert it into entities.

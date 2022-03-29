@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-protocol NV {
+protocol NewVaccinationsEntity {
     var areaName: String? { get set }
     var date: Date? { get set }
     var id: String? { get set }
@@ -19,7 +19,7 @@ protocol NV {
     var newVaccinations: Int16 { get set }
 }
 
-public class NewVaccinations: NSManagedObject, NV {}
+public class NewVaccinations: NSManagedObject, NewVaccinationsEntity {}
 
 extension NewVaccinations {
 

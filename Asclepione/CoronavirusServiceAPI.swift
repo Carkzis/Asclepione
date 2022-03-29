@@ -14,7 +14,6 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
     private let SUCCESS_CODE = 200
     private let url = "https://api.coronavirus.data.gov.uk/v1/data"
     
-    
     /**
      This is an Alamofire Session.
      */

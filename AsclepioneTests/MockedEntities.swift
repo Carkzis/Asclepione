@@ -12,7 +12,7 @@ import Foundation
  These are for unit testing that DTOs are correctly translated into their respective entities.
  */
 
-class MockNewVaccinations: NV {
+class MockNewVaccinations: NewVaccinationsEntity {
     public var areaName: String?
     public var date: Date?
     public var id: String?
@@ -22,7 +22,7 @@ class MockNewVaccinations: NV {
     public var newVaccinations: Int16 = 0
 }
 
-class MockUptakePercentages: UP {
+class MockUptakePercentages: UptakePercentagesEntity {
     public var areaName: String?
     public var date: Date?
     public var firstDoseUptakePercentage: Float =  0.0
@@ -31,7 +31,7 @@ class MockUptakePercentages: UP {
     public var thirdDoseUptakePercentage: Float = 0.0
 }
 
-class MockCumulativeVaccinations: CV {
+class MockCumulativeVaccinations: CumulativeVaccinationsEntity {
     public var areaName: String?
     public var cumulativeFirstDoses: Int16 = 0
     public var cumulativeSecondDoses: Int16 = 0
