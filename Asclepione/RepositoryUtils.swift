@@ -96,5 +96,72 @@ class RepositoryUtils {
             return false
         }
     }
+    
+    struct DomainObjects {
+        let newVaccinationsEngland: NewVaccinationsDomainObject
+        let cumVaccinationsEngland: CumulativeVaccinationsDomainObject
+        let uptakePercentagesEngland: UptakePercentageDomainObject
+    }
+    
+    func retrieveEntitiesAndConvertToDomainObjects() -> DomainObjects {
+        let newVaccinationsEngland = retrieveNewVaccinationEntitiesAndConvertToDomainObjects()
+        let cumVaccinationsEngland = retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects()
+        let uptakePercentagesEngland = retrieveUptakePercentageEntitiesAndConvertToDomainObjects()
+        return DomainObjects(newVaccinationsEngland: newVaccinationsEngland, cumVaccinationsEngland: cumVaccinationsEngland, uptakePercentagesEngland: uptakePercentagesEngland)
+    }
+    
+    private func retrieveNewVaccinationEntitiesAndConvertToDomainObjects() -> NewVaccinationsDomainObject {
+        let newVaccinationsFetchRequest = NSFetchRequest<NewVaccinations>(entityName: NewVaccinations.entityName)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(NewVaccinations.date), ascending: true)
+        newVaccinationsFetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            let latestNewVaccinationsData = try self.persistenceContainer
+                .viewContext
+                .fetch(newVaccinationsFetchRequest)
+                .map { entity in
+                    NewVaccinationsDomainObject(country: entity.areaName!, date: entity.date!, newVaccinations: Int(entity.newThirdDoses))
+                }[0]
+            return latestNewVaccinationsData
+        } catch {
+            print("Something went wrong fetching new vaccination data: \(error)")
+            return NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+        }
+    }
+    
+    private func retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects() -> CumulativeVaccinationsDomainObject {
+        let cumVaccinationsFetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(CumulativeVaccinations.date), ascending: true)
+        cumVaccinationsFetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            let latestCumVaccinationsData = try self.persistenceContainer
+                .viewContext
+                .fetch(cumVaccinationsFetchRequest)
+                .map { entity in
+                    CumulativeVaccinationsDomainObject(country: entity.areaName!, date: entity.date!, cumulativeVaccinations: Int(entity.cumulativeThirdDoses))
+                }[0]
+            return latestCumVaccinationsData
+        } catch {
+            print("Something went wrong fetching cumulative vaccination data: \(error)")
+            return CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+        }
+    }
+    
+    private func retrieveUptakePercentageEntitiesAndConvertToDomainObjects() -> UptakePercentageDomainObject {
+        let uptakePercentageFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(UptakePercentages.date), ascending: true)
+        uptakePercentageFetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            let latestUptakePercentagesData = try self.persistenceContainer
+                .viewContext
+                .fetch(uptakePercentageFetchRequest)
+                .map { entity in
+                    UptakePercentageDomainObject(country: entity.areaName!, date: entity.date!, thirdDoseUptakePercentage: Int(entity.thirdDoseUptakePercentage))
+                }[0]
+            return latestUptakePercentagesData
+        } catch {
+            print("Something went wrong fetching uptake percentages data: \(error)")
+            return UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
+        }
+    }
         
 }

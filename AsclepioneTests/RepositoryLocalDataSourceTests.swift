@@ -168,9 +168,6 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         let expectedCumVaccinations = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.cumulativeThirdDoses
         let expectedThirdVaccinations = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.thirdDoseUptakePercentage
         
-        
-        print(expectedCountry)
-        
         XCTAssert(newVaccinations.date == expectedDateAsDate)
         XCTAssert(newVaccinations.country! + "\(items)" == expectedCountry)
         XCTAssert(newVaccinations.newVaccinations == expectedNewVaccinations)
