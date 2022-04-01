@@ -45,7 +45,7 @@ class AsclepioneViewModel: ObservableObject {
                 let newVaccines = $0
                 self?.setAndPublishCountry(country: newVaccines.country)
                 self?.setAndPublishDate(date: newVaccines.date)
-                self?.newVaccinationsEngland = String(newVaccines.newVaccinations ?? 0)
+                self?.newVaccinationsEngland = formatNumberAsDecimalStyle(numberToFormat: newVaccines.newVaccinations ?? 0)
             }
             .store(in: &cancellables)
         isCumVaccinationsPublisher
@@ -54,7 +54,7 @@ class AsclepioneViewModel: ObservableObject {
                 let cumVaccines = $0
                 self?.setAndPublishCountry(country: cumVaccines.country)
                 self?.setAndPublishDate(date: cumVaccines.date)
-                self?.cumVaccinationsEngland = String(cumVaccines.cumulativeVaccinations ?? 0)
+                self?.cumVaccinationsEngland = formatNumberAsDecimalStyle(numberToFormat: cumVaccines.cumulativeVaccinations ?? 0)
             }
             .store(in: &cancellables)
         isUptakePercentagesPublisher
@@ -75,7 +75,7 @@ class AsclepioneViewModel: ObservableObject {
         }
     }
     
-    func setAndPublishCountry(country: String?) {
+    private func setAndPublishCountry(country: String?) {
         if (self.country != "" && self.country != country) {
             fatalError("The countries do not match between publishers.")
         } else {
@@ -83,7 +83,7 @@ class AsclepioneViewModel: ObservableObject {
         }
     }
     
-    func setAndPublishDate(date: Date?) {
+    private func setAndPublishDate(date: Date?) {
         if let unwrappedDate = date {
             let dateAsString = transformDateIntoString(dateAsDate: unwrappedDate)
             if (self.date != "" && self.date != dateAsString) {
@@ -92,5 +92,9 @@ class AsclepioneViewModel: ObservableObject {
                 self.date = dateAsString
             }
         }
+    }
+    
+    func refreshVaccinationData() {
+        repository.refreshVaccinationData()
     }
 }

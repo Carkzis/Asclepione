@@ -35,7 +35,13 @@ func transformStringIntoDate(dateAsString: String) -> Date {
 func transformDateIntoString(dateAsDate: Date) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "en_UK")
-    dateFormatter.dateFormat = "yyyy-MM-dd"
+    dateFormatter.dateFormat = "dd-MM-yyyy"
     
     return dateFormatter.string(from: dateAsDate)
+}
+
+func formatNumberAsDecimalStyle(numberToFormat: Int) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = NumberFormatter.Style.decimal
+    return(numberFormatter.string(from: NSNumber(value: numberToFormat)) ?? "0")
 }
