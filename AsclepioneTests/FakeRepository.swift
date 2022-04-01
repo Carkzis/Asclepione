@@ -16,32 +16,33 @@ class FakeRepository: RepositoryProtocol {
     
     let repositoryUtils: RepositoryUtils!
     var multipleUniqueDataItemsReceived = false
+    var newDataReceived = false
     
-    // TODO: Other countries in UK to be added later.
     @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
-    @Published var cumVaccinationsEngland: [CumulativeVaccinationsDomainObject] = []
-    @Published var uptakePercentagesEngland: [UptakePercentageDomainObject] = []
+    @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+    @Published var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
     
     func refreshVaccinationData() {
         // This will grab fake data and convert it into entities.
         let mockData: ResponseDTO!
         if (multipleUniqueDataItemsReceived) {
-            mockData = ResponseDTO.retrieveUniqueResponseData(amountOfItems: 4)
+            if (newDataReceived) {
+                mockData = ResponseDTO.retrieveUniqueResponseData(amountOfItems: 8)
+            } else {
+                mockData = ResponseDTO.retrieveUniqueResponseData(amountOfItems: 4)
+            }
         } else {
             mockData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
         }
         repositoryUtils.convertDTOToEntities(dto: mockData)
         
-        // TODO: Grab the data from the database here. This grab will occur on initialisation too in reality.
         retrieveEntitiesAndConvertToDomainObjects()
     }
     
     private func retrieveEntitiesAndConvertToDomainObjects() {
         retrieveNewVaccinationEntitiesAndConvertToDomainObjects()
-        
-//        let cumVaccinationsFetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
-//        let percentagesFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
-        
+        retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects()
+        retrieveUptakePercentageEntitiesAndConvertToDomainObjects()
     }
     
     private func retrieveNewVaccinationEntitiesAndConvertToDomainObjects() {
@@ -49,19 +50,53 @@ class FakeRepository: RepositoryProtocol {
         let sortDescriptor = NSSortDescriptor(key: #keyPath(NewVaccinations.date), ascending: true)
         newVaccinationsFetchRequest.sortDescriptors = [sortDescriptor]
         do {
-            let newVaccinationsData = try self.repositoryUtils
+            let latestNewVaccinationsData = try self.repositoryUtils
                 .persistenceContainer
                 .viewContext
                 .fetch(newVaccinationsFetchRequest)
                 .map { entity in
                     NewVaccinationsDomainObject(country: entity.areaName!, date: entity.date!, newVaccinations: Int(entity.newThirdDoses))
                 }[0]
-            newVaccinationsEngland = newVaccinationsData
+            newVaccinationsEngland = latestNewVaccinationsData
         } catch {
-            print("Something went wrong fetching vaccination data: \(error)")
+            print("Something went wrong fetching new vaccination data: \(error)")
         }
-        print("SEE HERE!")
-        print(newVaccinationsEngland)
+    }
+    
+    private func retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects() {
+        let cumVaccinationsFetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(CumulativeVaccinations.date), ascending: true)
+        cumVaccinationsFetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            let latestCumVaccinationsData = try self.repositoryUtils
+                .persistenceContainer
+                .viewContext
+                .fetch(cumVaccinationsFetchRequest)
+                .map { entity in
+                    CumulativeVaccinationsDomainObject(country: entity.areaName!, date: entity.date!, cumulativeVaccinations: Int(entity.cumulativeThirdDoses))
+                }[0]
+            cumVaccinationsEngland = latestCumVaccinationsData
+        } catch {
+            print("Something went wrong fetching cumualtive vaccination data: \(error)")
+        }
+    }
+    
+    private func retrieveUptakePercentageEntitiesAndConvertToDomainObjects() {
+        let uptakePercentageFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(UptakePercentages.date), ascending: true)
+        uptakePercentageFetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            let latestUptakePercentagesData = try self.repositoryUtils
+                .persistenceContainer
+                .viewContext
+                .fetch(uptakePercentageFetchRequest)
+                .map { entity in
+                    UptakePercentageDomainObject(country: entity.areaName!, date: entity.date!, thirdDoseUptakePercentage: Int(entity.thirdDoseUptakePercentage))
+                }[0]
+            uptakePercentagesEngland = latestUptakePercentagesData
+        } catch {
+            print("Something went wrong fetching uptake percentages data: \(error)")
+        }
     }
     
     init() {

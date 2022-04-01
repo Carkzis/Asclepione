@@ -16,13 +16,13 @@ struct NewVaccinationsDomainObject {
 }
 
 struct CumulativeVaccinationsDomainObject {
-    var country: String
-    var date: Date
-    var cumulativeVaccinations: Int
+    var country: String?
+    var date: Date?
+    var cumulativeVaccinations: Int?
 }
 
 struct UptakePercentageDomainObject {
-    var country: String
-    var date: Date
-    var thirdDoseUptakePercentage: Int
+    var country: String?
+    var date: Date?
+    var thirdDoseUptakePercentage: Int?
 }
