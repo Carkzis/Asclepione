@@ -37,7 +37,10 @@ class Repository: RepositoryProtocol {
     init() {
         self.persistenceContainer = PersistenceController.shared.container
         self.repositoryUtils = RepositoryUtils(persistenceContainer: self.persistenceContainer)
+        updatePublishers()
     }
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     func refreshVaccinationData() {
         let api = CoronavirusServiceAPI()
@@ -45,17 +48,25 @@ class Repository: RepositoryProtocol {
             if dataResponse.error == nil {
                 if let vaccinationData = dataResponse.value {
                     self.repositoryUtils.convertDTOToEntities(dto: vaccinationData)
+                    self.updatePublishers()
                 }
             } else {
                 print("Error obtaining data: \(String(describing: dataResponse.error))")
             }
         }
-        cancellable.cancel()
-        
-        let latestDatabaseEntities = repositoryUtils.retrieveEntitiesAndConvertToDomainObjects()
-        newVaccinationsEngland = latestDatabaseEntities.newVaccinationsEngland
-        cumVaccinationsEngland = latestDatabaseEntities.cumVaccinationsEngland
-        uptakePercentagesEngland = latestDatabaseEntities.uptakePercentagesEngland
+        cancellable.store(in: &cancellables)
+    }
+    
+    private func updatePublishers() {
+        let latestDatabaseEntities = self.repositoryUtils.retrieveEntitiesAndConvertToDomainObjects()
+        self.newVaccinationsEngland = latestDatabaseEntities.newVaccinationsEngland
+        self.cumVaccinationsEngland = latestDatabaseEntities.cumVaccinationsEngland
+        self.uptakePercentagesEngland = latestDatabaseEntities.uptakePercentagesEngland
     }
 
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
 }

@@ -16,10 +16,10 @@ class MockNewVaccinations: NewVaccinationsEntity {
     public var areaName: String?
     public var date: Date?
     public var id: String?
-    public var newFirstDoses: Int16 = 0
-    public var newSecondDoses: Int16 = 0
-    public var newThirdDoses: Int16 = 0
-    public var newVaccinations: Int16 = 0
+    public var newFirstDoses: Int32 = 0
+    public var newSecondDoses: Int32 = 0
+    public var newThirdDoses: Int32 = 0
+    public var newVaccinations: Int32 = 0
 }
 
 class MockUptakePercentages: UptakePercentagesEntity {
@@ -33,10 +33,10 @@ class MockUptakePercentages: UptakePercentagesEntity {
 
 class MockCumulativeVaccinations: CumulativeVaccinationsEntity {
     public var areaName: String?
-    public var cumulativeFirstDoses: Int16 = 0
-    public var cumulativeSecondDoses: Int16 = 0
-    public var cumulativeThirdDoses: Int16 = 0
+    public var cumulativeFirstDoses: Int32 = 0
+    public var cumulativeSecondDoses: Int32 = 0
+    public var cumulativeThirdDoses: Int32 = 0
     public var date: Date?
     public var id: String?
-    public var cumulativeVaccinations: Int16 = 0
+    public var cumulativeVaccinations: Int32 = 0
 }

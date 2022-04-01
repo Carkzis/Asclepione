@@ -11,6 +11,7 @@ import Combine
 class AsclepioneViewModel: ObservableObject {
     
     private var repository: RepositoryProtocol!
+    private var cancellables: Set<AnyCancellable> = []
     
     @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
     @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
@@ -32,23 +33,34 @@ class AsclepioneViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    init(repository: RepositoryProtocol) {
+    init(repository: RepositoryProtocol = Repository()) {
         self.repository = repository
+        repository.refreshVaccinationData()
         
         isNewVaccinationsPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 self?.newVaccinationsEngland = $0
             }
+            .store(in: &cancellables)
         isCumVaccinationsPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 self?.cumVaccinationsEngland = $0
             }
+            .store(in: &cancellables)
         isUptakePercentagesPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 self?.uptakePercentagesEngland = $0
+                print(self?.uptakePercentagesEngland)
             }
+            .store(in: &cancellables)
+    }
+    
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
     }
 }

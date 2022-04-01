@@ -13,10 +13,10 @@ protocol NewVaccinationsEntity {
     var areaName: String? { get set }
     var date: Date? { get set }
     var id: String? { get set }
-    var newFirstDoses: Int16 { get set }
-    var newSecondDoses: Int16 { get set }
-    var newThirdDoses: Int16 { get set }
-    var newVaccinations: Int16 { get set }
+    var newFirstDoses: Int32 { get set }
+    var newSecondDoses: Int32 { get set }
+    var newThirdDoses: Int32 { get set }
+    var newVaccinations: Int32 { get set }
 }
 
 public class NewVaccinations: NSManagedObject, NewVaccinationsEntity {}
@@ -30,10 +30,10 @@ extension NewVaccinations {
     @NSManaged public var areaName: String?
     @NSManaged public var date: Date?
     @NSManaged public var id: String?
-    @NSManaged public var newFirstDoses: Int16
-    @NSManaged public var newSecondDoses: Int16
-    @NSManaged public var newThirdDoses: Int16
-    @NSManaged public var newVaccinations: Int16
+    @NSManaged public var newFirstDoses: Int32
+    @NSManaged public var newSecondDoses: Int32
+    @NSManaged public var newThirdDoses: Int32
+    @NSManaged public var newVaccinations: Int32
     
     static var entityName: String { return "NewVaccinations" }
 

@@ -36,10 +36,10 @@ class RepositoryUtils {
                 newEntry.id = uniqueId
                 newEntry.areaName = $0.areaName
                 newEntry.date = transformStringIntoDate(dateAsString: $0.date)
-                newEntry.newFirstDoses = Int16($0.newPeopleWithFirstDose!)
-                newEntry.newSecondDoses = Int16($0.newPeopleWithSecondDose!)
-                newEntry.newThirdDoses = Int16($0.newPeopleWithThirdDose!)
-                newEntry.newVaccinations = Int16($0.newVaccinations!)
+                newEntry.newFirstDoses = Int32($0.newPeopleWithFirstDose!)
+                newEntry.newSecondDoses = Int32($0.newPeopleWithSecondDose!)
+                newEntry.newThirdDoses = Int32($0.newPeopleWithThirdDose!)
+                newEntry.newVaccinations = Int32($0.newVaccinations!)
             }
         }
     }
@@ -53,10 +53,10 @@ class RepositoryUtils {
                 newEntry.id = uniqueId
                 newEntry.areaName = $0.areaName
                 newEntry.date = transformStringIntoDate(dateAsString: $0.date)
-                newEntry.cumulativeFirstDoses = Int16($0.cumulativeFirstDoses!)
-                newEntry.cumulativeSecondDoses = Int16($0.cumulativeSecondDoses!)
-                newEntry.cumulativeThirdDoses = Int16($0.cumulativeThirdDoses!)
-                newEntry.cumulativeVaccinations = Int16($0.cumulativeVaccinations!)
+                newEntry.cumulativeFirstDoses = Int32($0.cumulativeFirstDoses!)
+                newEntry.cumulativeSecondDoses = Int32($0.cumulativeSecondDoses!)
+                newEntry.cumulativeThirdDoses = Int32($0.cumulativeThirdDoses!)
+                newEntry.cumulativeVaccinations = Int32($0.cumulativeVaccinations!)
             }
         }
     }
@@ -120,8 +120,8 @@ class RepositoryUtils {
                 .fetch(newVaccinationsFetchRequest)
                 .map { entity in
                     NewVaccinationsDomainObject(country: entity.areaName!, date: entity.date!, newVaccinations: Int(entity.newThirdDoses))
-                }[0]
-            return latestNewVaccinationsData
+                }.first
+            return latestNewVaccinationsData ?? NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
         } catch {
             print("Something went wrong fetching new vaccination data: \(error)")
             return NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
@@ -138,8 +138,8 @@ class RepositoryUtils {
                 .fetch(cumVaccinationsFetchRequest)
                 .map { entity in
                     CumulativeVaccinationsDomainObject(country: entity.areaName!, date: entity.date!, cumulativeVaccinations: Int(entity.cumulativeThirdDoses))
-                }[0]
-            return latestCumVaccinationsData
+                }.first
+            return latestCumVaccinationsData ?? CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
         } catch {
             print("Something went wrong fetching cumulative vaccination data: \(error)")
             return CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
@@ -156,8 +156,8 @@ class RepositoryUtils {
                 .fetch(uptakePercentageFetchRequest)
                 .map { entity in
                     UptakePercentageDomainObject(country: entity.areaName!, date: entity.date!, thirdDoseUptakePercentage: Int(entity.thirdDoseUptakePercentage))
-                }[0]
-            return latestUptakePercentagesData
+                }.first
+            return latestUptakePercentagesData ?? UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
         } catch {
             print("Something went wrong fetching uptake percentages data: \(error)")
             return UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)

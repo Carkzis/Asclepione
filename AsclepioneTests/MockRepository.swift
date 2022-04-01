@@ -62,10 +62,10 @@ class MockRepository: RepositoryProtocol {
             vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
             vaccination.areaName = $0.areaName
             vaccination.date = transformStringIntoDate(dateAsString: $0.date)
-            vaccination.newFirstDoses = Int16($0.newPeopleWithFirstDose!)
-            vaccination.newSecondDoses = Int16($0.newPeopleWithSecondDose!)
-            vaccination.newThirdDoses = Int16($0.newPeopleWithThirdDose!)
-            vaccination.newVaccinations = Int16($0.newVaccinations!)
+            vaccination.newFirstDoses = Int32($0.newPeopleWithFirstDose!)
+            vaccination.newSecondDoses = Int32($0.newPeopleWithSecondDose!)
+            vaccination.newThirdDoses = Int32($0.newPeopleWithThirdDose!)
+            vaccination.newVaccinations = Int32($0.newVaccinations!)
             return vaccination
         }
     }
@@ -76,10 +76,10 @@ class MockRepository: RepositoryProtocol {
             vaccination.id = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
             vaccination.areaName = $0.areaName
             vaccination.date = transformStringIntoDate(dateAsString: $0.date)
-            vaccination.cumulativeFirstDoses = Int16($0.cumulativeFirstDoses!)
-            vaccination.cumulativeSecondDoses = Int16($0.cumulativeSecondDoses!)
-            vaccination.cumulativeThirdDoses = Int16($0.cumulativeThirdDoses!)
-            vaccination.cumulativeVaccinations = Int16($0.cumulativeVaccinations!)
+            vaccination.cumulativeFirstDoses = Int32($0.cumulativeFirstDoses!)
+            vaccination.cumulativeSecondDoses = Int32($0.cumulativeSecondDoses!)
+            vaccination.cumulativeThirdDoses = Int32($0.cumulativeThirdDoses!)
+            vaccination.cumulativeVaccinations = Int32($0.cumulativeVaccinations!)
             return vaccination
         }
     }

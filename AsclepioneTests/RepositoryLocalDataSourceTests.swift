@@ -181,11 +181,11 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         
         return [
             isNewVaccinationsPublisher
-            .receive(on: RunLoop.main)
-            .sink { [weak self] in
-                self?.newVaccinationsEngland = $0
-                newVaccExpectation.fulfill()
-            },
+                .receive(on: RunLoop.main)
+                .sink { [weak self] in
+                    self?.newVaccinationsEngland = $0
+                    newVaccExpectation.fulfill()
+                },
             isCumVaccinationsPublisher
                 .receive(on: RunLoop.main)
                 .sink { [weak self] in
