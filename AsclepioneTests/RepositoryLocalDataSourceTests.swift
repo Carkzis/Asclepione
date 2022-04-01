@@ -20,20 +20,17 @@ class RepositoryLocalDataSourceTests: XCTestCase {
     @Published var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
     
     private var isNewVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
-        sut.$newVaccinationsEngland
+        sut.newVaccinationsEnglandPublisher
             .receive(on: RunLoop.main)
-            .map {
-                $0
-            }
             .eraseToAnyPublisher()
     }
     private var isCumVaccinationsPublisher: AnyPublisher<CumulativeVaccinationsDomainObject, Never> {
-        sut.$cumVaccinationsEngland
+        sut.cumVaccinationsEnglandPublisher
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     private var isUptakePercentagesPublisher: AnyPublisher<UptakePercentageDomainObject, Never> {
-        sut.$uptakePercentagesEngland
+        sut.uptakePercentagesEnglandPublisher
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
@@ -41,7 +38,6 @@ class RepositoryLocalDataSourceTests: XCTestCase {
     
     override func setUpWithError() throws {
         sut = FakeRepository()
-        print(PersistenceController.shared.container)
         managedObjectContext = PersistenceController.shared.container.viewContext
     }
 

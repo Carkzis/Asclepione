@@ -7,12 +7,22 @@
 
 import Foundation
 @testable import Asclepione
+import Combine
 
 /*
  This is a mock repository that uses lists to hold mock data, used to test data transformation of remote data
  objects into mock database entities.
  */
 class MockRepository: RepositoryProtocol {
+    /*
+     Not used in implementation.
+     */
+    @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+    @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+    @Published var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
+    var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinationsEngland }
+    var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinationsEngland }
+    var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentagesEngland }
     
     var networkError = false
     var responseData: ResponseDTO? = nil
