@@ -9,6 +9,8 @@ import Foundation
 import Combine
 import CoreData
 
+// TODO: Strong dislike for this. REMOVE.
+
 class EntityPublisher<Entity>: NSObject, NSFetchedResultsControllerDelegate, Publisher where Entity: NSManagedObject {
 
     typealias Output = [Entity]

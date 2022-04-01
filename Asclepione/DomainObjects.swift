@@ -10,9 +10,9 @@ import Foundation
 // TODO: Add domain objects.
 
 struct NewVaccinationsDomainObject {
-    var country: String
-    var date: Date
-    var newVaccinations: Int
+    var country: String?
+    var date: Date?
+    var newVaccinations: Int?
 }
 
 struct CumulativeVaccinationsDomainObject {

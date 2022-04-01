@@ -70,7 +70,6 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
 
 }
 
-
 enum AreaName {
     case england
     case scotland

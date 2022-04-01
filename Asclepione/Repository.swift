@@ -23,6 +23,8 @@ class Repository: RepositoryProtocol {
     let persistenceContainer: NSPersistentContainer!
     let repositoryUtils: RepositoryUtils!
     
+    // TODO: Obtain data from CoreData database using Combine, manually on results from both init and refresh.
+    
     init() {
         self.persistenceContainer = PersistenceController.shared.container
         self.repositoryUtils = RepositoryUtils(persistenceContainer: self.persistenceContainer)
@@ -42,5 +44,4 @@ class Repository: RepositoryProtocol {
         cancellable.cancel()
     }
     
-    // TODO: Obtain data from CoreData database using Combine.
 }
