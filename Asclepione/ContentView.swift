@@ -15,19 +15,24 @@ struct ContentView: View {
     var textFieldHeight = CGFloat(45)
     
     var body: some View {
-        VStack(alignment: .center) {
-            self.titleView
-            self.countryView
-            self.dateView
-            self.newVaccinationsView
-            self.cumulativeVaccinationsView
-            self.uptakePercentageView
-            Spacer()
-                .frame(width: 100, height: 32, alignment: .center)
-            self.refreshButtonView
+        ZStack {
+            Color.red
+                .edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center) {
+                self.titleView
+                self.countryView
+                self.dateView
+                self.newVaccinationsView
+                self.cumulativeVaccinationsView
+                self.uptakePercentageView
+                Spacer()
+                    .frame(width: 100, height: 32, alignment: .center)
+                self.refreshButtonView
+            }.foregroundColor(.white)
+            .multilineTextAlignment(.center)
+            .padding(16)
+            .border(.white)
         }
-        .multilineTextAlignment(.center)
-        .padding(16)
     }
     
     var titleView: some View {
@@ -94,6 +99,8 @@ struct ContentView: View {
         Button("Refresh data?") {
             refreshData()
         }
+        .padding(16)
+        .border(.white)
     }
     
     private func refreshData() {

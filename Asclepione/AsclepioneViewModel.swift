@@ -10,7 +10,15 @@ import Combine
 
 class AsclepioneViewModel: ObservableObject {
     
-    private var repository: RepositoryProtocol!
+    // TODO: This needs testing! Add publishers to the MockRepository!
+    // TODO: Need to add loading icon when refreshing!
+    // TODO: Need to add UI tests!
+    // TODO: Organise everything!
+    // TODO: Add notes to top of methods!
+    // TODO: Make it look a bit nicer!
+    // TODO: Documentation!
+    
+    private var repository: Repository!
     private var cancellables: Set<AnyCancellable> = []
     
     @Published var country: String = ""
@@ -35,7 +43,7 @@ class AsclepioneViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    init(repository: RepositoryProtocol = Repository()) {
+    init(repository: Repository = DefaultRepository()) {
         self.repository = repository
         repository.refreshVaccinationData()
         
@@ -76,21 +84,13 @@ class AsclepioneViewModel: ObservableObject {
     }
     
     private func setAndPublishCountry(country: String?) {
-        if (self.country != "" && self.country != country) {
-            fatalError("The countries do not match between publishers.")
-        } else {
-            self.country = country ?? ""
-        }
+        self.country = country ?? ""
     }
     
     private func setAndPublishDate(date: Date?) {
         if let unwrappedDate = date {
             let dateAsString = transformDateIntoString(dateAsDate: unwrappedDate)
-            if (self.date != "" && self.date != dateAsString) {
-                fatalError("The dates are different between vaccination data types.")
-            } else {
-                self.date = dateAsString
-            }
+            self.date = dateAsString
         }
     }
     

@@ -29,10 +29,9 @@
 		E57B2D9E27D81317007E1D37 /* RepositoryLocalDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2D9D27D81317007E1D37 /* RepositoryLocalDataSourceTests.swift */; };
 		E57B2DA027D814E1007E1D37 /* FakeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2D9F27D814E1007E1D37 /* FakeRepository.swift */; };
 		E581318227F218FE00EE8826 /* DomainObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E581318127F218FE00EE8826 /* DomainObjects.swift */; };
-		E58BC64C27BA579D0042E620 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* Repository.swift */; };
+		E58BC64C27BA579D0042E620 /* DefaultRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64B27BA579D0042E620 /* DefaultRepository.swift */; };
 		E58BC64E27BA59E10042E620 /* DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* DataObjects.swift */; };
 		E597634327E4DD1400E35183 /* RepositoryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597634227E4DD1400E35183 /* RepositoryUtils.swift */; };
-		E597634527E4EEA300E35183 /* EntityPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597634427E4EEA300E35183 /* EntityPublisher.swift */; };
 		E597634727E4F1B400E35183 /* AsclepioneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597634627E4F1B400E35183 /* AsclepioneViewModel.swift */; };
 		E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedModels.swift */; };
 		E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */; };
@@ -91,10 +90,9 @@
 		E57B2D9D27D81317007E1D37 /* RepositoryLocalDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryLocalDataSourceTests.swift; sourceTree = "<group>"; };
 		E57B2D9F27D814E1007E1D37 /* FakeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRepository.swift; sourceTree = "<group>"; };
 		E581318127F218FE00EE8826 /* DomainObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainObjects.swift; sourceTree = "<group>"; };
-		E58BC64B27BA579D0042E620 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		E58BC64B27BA579D0042E620 /* DefaultRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRepository.swift; sourceTree = "<group>"; };
 		E58BC64D27BA59E10042E620 /* DataObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataObjects.swift; sourceTree = "<group>"; };
 		E597634227E4DD1400E35183 /* RepositoryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryUtils.swift; sourceTree = "<group>"; };
-		E597634427E4EEA300E35183 /* EntityPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityPublisher.swift; sourceTree = "<group>"; };
 		E597634627E4F1B400E35183 /* AsclepioneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneViewModel.swift; sourceTree = "<group>"; };
 		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
 		E5B3072C27BFB9620047090B /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -183,14 +181,13 @@
 				E53778A427B2DE0A00AFE512 /* ContentView.swift */,
 				E53778A627B2DE0C00AFE512 /* Assets.xcassets */,
 				E53778A827B2DE0C00AFE512 /* Preview Content */,
-				E58BC64B27BA579D0042E620 /* Repository.swift */,
+				E58BC64B27BA579D0042E620 /* DefaultRepository.swift */,
 				E58BC64D27BA59E10042E620 /* DataObjects.swift */,
 				E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */,
 				E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */,
 				E51A5C7727D2196100E499BD /* PersistenceController.swift */,
 				E57B2D9B27D8100D007E1D37 /* DataUtils.swift */,
 				E597634227E4DD1400E35183 /* RepositoryUtils.swift */,
-				E597634427E4EEA300E35183 /* EntityPublisher.swift */,
 				E597634627E4F1B400E35183 /* AsclepioneViewModel.swift */,
 				E581318127F218FE00EE8826 /* DomainObjects.swift */,
 			);
@@ -484,12 +481,11 @@
 			files = (
 				E581318227F218FE00EE8826 /* DomainObjects.swift in Sources */,
 				E51A5CA527D22F6D00E499BD /* NewVaccinations.swift in Sources */,
-				E597634527E4EEA300E35183 /* EntityPublisher.swift in Sources */,
 				E57B2D9C27D8100D007E1D37 /* DataUtils.swift in Sources */,
 				E53778A527B2DE0A00AFE512 /* ContentView.swift in Sources */,
 				E53778A327B2DE0A00AFE512 /* AsclepioneApp.swift in Sources */,
 				E597634327E4DD1400E35183 /* RepositoryUtils.swift in Sources */,
-				E58BC64C27BA579D0042E620 /* Repository.swift in Sources */,
+				E58BC64C27BA579D0042E620 /* DefaultRepository.swift in Sources */,
 				E51A5C7627D2170F00E499BD /* Model.xcdatamodeld in Sources */,
 				E58BC64E27BA59E10042E620 /* DataObjects.swift in Sources */,
 				E51A5CA727D22F6D00E499BD /* UptakePercentages.swift in Sources */,

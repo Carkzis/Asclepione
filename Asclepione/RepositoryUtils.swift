@@ -112,7 +112,7 @@ class RepositoryUtils {
     
     private func retrieveNewVaccinationEntitiesAndConvertToDomainObjects() -> NewVaccinationsDomainObject {
         let newVaccinationsFetchRequest = NSFetchRequest<NewVaccinations>(entityName: NewVaccinations.entityName)
-        let sortDescriptor = NSSortDescriptor(key: #keyPath(NewVaccinations.date), ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(NewVaccinations.date), ascending: false)
         newVaccinationsFetchRequest.sortDescriptors = [sortDescriptor]
         do {
             let latestNewVaccinationsData = try self.persistenceContainer
@@ -130,7 +130,7 @@ class RepositoryUtils {
     
     private func retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects() -> CumulativeVaccinationsDomainObject {
         let cumVaccinationsFetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
-        let sortDescriptor = NSSortDescriptor(key: #keyPath(CumulativeVaccinations.date), ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(CumulativeVaccinations.date), ascending: false)
         cumVaccinationsFetchRequest.sortDescriptors = [sortDescriptor]
         do {
             let latestCumVaccinationsData = try self.persistenceContainer
@@ -148,7 +148,7 @@ class RepositoryUtils {
     
     private func retrieveUptakePercentageEntitiesAndConvertToDomainObjects() -> UptakePercentageDomainObject {
         let uptakePercentageFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
-        let sortDescriptor = NSSortDescriptor(key: #keyPath(UptakePercentages.date), ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(UptakePercentages.date), ascending: false)
         uptakePercentageFetchRequest.sortDescriptors = [sortDescriptor]
         do {
             let latestUptakePercentagesData = try self.persistenceContainer

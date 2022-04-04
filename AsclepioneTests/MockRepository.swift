@@ -13,7 +13,7 @@ import Combine
  This is a mock repository that uses lists to hold mock data, used to test data transformation of remote data
  objects into mock database entities.
  */
-class MockRepository: RepositoryProtocol {
+class MockRepository: Repository {
     /*
      Not used in implementation.
      */

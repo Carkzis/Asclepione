@@ -12,7 +12,7 @@ import CoreData
 /*
  This is a fake repository class that uses the actual CoreData database.
  */
-class FakeRepository: RepositoryProtocol {
+class FakeRepository: Repository {
     
     let repositoryUtils: RepositoryUtils!
     var multipleUniqueDataItemsReceived = false
@@ -40,13 +40,16 @@ class FakeRepository: RepositoryProtocol {
         }
         repositoryUtils.convertDTOToEntities(dto: mockData)
         
+        /*
+         NOTE: These could potentially end up out of sync, date wise, as they are held in different tables.
+         This should be an unlikely occurance, that is rectified the next time the tables are updated.
+         This is preferable to raising an exception.
+         */
         let latestDatabaseEntities = repositoryUtils.retrieveEntitiesAndConvertToDomainObjects()
         newVaccinationsEngland = latestDatabaseEntities.newVaccinationsEngland
         cumVaccinationsEngland = latestDatabaseEntities.cumVaccinationsEngland
         uptakePercentagesEngland = latestDatabaseEntities.uptakePercentagesEngland
     }
-    
-
     
     init() {
         _ = PersistenceController(inMemory: true)

@@ -10,18 +10,18 @@ import Combine
 import CoreData
 import Alamofire
 
-protocol RepositoryProtocol {
+protocol Repository {
     func refreshVaccinationData()
     var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { get }
     var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { get }
     var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { get }
 }
 
-extension RepositoryProtocol {
+extension Repository {
     func insertResultsIntoLocalDatabase() {}
 }
 
-class Repository: RepositoryProtocol {
+class DefaultRepository: Repository {
     
     let persistenceContainer: NSPersistentContainer!
     let repositoryUtils: RepositoryUtils!
@@ -46,6 +46,7 @@ class Repository: RepositoryProtocol {
         let api = CoronavirusServiceAPI()
         let cancellable = api.retrieveFromWebAPI().sink { (dataResponse) in
             if dataResponse.error == nil {
+                print(dataResponse)
                 if let vaccinationData = dataResponse.value {
                     self.repositoryUtils.convertDTOToEntities(dto: vaccinationData)
                     self.updatePublishers()
