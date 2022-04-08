@@ -9,7 +9,7 @@ import Foundation
 @testable import Asclepione
 import CoreData
 
-/*
+/**
  This is a fake repository class that uses the actual CoreData database.
  */
 class FakeRepository: Repository {
