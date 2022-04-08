@@ -46,7 +46,6 @@ class DefaultRepository: Repository {
         let api = CoronavirusServiceAPI()
         let cancellable = api.retrieveFromWebAPI().sink { (dataResponse) in
             if dataResponse.error == nil {
-                print(dataResponse)
                 if let vaccinationData = dataResponse.value {
                     self.repositoryUtils.convertDTOToEntities(dto: vaccinationData)
                     self.updatePublishers()

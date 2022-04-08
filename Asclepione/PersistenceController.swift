@@ -25,7 +25,7 @@ final class PersistenceController {
                 fatalError("Error: \(error.localizedDescription)")
             }
         }
-        print(container)
+
     }
     
     func save() {

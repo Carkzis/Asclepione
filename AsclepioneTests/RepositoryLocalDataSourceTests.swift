@@ -21,17 +21,14 @@ class RepositoryLocalDataSourceTests: XCTestCase {
     
     private var isNewVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
         sut.newVaccinationsEnglandPublisher
-            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     private var isCumVaccinationsPublisher: AnyPublisher<CumulativeVaccinationsDomainObject, Never> {
         sut.cumVaccinationsEnglandPublisher
-            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     private var isUptakePercentagesPublisher: AnyPublisher<UptakePercentageDomainObject, Never> {
         sut.uptakePercentagesEnglandPublisher
-            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     private var cancellables: Set<AnyCancellable> = []
@@ -104,7 +101,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         let uptakePercentageExpectation = XCTestExpectation(description: "Retrieve uptake percentage data from database via Publisher.")
         
         // Then the data from the CoreData database should be published using Combine on initialisation.
-        let cancellables = getCancellables(newVaccExpectation: newVaccExpectation, cumVaccExpectation: cumVaccExpectation, uptakePercentageExpectation: uptakePercentageExpectation)
+        cancellables = getCancellables(newVaccExpectation: newVaccExpectation, cumVaccExpectation: cumVaccExpectation, uptakePercentageExpectation: uptakePercentageExpectation)
         
         wait(for: [newVaccExpectation], timeout: 10)
         wait(for: [cumVaccExpectation], timeout: 10)
@@ -177,7 +174,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
     
     private func getCancellables(newVaccExpectation: XCTestExpectation,
                                  cumVaccExpectation: XCTestExpectation,
-                                 uptakePercentageExpectation: XCTestExpectation) -> [AnyCancellable] {
+                                 uptakePercentageExpectation: XCTestExpectation) -> Set<AnyCancellable> {
         
         return [
             isNewVaccinationsPublisher

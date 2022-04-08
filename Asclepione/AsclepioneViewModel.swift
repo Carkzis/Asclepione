@@ -19,7 +19,7 @@ class AsclepioneViewModel: ObservableObject {
     // TODO: Documentation!
     
     private var repository: Repository!
-    private var cancellables: Set<AnyCancellable> = []
+    var cancellables: Set<AnyCancellable> = []
     
     @Published var country: String = ""
     @Published var date: String = ""
@@ -27,19 +27,20 @@ class AsclepioneViewModel: ObservableObject {
     @Published var cumVaccinationsEngland: String = ""
     @Published var uptakePercentagesEngland: String = ""
     
+    /**
+     Important note to future Marc, these take the repository and publish the value.  Do not both receive the value here, and then receive again
+     when subscribing to the value.  Receive once.
+     */
     private var isNewVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
         repository.newVaccinationsEnglandPublisher
-            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     private var isCumVaccinationsPublisher: AnyPublisher<CumulativeVaccinationsDomainObject, Never> {
         repository.cumVaccinationsEnglandPublisher
-            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     private var isUptakePercentagesPublisher: AnyPublisher<UptakePercentageDomainObject, Never> {
         repository.uptakePercentagesEnglandPublisher
-            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     
@@ -69,7 +70,6 @@ class AsclepioneViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 let uptakePercentages = $0
-                print(uptakePercentages)
                 self?.setAndPublishCountry(country: uptakePercentages.country)
                 self?.setAndPublishDate(date: uptakePercentages.date)
                 self?.uptakePercentagesEngland = "\(String(uptakePercentages.thirdDoseUptakePercentage ?? 0))%"
