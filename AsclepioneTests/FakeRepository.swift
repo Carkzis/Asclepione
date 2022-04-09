@@ -17,6 +17,7 @@ class FakeRepository: Repository {
     let repositoryUtils: RepositoryUtils!
     var multipleUniqueDataItemsReceived = false
     var newDataReceived = false
+    var amountOfUniqueItemsReceived = 8
     
     @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
     @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
@@ -31,7 +32,7 @@ class FakeRepository: Repository {
         let mockData: ResponseDTO!
         if (multipleUniqueDataItemsReceived) {
             if (newDataReceived) {
-                mockData = ResponseDTO.retrieveUniqueResponseData(amountOfItems: 8)
+                mockData = ResponseDTO.retrieveUniqueResponseData(amountOfItems: amountOfUniqueItemsReceived)
             } else {
                 mockData = ResponseDTO.retrieveUniqueResponseData(amountOfItems: 4)
             }

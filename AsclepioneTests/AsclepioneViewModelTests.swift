@@ -83,7 +83,21 @@ class AsclepioneViewModelTests: XCTestCase {
         XCTAssertFalse(self.uptakePercentagesEngland == "0%")
     }
     
-    func testWhenNoDataInDatabaseEmptyStringsArePublishedByTheViewModel() throws {
+    func testWhenDataFromDatabaseInViewModelCorrectlyFormatted() throws {
+        // Given that there is data in the database.
+        repository.emptyDatabase = false
+        
+        /*
+         These are the default items returned by ReponseDTO.retrieveResponseData(), use by the MockRepository.
+         */
+        XCTAssertFalse(sut.country == "England")
+        XCTAssertFalse(sut.date == "01/01/1900")
+        XCTAssertFalse(sut.newVaccinationsEngland == "300")
+        XCTAssertFalse(sut.cumVaccinationsEngland == "3000")
+        XCTAssertFalse(sut.uptakePercentagesEngland == "10%")
+    }
+    
+    func testWhenNoDataInDatabaseDefaultStringsArePublishedByTheViewModel() throws {
         // Given that there is no data in the database.
         repository.emptyDatabase = true
         let countryExpectation = XCTestExpectation(description: "Retrieve country name from database via Publisher.")
@@ -103,10 +117,6 @@ class AsclepioneViewModelTests: XCTestCase {
         wait(for: [newVaccExpectation], timeout: 10)
         wait(for: [cumVaccExpectation], timeout: 10)
         wait(for: [uptakePercentageExpectation], timeout: 10)
-        
-        print("HMMMM \(self.country)")
-        print("HMMMM \(self.date)")
-        print("HMMMM \(self.newVaccinationsEngland)")
 
         XCTAssertTrue(self.country == "???")
         XCTAssertTrue(self.date == "???")

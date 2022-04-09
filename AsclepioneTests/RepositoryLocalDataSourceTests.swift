@@ -53,15 +53,12 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         let percentagesFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
         do {
             let newVaccinationsData = try managedObjectContext.fetch(newVaccinationsFetchRequest)
-            print("New Vaccinations: \(newVaccinationsData)")
             XCTAssertTrue(newVaccinationsData.count == 1)
 
             let cumVaccinationsData = try managedObjectContext.fetch(cumVaccinationsFetchRequest)
-            print("Cumulative Vaccinations: \(cumVaccinationsData)")
             XCTAssertTrue(cumVaccinationsData.count == 1)
 
             let percentagesData = try managedObjectContext.fetch(percentagesFetchRequest)
-            print("Uptake Percentages: \(percentagesData)")
             XCTAssertTrue(percentagesData.count == 1)
         } catch {
             print("Something went wrong fetching vaccination data: \(error)")
@@ -79,15 +76,12 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         let percentagesFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
         do {
             let newVaccinationsData = try managedObjectContext.fetch(newVaccinationsFetchRequest)
-            print("New Vaccinations: \(newVaccinationsData)")
             XCTAssertTrue(newVaccinationsData.count > 1)
 
             let cumVaccinationsData = try managedObjectContext.fetch(cumVaccinationsFetchRequest)
-            print("Cumulative Vaccinations: \(cumVaccinationsData)")
             XCTAssertTrue(cumVaccinationsData.count > 1)
 
             let percentagesData = try managedObjectContext.fetch(percentagesFetchRequest)
-            print("Uptake Percentages: \(percentagesData)")
             XCTAssertTrue(percentagesData.count > 1)
         } catch {
             print("Something went wrong fetching employees: \(error)")
@@ -123,7 +117,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         let cumVaccExpectation = XCTestExpectation(description: "Retrieve cumulative vaccination data from database via Publisher.")
         let uptakePercentageExpectation = XCTestExpectation(description: "Retrieve uptake percentage data from database via Publisher.")
         
-        // When the data is on refreshed.
+        // When the data is refreshed.
         sut.newDataReceived = true
         sut.refreshVaccinationData()
         
@@ -143,6 +137,41 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         }
     }
     
+    func testLatestEntitiesRetrievedFromTheDatabaseAndPublishedByCombineOnInitialisation() throws {
+        /*
+         Given a FakeRepository and a blank in-memory database, each data entry will have a different date
+         starting at "1900-01-01" and ending at "1900-01-{amountOfDatabaseEntries}".
+         e.g. When there are 15 items, each item will have a date starting at 1900-01-01 and ending at
+         1900-01-15.
+         */
+        let amountOfDatabaseEntries = 17
+        sut.multipleUniqueDataItemsReceived = true
+        sut.amountOfUniqueItemsReceived = amountOfDatabaseEntries
+        let newVaccExpectation = XCTestExpectation(description: "Retrieve new vaccination data from database via Publisher.")
+        let cumVaccExpectation = XCTestExpectation(description: "Retrieve cumulative vaccination data from database via Publisher.")
+        let uptakePercentageExpectation = XCTestExpectation(description: "Retrieve uptake percentage data from database via Publisher.")
+        
+        // When the data is refreshed.
+        sut.newDataReceived = true
+        sut.refreshVaccinationData()
+        
+        // Then the latest data entry from the CoreData database should be published using Combine.
+        let cancellables = getCancellables(newVaccExpectation: newVaccExpectation, cumVaccExpectation: cumVaccExpectation, uptakePercentageExpectation: uptakePercentageExpectation)
+        
+        wait(for: [newVaccExpectation], timeout: 10)
+        wait(for: [cumVaccExpectation], timeout: 10)
+        wait(for: [uptakePercentageExpectation], timeout: 10)
+        
+        let expectedDateAsString = ResponseDTO.retrieveUniqueResponseData(amountOfItems: amountOfDatabaseEntries).data?.last?.date
+        let expectedDateAsDate = transformStringIntoDate(dateAsString: expectedDateAsString!)
+        
+        XCTAssert(newVaccinationsEngland.date == expectedDateAsDate)
+        
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
+    
     private func verifyEntitiesConvertedToDomainObjects(newVaccinations: NewVaccinationsDomainObject,
                                                 cumVaccinations: CumulativeVaccinationsDomainObject,
                                                 uptakePercentages: UptakePercentageDomainObject,
@@ -154,7 +183,10 @@ class RepositoryLocalDataSourceTests: XCTestCase {
             items = 4
         }
         
-        let expectedDateAsString = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.date
+        // If we receive new data, use the unique response date, otherwise use the non-unique response.
+        let expectedDateAsString = newDataReceived ?
+            ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.date :
+            ResponseDTO.retrieveResponseData(amountOfItems: items).data?.last?.date
         let expectedDateAsDate = transformStringIntoDate(dateAsString: expectedDateAsString!)
         let expectedCountry = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.areaName
         let expectedNewVaccinations = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.newPeopleWithThirdDose
@@ -162,13 +194,13 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         let expectedThirdVaccinations = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.thirdDoseUptakePercentage
         
         XCTAssert(newVaccinations.date == expectedDateAsDate)
-        XCTAssert(newVaccinations.country! + "\(items)" == expectedCountry)
+        XCTAssert(newVaccinations.country! == expectedCountry)
         XCTAssert(newVaccinations.newVaccinations == expectedNewVaccinations)
         XCTAssert(cumVaccinations.date == expectedDateAsDate)
-        XCTAssert(cumVaccinations.country! + "\(items)" == expectedCountry)
+        XCTAssert(cumVaccinations.country! == expectedCountry)
         XCTAssert(cumVaccinations.cumulativeVaccinations == expectedCumVaccinations)
         XCTAssert(uptakePercentages.date == expectedDateAsDate)
-        XCTAssert(uptakePercentages.country! + "\(items)" == expectedCountry)
+        XCTAssert(uptakePercentages.country! == expectedCountry)
         XCTAssert(uptakePercentages.thirdDoseUptakePercentage == Int(expectedThirdVaccinations!))
     }
     

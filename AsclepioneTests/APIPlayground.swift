@@ -32,7 +32,6 @@ class APIPlayground: XCTestCase {
         // When we get a result from the API.
         let cancellable = sut.retrieveFromWebAPI().sink { (dataResponse) in
             if dataResponse.error == nil {
-                print(dataResponse.value!)
                 XCTAssertTrue(dataResponse.result.isSuccess)
                 if let vaccinationData = dataResponse.value?.data {
                     XCTAssertTrue(!vaccinationData.isEmpty)
