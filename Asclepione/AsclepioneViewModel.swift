@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class AsclepioneViewModel: ObservableObject {
     
@@ -84,13 +85,15 @@ class AsclepioneViewModel: ObservableObject {
     }
     
     private func setAndPublishCountry(country: String?) {
-        self.country = country ?? ""
+        self.country = country ?? "???"
     }
     
     private func setAndPublishDate(date: Date?) {
         if let unwrappedDate = date {
             let dateAsString = transformDateIntoString(dateAsDate: unwrappedDate)
             self.date = dateAsString
+        } else {
+            self.date = "???"
         }
     }
     

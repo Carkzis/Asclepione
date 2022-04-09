@@ -15,7 +15,7 @@ class AsclepioneViewModelTests: XCTestCase {
     var sut: AsclepioneViewModel!
     var repository: MockRepository!
     
-    @Published var country: String = "dog"
+    @Published var country: String = ""
     @Published var date: String = ""
     @Published var newVaccinationsEngland: String = ""
     @Published var cumVaccinationsEngland: String = ""
@@ -55,7 +55,7 @@ class AsclepioneViewModelTests: XCTestCase {
         repository = nil
     }
     
-    func testWhenDataInDatabaseDataIsPublishedByCombine() throws {
+    func testWhenDataInDatabaseDataIsPublishedByTheViewModel() throws {
         // Given that there is data in the database.
         repository.emptyDatabase = false
         let countryExpectation = XCTestExpectation(description: "Retrieve country name from database via Publisher.")
@@ -63,8 +63,34 @@ class AsclepioneViewModelTests: XCTestCase {
         let newVaccExpectation = XCTestExpectation(description: "Retrieve new vaccination data from database via Publisher.")
         let cumVaccExpectation = XCTestExpectation(description: "Retrieve cumulative vaccination data from database via Publisher.")
         let uptakePercentageExpectation = XCTestExpectation(description: "Retrieve uptake percentage data from database via Publisher.")
-        
-        print("\(self.country) still whyyyyy" )
+
+        // When data is refreshed.
+        repository.refreshVaccinationData()
+
+        // Then the data from the CoreData database should be published using Combine via the repository.
+        cancellables = getCancellables(countryExpectation: countryExpectation, dateExpectation: dateExpectation, newVaccExpectation: newVaccExpectation, cumVaccExpectation: cumVaccExpectation, uptakePercentageExpectation: uptakePercentageExpectation)
+
+        wait(for: [countryExpectation], timeout: 10)
+        wait(for: [dateExpectation], timeout: 10)
+        wait(for: [newVaccExpectation], timeout: 10)
+        wait(for: [cumVaccExpectation], timeout: 10)
+        wait(for: [uptakePercentageExpectation], timeout: 10)
+
+        XCTAssertFalse(self.country == "???")
+        XCTAssertFalse(self.date == "???")
+        XCTAssertFalse(self.newVaccinationsEngland == "0")
+        XCTAssertFalse(self.cumVaccinationsEngland == "0")
+        XCTAssertFalse(self.uptakePercentagesEngland == "0%")
+    }
+    
+    func testWhenNoDataInDatabaseEmptyStringsArePublishedByTheViewModel() throws {
+        // Given that there is no data in the database.
+        repository.emptyDatabase = true
+        let countryExpectation = XCTestExpectation(description: "Retrieve country name from database via Publisher.")
+        let dateExpectation = XCTestExpectation(description: "Retrieve date data from database via Publisher.")
+        let newVaccExpectation = XCTestExpectation(description: "Retrieve new vaccination data from database via Publisher.")
+        let cumVaccExpectation = XCTestExpectation(description: "Retrieve cumulative vaccination data from database via Publisher.")
+        let uptakePercentageExpectation = XCTestExpectation(description: "Retrieve uptake percentage data from database via Publisher.")
         
         // When data is refreshed.
         repository.refreshVaccinationData()
@@ -77,19 +103,16 @@ class AsclepioneViewModelTests: XCTestCase {
         wait(for: [newVaccExpectation], timeout: 10)
         wait(for: [cumVaccExpectation], timeout: 10)
         wait(for: [uptakePercentageExpectation], timeout: 10)
-
-        print("\(self.country) still whyyyyy" )
-        print("\(self.sut.country) but this okay" )
-        print(sut.cancellables)
-        XCTAssertFalse(self.country.isEmpty)
-        XCTAssertFalse(self.date.isEmpty)
-        XCTAssertFalse(self.newVaccinationsEngland.isEmpty)
-        XCTAssertFalse(self.cumVaccinationsEngland.isEmpty)
-        XCTAssertFalse(self.uptakePercentagesEngland.isEmpty)
         
-        for cancellable in cancellables {
-            cancellable.cancel()
-        }
+        print("HMMMM \(self.country)")
+        print("HMMMM \(self.date)")
+        print("HMMMM \(self.newVaccinationsEngland)")
+
+        XCTAssertTrue(self.country == "???")
+        XCTAssertTrue(self.date == "???")
+        XCTAssertTrue(self.newVaccinationsEngland == "0")
+        XCTAssertTrue(self.cumVaccinationsEngland == "0")
+        XCTAssertTrue(self.uptakePercentagesEngland == "0%")
     }
     
     func getCancellables(countryExpectation: XCTestExpectation, dateExpectation: XCTestExpectation, newVaccExpectation: XCTestExpectation, cumVaccExpectation: XCTestExpectation, uptakePercentageExpectation: XCTestExpectation) -> Set<AnyCancellable> {

@@ -34,6 +34,9 @@ class MockRepository: Repository {
             print("There was a network error.")
         } else if emptyDatabase == true {
             print("The database is empty.")
+            newVaccinationsEngland = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+            cumVaccinationsEngland = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+            uptakePercentagesEngland = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
         } else {
             responseData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
             convertDTOToEntities(dto: responseData!)
