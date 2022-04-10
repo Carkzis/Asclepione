@@ -28,6 +28,7 @@ struct ContentView: View {
                 Spacer()
                     .frame(width: 100, height: 32, alignment: .center)
                 self.refreshButtonView
+                self.progressView
             }.foregroundColor(.white)
             .multilineTextAlignment(.center)
             .padding(16)
@@ -103,6 +104,12 @@ struct ContentView: View {
         .border(.white)
     }
     
+    @ViewBuilder
+    var progressView: some View {
+        ProgressView()
+            .hidden($viewModel.isLoading.wrappedValue)
+    }
+    
     private func refreshData() {
         viewModel.refreshVaccinationData()
     }
@@ -128,5 +135,11 @@ struct PlaceholderTextView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+extension View {
+    func hidden(_ shouldHide: Bool) -> some View {
+        opacity(shouldHide ? 1 : 0)
     }
 }

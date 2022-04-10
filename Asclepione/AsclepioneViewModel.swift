@@ -11,8 +11,6 @@ import SwiftUI
 
 class AsclepioneViewModel: ObservableObject {
     
-    // TODO: This needs testing!
-    // TODO: Need to add loading icon when refreshing!
     // TODO: Need to add UI tests!
     // TODO: Organise everything!
     // TODO: Add notes to top of methods!
@@ -32,15 +30,15 @@ class AsclepioneViewModel: ObservableObject {
      Important note to future Marc, these take the repository and publish the value.  Do not both receive the value here, and then receive again
      when subscribing to the value.  Receive once.
      */
-    private var isNewVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
+    private var newVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
         repository.newVaccinationsEnglandPublisher
             .eraseToAnyPublisher()
     }
-    private var isCumVaccinationsPublisher: AnyPublisher<CumulativeVaccinationsDomainObject, Never> {
+    private var cumVaccinationsPublisher: AnyPublisher<CumulativeVaccinationsDomainObject, Never> {
         repository.cumVaccinationsEnglandPublisher
             .eraseToAnyPublisher()
     }
-    private var isUptakePercentagesPublisher: AnyPublisher<UptakePercentageDomainObject, Never> {
+    private var uptakePercentagesPublisher: AnyPublisher<UptakePercentageDomainObject, Never> {
         repository.uptakePercentagesEnglandPublisher
             .eraseToAnyPublisher()
     }
@@ -67,7 +65,7 @@ class AsclepioneViewModel: ObservableObject {
     }
     
     private func setUpVaccinationDataPublishers() {
-        isNewVaccinationsPublisher
+        newVaccinationsPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 let newVaccines = $0
@@ -76,7 +74,7 @@ class AsclepioneViewModel: ObservableObject {
                 self?.newVaccinationsEngland = formatNumberAsDecimalStyle(numberToFormat: newVaccines.newVaccinations ?? 0)
             }
             .store(in: &cancellables)
-        isCumVaccinationsPublisher
+        cumVaccinationsPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 let cumVaccines = $0
@@ -85,7 +83,7 @@ class AsclepioneViewModel: ObservableObject {
                 self?.cumVaccinationsEngland = formatNumberAsDecimalStyle(numberToFormat: cumVaccines.cumulativeVaccinations ?? 0)
             }
             .store(in: &cancellables)
-        isUptakePercentagesPublisher
+        uptakePercentagesPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 let uptakePercentages = $0
