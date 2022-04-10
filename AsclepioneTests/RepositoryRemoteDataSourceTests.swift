@@ -6,11 +6,20 @@
 //
 
 import XCTest
+import Combine
 @testable import Asclepione
+import SwiftUI
 
 class RepositoryRemoteDataSourceTests: XCTestCase {
     
     var sut: MockRepository!
+    
+    @Published var isLoading: Bool = false
+    private var isLoadingPublisher: AnyPublisher<Bool, Never> {
+        sut.isLoadingPublisher
+            .eraseToAnyPublisher()
+    }
+    private var cancellables: Set<AnyCancellable> = []
 
     override func setUpWithError() throws {
         sut = MockRepository()
@@ -18,6 +27,9 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
 
     override func tearDownWithError() throws {
         sut = nil
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
     }
 
     func testNetworkErrorResultsInNoResponseDTOBeingRetrieved() throws {
@@ -79,6 +91,99 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
         XCTAssertTrue(sut.newVaccinationsEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
         XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
         XCTAssertTrue(sut.uptakePercentages[0].date!.description == "1900-01-01 00:00:00 +0000")
+    }
+    
+    func testLoadingStatePublishedAsTrueWhileLoadingThenFalseOnSuccessfulResponse() throws {
+        // Given there is not a network error.
+        sut.networkError = false
+        
+        // When a request to refresh the data via the network is called.
+        let isLoadingExpectation = XCTestExpectation(description: "Informed loading is occuring via Publisher.")
+        let isNotLoadingExpectation = XCTestExpectation(description: "Informed loading has stopped via Publisher.")
+        var resultList: [Bool] = []
+        cancellables = [isLoadingPublisher
+                        .receive(on: RunLoop.main)
+                        .sink { [weak self] in
+                            print("\($0) is what")
+                            self?.isLoading = $0
+                        if $0 {
+                            isLoadingExpectation.fulfill()
+                        } else {
+                            isNotLoadingExpectation.fulfill()
+                        }
+            resultList.append($0)
+        }]
+        sut.refreshVaccinationData()
+        
+        // Then we should get a stream of loading being false, then true, then false.
+        wait(for: [isLoadingExpectation], timeout: 10)
+        wait(for: [isNotLoadingExpectation], timeout: 10)
+        XCTAssert(!resultList[0])
+        XCTAssert(resultList[1])
+        XCTAssert(!resultList[2])
+    }
+    
+    func testLoadingStatePublishedAsTrueWhileLoadingThenFalseOnUnsuccessfulResponse() throws {
+        // Given there is not a network error.
+        sut.networkError = true
+        
+        // When a request to refresh the data via the network is called.
+        let isLoadingExpectation = XCTestExpectation(description: "Informed loading is occuring via Publisher.")
+        let isNotLoadingExpectation = XCTestExpectation(description: "Informed loading has stopped via Publisher.")
+        var resultList: [Bool] = []
+        cancellables = [isLoadingPublisher
+                        .receive(on: RunLoop.main)
+                        .sink { [weak self] in
+                            print("\($0) is what")
+                            self?.isLoading = $0
+                        if $0 {
+                            isLoadingExpectation.fulfill()
+                        } else {
+                            isNotLoadingExpectation.fulfill()
+                        }
+            resultList.append($0)
+        }]
+        sut.refreshVaccinationData()
+        
+        // Then we should get a stream of loading being false, then true, then false.
+        wait(for: [isLoadingExpectation], timeout: 10)
+        wait(for: [isNotLoadingExpectation], timeout: 10)
+        XCTAssert(!resultList[0])
+        XCTAssert(resultList[1])
+        XCTAssert(!resultList[2])
+    }
+    
+    func testLoadingStatesStillChangedOnRepeatAttemptsAtDataResponse() throws {
+        // Given there is not a network error.
+        sut.networkError = false
+        
+        // When a request to refresh the data via the network is called.
+        let isLoadingExpectation = XCTestExpectation(description: "Informed loading is occuring via Publisher.")
+        let isNotLoadingExpectation = XCTestExpectation(description: "Informed loading has stopped via Publisher.")
+        var resultList: [Bool] = []
+        cancellables = [isLoadingPublisher
+                        .receive(on: RunLoop.main)
+                        .sink { [weak self] in
+                            print("\($0) is what")
+                            self?.isLoading = $0
+                        if $0 {
+                            isLoadingExpectation.fulfill()
+                        } else {
+                            isNotLoadingExpectation.fulfill()
+                        }
+            resultList.append($0)
+        }]
+        sut.refreshVaccinationData()
+        sut.refreshVaccinationData()
+        
+        // Then we should get a stream of loading being false, then true, then false, then true, then false.
+        wait(for: [isLoadingExpectation], timeout: 10)
+        wait(for: [isNotLoadingExpectation], timeout: 10)
+        XCTAssert(!resultList[0])
+        XCTAssert(resultList[1])
+        XCTAssert(!resultList[2])
+        XCTAssert(resultList[3])
+        XCTAssert(!resultList[4])
     }
     
 }

@@ -11,7 +11,7 @@ import SwiftUI
 
 class AsclepioneViewModel: ObservableObject {
     
-    // TODO: This needs testing! Add publishers to the MockRepository!
+    // TODO: This needs testing!
     // TODO: Need to add loading icon when refreshing!
     // TODO: Need to add UI tests!
     // TODO: Organise everything!

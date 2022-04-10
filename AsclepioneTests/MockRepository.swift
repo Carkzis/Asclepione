@@ -14,12 +14,16 @@ import Combine
  objects into mock database entities.
  */
 class MockRepository: Repository {
+    
     @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
     @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
     @Published var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
     var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinationsEngland }
     var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinationsEngland }
     var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentagesEngland }
+    
+    @Published var isLoading: Bool = false
+    var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
     
     var networkError = false
     var emptyDatabase = false
@@ -30,8 +34,10 @@ class MockRepository: Repository {
     var uptakePercentages: [UptakePercentagesEntity] = []
     
     func refreshVaccinationData() {
+        isLoading = true
         if networkError == true {
             print("There was a network error.")
+            isLoading = false
         } else if emptyDatabase == true {
             print("The database is empty.")
             newVaccinationsEngland = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
@@ -40,6 +46,7 @@ class MockRepository: Repository {
         } else {
             responseData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
             convertDTOToEntities(dto: responseData!)
+            isLoading = false
         }
     }
     

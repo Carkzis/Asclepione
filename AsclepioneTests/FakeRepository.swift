@@ -27,6 +27,9 @@ class FakeRepository: Repository {
     var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinationsEngland }
     var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentagesEngland }
     
+    @Published var isLoading: Bool = false
+    var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
+    
     func refreshVaccinationData() {
         // This will grab fake data and convert it into entities.
         let mockData: ResponseDTO!

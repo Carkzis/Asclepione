@@ -15,6 +15,7 @@ protocol Repository {
     var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { get }
     var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { get }
     var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { get }
+    var isLoadingPublisher: Published<Bool>.Publisher { get }
 }
 
 extension Repository {
@@ -29,10 +30,13 @@ class DefaultRepository: Repository {
     @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
     @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
     @Published var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
-    
+
     var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinationsEngland }
     var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinationsEngland }
     var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentagesEngland }
+    
+    @Published var isLoading: Bool = false
+    var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
     
     init() {
         self.persistenceContainer = PersistenceController.shared.container
@@ -43,6 +47,7 @@ class DefaultRepository: Repository {
     private var cancellables: Set<AnyCancellable> = []
     
     func refreshVaccinationData() {
+        isLoading = true
         let api = CoronavirusServiceAPI()
         let cancellable = api.retrieveFromWebAPI().sink { (dataResponse) in
             if dataResponse.error == nil {
@@ -53,6 +58,7 @@ class DefaultRepository: Repository {
             } else {
                 print("Error obtaining data: \(String(describing: dataResponse.error))")
             }
+            self.isLoading = false
         }
         cancellable.store(in: &cancellables)
     }
