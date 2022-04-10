@@ -45,10 +45,28 @@ class AsclepioneViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    @Published var isLoading: Bool = false
+    private var isLoadingPublisher: AnyPublisher<Bool, Never> {
+        repository.isLoadingPublisher
+            .eraseToAnyPublisher()
+    }
+    
     init(repository: Repository = DefaultRepository()) {
         self.repository = repository
-        repository.refreshVaccinationData()
         
+        setUpVaccinationDataPublishers()
+        setUpLoadingStatePublisher()
+        
+        refreshVaccinationData()
+    }
+    
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
+    
+    private func setUpVaccinationDataPublishers() {
         isNewVaccinationsPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
@@ -78,10 +96,13 @@ class AsclepioneViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    deinit {
-        for cancellable in cancellables {
-            cancellable.cancel()
-        }
+    private func setUpLoadingStatePublisher() {
+        isLoadingPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                self?.isLoading = $0
+            }
+            .store(in: &cancellables)
     }
     
     private func setAndPublishCountry(country: String?) {

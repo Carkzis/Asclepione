@@ -43,6 +43,12 @@ class AsclepioneViewModelTests: XCTestCase {
             .eraseToAnyPublisher()
     }
     
+    var isLoading: Bool = false
+    private var isLoadingPublisher: AnyPublisher<Bool, Never> {
+        sut.$isLoading
+            .eraseToAnyPublisher()
+    }
+    
     override func setUpWithError() throws {
         repository = MockRepository()
         sut = AsclepioneViewModel(repository: repository)
@@ -123,6 +129,67 @@ class AsclepioneViewModelTests: XCTestCase {
         XCTAssertTrue(self.newVaccinationsEngland == "0")
         XCTAssertTrue(self.cumVaccinationsEngland == "0")
         XCTAssertTrue(self.uptakePercentagesEngland == "0%")
+    }
+    
+    func testLoadingStateOnInitalisationPublishedAsTrueWhileLoadingThenFalseOnSuccessfulResponse() throws {
+        // Given there is a ViewModel.
+        
+        // When a request to refresh the data via the network is called on initalisation.
+        let isLoadingExpectation = XCTestExpectation(description: "Informed loading is occuring via Publisher.")
+        let isNotLoadingExpectation = XCTestExpectation(description: "Informed loading has stopped via Publisher.")
+        var resultList: [Bool] = []
+        cancellables = [isLoadingPublisher
+                        .receive(on: RunLoop.main)
+                        .sink { [weak self] in
+                        self?.isLoading = $0
+                        if $0 {
+                            isLoadingExpectation.fulfill()
+                        } else {
+                            isNotLoadingExpectation.fulfill()
+                        }
+            resultList.append($0)
+        }]
+        
+        // Then we should get a stream of loading being false (on initialisation), false, then true, then false.
+        wait(for: [isLoadingExpectation], timeout: 10)
+        wait(for: [isNotLoadingExpectation], timeout: 10)
+        print(resultList)
+        XCTAssert(!resultList[0])
+        XCTAssert(!resultList[1])
+        XCTAssert(resultList[2])
+        XCTAssert(!resultList[3])
+    }
+    
+    func testLoadingStateOnRefreshPublishedAsTrueWhileLoadingThenFalseOnSuccessfulResponse() throws {
+        // Given there is a ViewModel.
+        
+        // When a request to refresh the data subsequent to initialisation via the network is called.
+        let isLoadingExpectation = XCTestExpectation(description: "Informed loading is occuring via Publisher.")
+        let isNotLoadingExpectation = XCTestExpectation(description: "Informed loading has stopped via Publisher.")
+        var resultList: [Bool] = []
+        cancellables = [isLoadingPublisher
+                        .receive(on: RunLoop.main)
+                        .sink { [weak self] in
+                        self?.isLoading = $0
+                        if $0 {
+                            isLoadingExpectation.fulfill()
+                        } else {
+                            isNotLoadingExpectation.fulfill()
+                        }
+            resultList.append($0)
+        }]
+        
+        // Then we should get a stream of loading being false (on initialisation), false, then true, then false.
+        // Then we should get true and then false.
+        wait(for: [isLoadingExpectation], timeout: 10)
+        wait(for: [isNotLoadingExpectation], timeout: 10)
+        print(resultList)
+        XCTAssert(!resultList[0])
+        XCTAssert(!resultList[1])
+        XCTAssert(resultList[2])
+        XCTAssert(!resultList[3])
+        XCTAssert(resultList[2])
+        XCTAssert(!resultList[3])
     }
     
     func getCancellables(countryExpectation: XCTestExpectation, dateExpectation: XCTestExpectation, newVaccExpectation: XCTestExpectation, cumVaccExpectation: XCTestExpectation, uptakePercentageExpectation: XCTestExpectation) -> Set<AnyCancellable> {

@@ -14,7 +14,7 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
     
     var sut: MockRepository!
     
-    @Published var isLoading: Bool = false
+    var isLoading: Bool = false
     private var isLoadingPublisher: AnyPublisher<Bool, Never> {
         sut.isLoadingPublisher
             .eraseToAnyPublisher()
@@ -104,7 +104,6 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
         cancellables = [isLoadingPublisher
                         .receive(on: RunLoop.main)
                         .sink { [weak self] in
-                            print("\($0) is what")
                             self?.isLoading = $0
                         if $0 {
                             isLoadingExpectation.fulfill()
@@ -134,7 +133,6 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
         cancellables = [isLoadingPublisher
                         .receive(on: RunLoop.main)
                         .sink { [weak self] in
-                            print("\($0) is what")
                             self?.isLoading = $0
                         if $0 {
                             isLoadingExpectation.fulfill()
@@ -164,7 +162,6 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
         cancellables = [isLoadingPublisher
                         .receive(on: RunLoop.main)
                         .sink { [weak self] in
-                            print("\($0) is what")
                             self?.isLoading = $0
                         if $0 {
                             isLoadingExpectation.fulfill()

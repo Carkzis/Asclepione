@@ -32,6 +32,7 @@ class FakeRepository: Repository {
     
     func refreshVaccinationData() {
         // This will grab fake data and convert it into entities.
+        isLoading = true // Mock that we are loading from REST API.
         let mockData: ResponseDTO!
         if (multipleUniqueDataItemsReceived) {
             if (newDataReceived) {
@@ -42,6 +43,7 @@ class FakeRepository: Repository {
         } else {
             mockData = ResponseDTO.retrieveResponseData(amountOfItems: 4)
         }
+        isLoading = false // Mock that loading from REST API has finished.
         repositoryUtils.convertDTOToEntities(dto: mockData)
         
         /*
