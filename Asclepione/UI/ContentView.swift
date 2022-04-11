@@ -71,7 +71,7 @@ struct ContentView: View {
             Text("New Vaccinations:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
             PlaceholderTextView(
-                placeholderText: Text(">9000"), text: $viewModel.newVaccinationsEngland)
+                placeholderText: Text(">9000"), text: $viewModel.newVaccinations)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
         }
     }
@@ -81,7 +81,7 @@ struct ContentView: View {
             Text("Cumulative Vaccinations:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
             PlaceholderTextView(
-                placeholderText: Text(">9000"), text: $viewModel.cumVaccinationsEngland)
+                placeholderText: Text(">9000"), text: $viewModel.cumVaccinations)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
         }
     }
@@ -91,7 +91,7 @@ struct ContentView: View {
             Text("Uptake Percentage:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
             PlaceholderTextView(
-                placeholderText: Text("110%"), text: $viewModel.uptakePercentagesEngland)
+                placeholderText: Text("110%"), text: $viewModel.uptakePercentages)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
         }
     }

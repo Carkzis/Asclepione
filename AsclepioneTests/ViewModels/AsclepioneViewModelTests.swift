@@ -17,9 +17,9 @@ class AsclepioneViewModelTests: XCTestCase {
     
     @Published var country: String = ""
     @Published var date: String = ""
-    @Published var newVaccinationsEngland: String = ""
-    @Published var cumVaccinationsEngland: String = ""
-    @Published var uptakePercentagesEngland: String = ""
+    @Published var newVaccinations: String = ""
+    @Published var cumVaccinations: String = ""
+    @Published var uptakePercentages: String = ""
     private var cancellables: Set<AnyCancellable> = []
     
     private var isCountryPublisher: AnyPublisher<String, Never> {
@@ -31,15 +31,15 @@ class AsclepioneViewModelTests: XCTestCase {
             .eraseToAnyPublisher()
     }
     private var isNewVaccinationsPublisher: AnyPublisher<String, Never> {
-        sut.$newVaccinationsEngland
+        sut.$newVaccinations
             .eraseToAnyPublisher()
     }
     private var isCumVaccinationsPublisher: AnyPublisher<String, Never> {
-        sut.$cumVaccinationsEngland
+        sut.$cumVaccinations
             .eraseToAnyPublisher()
     }
     private var isUptakePercentagesPublisher: AnyPublisher<String, Never> {
-        sut.$uptakePercentagesEngland
+        sut.$uptakePercentages
             .eraseToAnyPublisher()
     }
     
@@ -84,9 +84,9 @@ class AsclepioneViewModelTests: XCTestCase {
 
         XCTAssertFalse(self.country == "???")
         XCTAssertFalse(self.date == "???")
-        XCTAssertFalse(self.newVaccinationsEngland == "0")
-        XCTAssertFalse(self.cumVaccinationsEngland == "0")
-        XCTAssertFalse(self.uptakePercentagesEngland == "0%")
+        XCTAssertFalse(self.newVaccinations == "0")
+        XCTAssertFalse(self.cumVaccinations == "0")
+        XCTAssertFalse(self.uptakePercentages == "0%")
     }
     
     func testWhenDataFromDatabaseInViewModelCorrectlyFormatted() throws {
@@ -98,9 +98,9 @@ class AsclepioneViewModelTests: XCTestCase {
          */
         XCTAssertFalse(sut.country == "England")
         XCTAssertFalse(sut.date == "01/01/1900")
-        XCTAssertFalse(sut.newVaccinationsEngland == "300")
-        XCTAssertFalse(sut.cumVaccinationsEngland == "3000")
-        XCTAssertFalse(sut.uptakePercentagesEngland == "10%")
+        XCTAssertFalse(sut.newVaccinations == "300")
+        XCTAssertFalse(sut.cumVaccinations == "3000")
+        XCTAssertFalse(sut.uptakePercentages == "10%")
     }
     
     func testWhenNoDataInDatabaseDefaultStringsArePublishedByTheViewModel() throws {
@@ -126,9 +126,9 @@ class AsclepioneViewModelTests: XCTestCase {
 
         XCTAssertTrue(self.country == "???")
         XCTAssertTrue(self.date == "???")
-        XCTAssertTrue(self.newVaccinationsEngland == "0")
-        XCTAssertTrue(self.cumVaccinationsEngland == "0")
-        XCTAssertTrue(self.uptakePercentagesEngland == "0%")
+        XCTAssertTrue(self.newVaccinations == "0")
+        XCTAssertTrue(self.cumVaccinations == "0")
+        XCTAssertTrue(self.uptakePercentages == "0%")
     }
     
     func testLoadingStateOnInitalisationPublishedAsTrueWhileLoadingThenFalseOnSuccessfulResponse() throws {
@@ -208,19 +208,19 @@ class AsclepioneViewModelTests: XCTestCase {
                 isNewVaccinationsPublisher
                     .receive(on: RunLoop.main)
                     .sink { [weak self] in
-            self?.newVaccinationsEngland = $0
+            self?.newVaccinations = $0
             newVaccExpectation.fulfill()
         },
                 isCumVaccinationsPublisher
                     .receive(on: RunLoop.main)
                     .sink { [weak self] in
-            self?.cumVaccinationsEngland = $0
+            self?.cumVaccinations = $0
             cumVaccExpectation.fulfill()
         },
                 isUptakePercentagesPublisher
                     .receive(on: RunLoop.main)
                     .sink { [weak self] in
-            self?.uptakePercentagesEngland = $0
+            self?.uptakePercentages = $0
             uptakePercentageExpectation.fulfill()
         }]
         

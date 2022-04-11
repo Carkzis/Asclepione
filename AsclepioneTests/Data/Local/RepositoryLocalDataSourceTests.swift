@@ -15,20 +15,20 @@ class RepositoryLocalDataSourceTests: XCTestCase {
     var sut: FakeRepository!
     var managedObjectContext: NSManagedObjectContext!
     
-    var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
-    var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
-    var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
+    var newVaccinations: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+    var cumVaccinations: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+    var uptakePercentages: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
     
     private var isNewVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
-        sut.newVaccinationsEnglandPublisher
+        sut.newVaccinationsPublisher
             .eraseToAnyPublisher()
     }
     private var isCumVaccinationsPublisher: AnyPublisher<CumulativeVaccinationsDomainObject, Never> {
-        sut.cumVaccinationsEnglandPublisher
+        sut.cumVaccinationsPublisher
             .eraseToAnyPublisher()
     }
     private var isUptakePercentagesPublisher: AnyPublisher<UptakePercentageDomainObject, Never> {
-        sut.uptakePercentagesEnglandPublisher
+        sut.uptakePercentagesPublisher
             .eraseToAnyPublisher()
     }
     private var cancellables: Set<AnyCancellable> = []
@@ -100,9 +100,9 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         wait(for: [newVaccExpectation], timeout: 10)
         wait(for: [cumVaccExpectation], timeout: 10)
         wait(for: [uptakePercentageExpectation], timeout: 10)
-        verifyEntitiesConvertedToDomainObjects(newVaccinations: self.newVaccinationsEngland,
-                                               cumVaccinations: self.cumVaccinationsEngland,
-                                               uptakePercentages: self.uptakePercentagesEngland,
+        verifyEntitiesConvertedToDomainObjects(newVaccinations: self.newVaccinations,
+                                               cumVaccinations: self.cumVaccinations,
+                                               uptakePercentages: self.uptakePercentages,
                                                newDataReceived: false)
         
         for cancellable in cancellables {
@@ -127,9 +127,9 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         wait(for: [newVaccExpectation], timeout: 10)
         wait(for: [cumVaccExpectation], timeout: 10)
         wait(for: [uptakePercentageExpectation], timeout: 10)
-        verifyEntitiesConvertedToDomainObjects(newVaccinations: self.newVaccinationsEngland,
-                                               cumVaccinations: self.cumVaccinationsEngland,
-                                               uptakePercentages: self.uptakePercentagesEngland,
+        verifyEntitiesConvertedToDomainObjects(newVaccinations: self.newVaccinations,
+                                               cumVaccinations: self.cumVaccinations,
+                                               uptakePercentages: self.uptakePercentages,
                                                newDataReceived: true)
         
         for cancellable in cancellables {
@@ -165,7 +165,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         let expectedDateAsString = ResponseDTO.retrieveUniqueResponseData(amountOfItems: amountOfDatabaseEntries).data?.last?.date
         let expectedDateAsDate = transformStringIntoDate(dateAsString: expectedDateAsString!)
         
-        XCTAssert(newVaccinationsEngland.date == expectedDateAsDate)
+        XCTAssert(newVaccinations.date == expectedDateAsDate)
         
         for cancellable in cancellables {
             cancellable.cancel()
@@ -212,19 +212,19 @@ class RepositoryLocalDataSourceTests: XCTestCase {
             isNewVaccinationsPublisher
                 .receive(on: RunLoop.main)
                 .sink { [weak self] in
-                    self?.newVaccinationsEngland = $0
+                    self?.newVaccinations = $0
                     newVaccExpectation.fulfill()
                 },
             isCumVaccinationsPublisher
                 .receive(on: RunLoop.main)
                 .sink { [weak self] in
-                    self?.cumVaccinationsEngland = $0
+                    self?.cumVaccinations = $0
                     cumVaccExpectation.fulfill()
                 },
             isUptakePercentagesPublisher
                 .receive(on: RunLoop.main)
                 .sink { [weak self] in
-                    self?.uptakePercentagesEngland = $0
+                    self?.uptakePercentages = $0
                     uptakePercentageExpectation.fulfill()
                 }]
     }

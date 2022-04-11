@@ -11,35 +11,35 @@ import SwiftUI
 
 class AsclepioneViewModel: ObservableObject {
     
+    // TODO: Add launch screen!
     // TODO: Need to add UI tests!
-    // TODO: Organise everything!
     // TODO: Add notes to top of methods!
-    // TODO: Make it look a bit nicer!
     // TODO: Documentation!
+    // TODO: Icons!
     
     private var repository: Repository!
     var cancellables: Set<AnyCancellable> = []
     
     @Published var country: String = ""
     @Published var date: String = ""
-    @Published var newVaccinationsEngland: String = ""
-    @Published var cumVaccinationsEngland: String = ""
-    @Published var uptakePercentagesEngland: String = ""
+    @Published var newVaccinations: String = ""
+    @Published var cumVaccinations: String = ""
+    @Published var uptakePercentages: String = ""
     
     /**
      Important note to future Marc, these take the repository and publish the value.  Do not both receive the value here, and then receive again
      when subscribing to the value.  Receive once.
      */
     private var newVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
-        repository.newVaccinationsEnglandPublisher
+        repository.newVaccinationsPublisher
             .eraseToAnyPublisher()
     }
     private var cumVaccinationsPublisher: AnyPublisher<CumulativeVaccinationsDomainObject, Never> {
-        repository.cumVaccinationsEnglandPublisher
+        repository.cumVaccinationsPublisher
             .eraseToAnyPublisher()
     }
     private var uptakePercentagesPublisher: AnyPublisher<UptakePercentageDomainObject, Never> {
-        repository.uptakePercentagesEnglandPublisher
+        repository.uptakePercentagesPublisher
             .eraseToAnyPublisher()
     }
     
@@ -71,7 +71,7 @@ class AsclepioneViewModel: ObservableObject {
                 let newVaccines = $0
                 self?.setAndPublishCountry(country: newVaccines.country)
                 self?.setAndPublishDate(date: newVaccines.date)
-                self?.newVaccinationsEngland = formatNumberAsDecimalStyle(numberToFormat: newVaccines.newVaccinations ?? 0)
+                self?.newVaccinations = formatNumberAsDecimalStyle(numberToFormat: newVaccines.newVaccinations ?? 0)
             }
             .store(in: &cancellables)
         cumVaccinationsPublisher
@@ -80,7 +80,7 @@ class AsclepioneViewModel: ObservableObject {
                 let cumVaccines = $0
                 self?.setAndPublishCountry(country: cumVaccines.country)
                 self?.setAndPublishDate(date: cumVaccines.date)
-                self?.cumVaccinationsEngland = formatNumberAsDecimalStyle(numberToFormat: cumVaccines.cumulativeVaccinations ?? 0)
+                self?.cumVaccinations = formatNumberAsDecimalStyle(numberToFormat: cumVaccines.cumulativeVaccinations ?? 0)
             }
             .store(in: &cancellables)
         uptakePercentagesPublisher
@@ -89,7 +89,7 @@ class AsclepioneViewModel: ObservableObject {
                 let uptakePercentages = $0
                 self?.setAndPublishCountry(country: uptakePercentages.country)
                 self?.setAndPublishDate(date: uptakePercentages.date)
-                self?.uptakePercentagesEngland = "\(String(uptakePercentages.thirdDoseUptakePercentage ?? 0))%"
+                self?.uptakePercentages = "\(String(uptakePercentages.thirdDoseUptakePercentage ?? 0))%"
             }
             .store(in: &cancellables)
     }

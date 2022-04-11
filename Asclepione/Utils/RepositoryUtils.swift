@@ -97,17 +97,11 @@ class RepositoryUtils {
         }
     }
     
-    struct DomainObjects {
-        let newVaccinationsEngland: NewVaccinationsDomainObject
-        let cumVaccinationsEngland: CumulativeVaccinationsDomainObject
-        let uptakePercentagesEngland: UptakePercentageDomainObject
-    }
-    
     func retrieveEntitiesAndConvertToDomainObjects() -> DomainObjects {
-        let newVaccinationsEngland = retrieveNewVaccinationEntitiesAndConvertToDomainObjects()
-        let cumVaccinationsEngland = retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects()
-        let uptakePercentagesEngland = retrieveUptakePercentageEntitiesAndConvertToDomainObjects()
-        return DomainObjects(newVaccinationsEngland: newVaccinationsEngland, cumVaccinationsEngland: cumVaccinationsEngland, uptakePercentagesEngland: uptakePercentagesEngland)
+        let newVaccinations = retrieveNewVaccinationEntitiesAndConvertToDomainObjects()
+        let cumVaccinations = retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects()
+        let uptakePercentages = retrieveUptakePercentageEntitiesAndConvertToDomainObjects()
+        return DomainObjects(newVaccinations: newVaccinations, cumVaccinations: cumVaccinations, uptakePercentages: uptakePercentages)
     }
     
     private func retrieveNewVaccinationEntitiesAndConvertToDomainObjects() -> NewVaccinationsDomainObject {
@@ -162,6 +156,12 @@ class RepositoryUtils {
             print("Something went wrong fetching uptake percentages data: \(error)")
             return UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
         }
+    }
+    
+    struct DomainObjects {
+        let newVaccinations: NewVaccinationsDomainObject
+        let cumVaccinations: CumulativeVaccinationsDomainObject
+        let uptakePercentages: UptakePercentageDomainObject
     }
         
 }

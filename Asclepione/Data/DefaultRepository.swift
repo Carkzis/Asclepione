@@ -10,30 +10,18 @@ import Combine
 import CoreData
 import Alamofire
 
-protocol Repository {
-    func refreshVaccinationData()
-    var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { get }
-    var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { get }
-    var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { get }
-    var isLoadingPublisher: Published<Bool>.Publisher { get }
-}
-
-extension Repository {
-    func insertResultsIntoLocalDatabase() {}
-}
-
 class DefaultRepository: Repository {
     
     let persistenceContainer: NSPersistentContainer!
     let repositoryUtils: RepositoryUtils!
     
-    @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
-    @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
-    @Published var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
+    @Published var newVaccinations: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+    @Published var cumVaccinations: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+    @Published var uptakePercentages: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
 
-    var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinationsEngland }
-    var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinationsEngland }
-    var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentagesEngland }
+    var newVaccinationsPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinations }
+    var cumVaccinationsPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinations }
+    var uptakePercentagesPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentages }
     
     @Published var isLoading: Bool = false
     var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
@@ -65,9 +53,9 @@ class DefaultRepository: Repository {
     
     private func updatePublishers() {
         let latestDatabaseEntities = self.repositoryUtils.retrieveEntitiesAndConvertToDomainObjects()
-        self.newVaccinationsEngland = latestDatabaseEntities.newVaccinationsEngland
-        self.cumVaccinationsEngland = latestDatabaseEntities.cumVaccinationsEngland
-        self.uptakePercentagesEngland = latestDatabaseEntities.uptakePercentagesEngland
+        self.newVaccinations = latestDatabaseEntities.newVaccinations
+        self.cumVaccinations = latestDatabaseEntities.cumVaccinations
+        self.uptakePercentages = latestDatabaseEntities.uptakePercentages
     }
 
     deinit {

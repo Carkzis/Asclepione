@@ -78,19 +78,19 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
         XCTAssertFalse(sut.cumulativeVaccinationsEntities.isEmpty)
         XCTAssertTrue(sut.cumulativeVaccinationsEntities.count == 4)
         XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].cumulativeFirstDoses == 1000)
-        XCTAssertFalse(sut.uptakePercentages.isEmpty)
-        XCTAssertTrue(sut.uptakePercentages.count == 4)
-        XCTAssertTrue(sut.uptakePercentages[0].firstDoseUptakePercentage == 10)
+        XCTAssertFalse(sut.uptakePercentagesEntities.isEmpty)
+        XCTAssertTrue(sut.uptakePercentagesEntities.count == 4)
+        XCTAssertTrue(sut.uptakePercentagesEntities[0].firstDoseUptakePercentage == 10)
         
         // And an unique but reproducible id.
         XCTAssertTrue(sut.newVaccinationsEntities[0].id == expectedID)
         XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].id == expectedID)
-        XCTAssertTrue(sut.uptakePercentages[0].id == expectedID)
+        XCTAssertTrue(sut.uptakePercentagesEntities[0].id == expectedID)
         
         // And the date string is correctly converted into a Date object.
         XCTAssertTrue(sut.newVaccinationsEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
         XCTAssertTrue(sut.cumulativeVaccinationsEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
-        XCTAssertTrue(sut.uptakePercentages[0].date!.description == "1900-01-01 00:00:00 +0000")
+        XCTAssertTrue(sut.uptakePercentagesEntities[0].date!.description == "1900-01-01 00:00:00 +0000")
     }
     
     func testLoadingStatePublishedAsTrueWhileLoadingThenFalseOnSuccessfulResponse() throws {

@@ -19,13 +19,13 @@ class FakeRepository: Repository {
     var newDataReceived = false
     var amountOfUniqueItemsReceived = 8
     
-    @Published var newVaccinationsEngland: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
-    @Published var cumVaccinationsEngland: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
-    @Published var uptakePercentagesEngland: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
+    @Published var newVaccinations: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+    @Published var cumVaccinations: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+    @Published var uptakePercentages: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
     
-    var newVaccinationsEnglandPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinationsEngland }
-    var cumVaccinationsEnglandPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinationsEngland }
-    var uptakePercentagesEnglandPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentagesEngland }
+    var newVaccinationsPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinations }
+    var cumVaccinationsPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinations }
+    var uptakePercentagesPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentages }
     
     @Published var isLoading: Bool = false
     var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
@@ -52,9 +52,9 @@ class FakeRepository: Repository {
          This is preferable to raising an exception.
          */
         let latestDatabaseEntities = repositoryUtils.retrieveEntitiesAndConvertToDomainObjects()
-        newVaccinationsEngland = latestDatabaseEntities.newVaccinationsEngland
-        cumVaccinationsEngland = latestDatabaseEntities.cumVaccinationsEngland
-        uptakePercentagesEngland = latestDatabaseEntities.uptakePercentagesEngland
+        newVaccinations = latestDatabaseEntities.newVaccinations
+        cumVaccinations = latestDatabaseEntities.cumVaccinations
+        uptakePercentages = latestDatabaseEntities.uptakePercentages
     }
     
     init() {
