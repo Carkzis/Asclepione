@@ -9,6 +9,9 @@
 import Foundation
 import CoreData
 
+/**
+ Represents the cumulative total vaccinations on a given day held within the CoreData database.
+ */
 protocol CumulativeVaccinationsEntity {
     var areaName: String? { get set }
     var cumulativeFirstDoses: Int32 { get set }

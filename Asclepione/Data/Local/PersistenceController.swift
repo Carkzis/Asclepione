@@ -8,6 +8,9 @@
 import Foundation
 import CoreData
 
+/**
+ Controller that allows access to the NSPersistentContainer that itself includes all objects needed to represent a functioning Core Data stack.
+ */
 final class PersistenceController {
     static var shared = PersistenceController()
     let container: NSPersistentContainer
@@ -15,6 +18,10 @@ final class PersistenceController {
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Model")
         
+        /*
+         If inMemory is set to true, in memory data storage is used,
+         as opposed to the local data storage of a device.
+         */
         if inMemory {
             PersistenceController.shared = self
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
@@ -28,6 +35,9 @@ final class PersistenceController {
 
     }
     
+    /**
+     Saveas the newly created entries into the CoreData database, or rolls the changes back if the attempt fails.
+     */
     func save() {
         let context = container.viewContext
         if context.hasChanges {

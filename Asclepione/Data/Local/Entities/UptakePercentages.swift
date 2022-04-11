@@ -9,6 +9,9 @@
 import Foundation
 import CoreData
 
+/**
+ Represents the vaccination uptake as a percentage of the population of an area, held within the CoreData database.
+ */
 protocol UptakePercentagesEntity {
     var areaName: String? { get set }
     var date: Date? { get set }

@@ -9,6 +9,9 @@
 import Foundation
 import CoreData
 
+/**
+ Represents the amount of new vaccinations in a day held within the CoreData database.
+ */
 protocol NewVaccinationsEntity {
     var areaName: String? { get set }
     var date: Date? { get set }

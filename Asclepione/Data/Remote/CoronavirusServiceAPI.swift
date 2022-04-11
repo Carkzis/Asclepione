@@ -9,6 +9,9 @@ import Foundation
 import Alamofire
 import Combine
 
+/**
+ Handles retrieval of data from a REST API.
+ */
 class CoronavirusServiceAPI: ServiceAPIProtocol {
     
     private let SUCCESS_CODE = 200
@@ -25,29 +28,30 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
     
     /**
      Returns the latest result for an area (country) of the UK from the Coronavirus Open Data API (APIv1).
+     The default area is England, but alternatives (Scotland, Northern Irelad and Wale) can be supplied.
      */
     private func getParametersForArea(_ areaName: AreaName = .england) -> Parameters {
         let areaType = "nation"
         let filters = "areaType=\(areaType);areaName=\(areaName.description)"
         let latestBy = "newVaccinesGivenByPublishDate"
         let structure =
-            ["newPeopleVaccinatedFirstDoseByPublishDate",
-            "newPeopleVaccinatedSecondDoseByPublishDate",
-            "newPeopleVaccinatedThirdInjectionByPublishDate",
-            "newVaccinesGivenByPublishDate",
-            "newPeopleVaccinatedCompleteByVaccinationDate",
-
-            "cumPeopleVaccinatedFirstDoseByPublishDate",
-            "cumPeopleVaccinatedSecondDoseByPublishDate",
-            "cumPeopleVaccinatedThirdInjectionByPublishDate",
-            "cumVaccinesGivenByPublishDate",
-            "cumPeopleVaccinatedCompleteByVaccinationDate",
-            
-            "cumVaccinationFirstDoseUptakeByPublishDatePercentage",
-            "cumVaccinationSecondDoseUptakeByPublishDatePercentage",
-            "cumVaccinationThirdInjectionUptakeByPublishDatePercentage",
-            "cumVaccinationCompleteCoverageByVaccinationDatePercentage"]
-            
+        ["newPeopleVaccinatedFirstDoseByPublishDate",
+         "newPeopleVaccinatedSecondDoseByPublishDate",
+         "newPeopleVaccinatedThirdInjectionByPublishDate",
+         "newVaccinesGivenByPublishDate",
+         "newPeopleVaccinatedCompleteByVaccinationDate",
+         
+         "cumPeopleVaccinatedFirstDoseByPublishDate",
+         "cumPeopleVaccinatedSecondDoseByPublishDate",
+         "cumPeopleVaccinatedThirdInjectionByPublishDate",
+         "cumVaccinesGivenByPublishDate",
+         "cumPeopleVaccinatedCompleteByVaccinationDate",
+         
+         "cumVaccinationFirstDoseUptakeByPublishDatePercentage",
+         "cumVaccinationSecondDoseUptakeByPublishDatePercentage",
+         "cumVaccinationThirdInjectionUptakeByPublishDatePercentage",
+         "cumVaccinationCompleteCoverageByVaccinationDatePercentage"]
+        
         let parameters: Parameters = [
             "filters": "\(filters)",
             "structure": "\(structure)",
@@ -56,9 +60,11 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
         return parameters
     }
     
-    /*
+    /**
+     Retrieves data from a REST API. The default area is England, but alternatives (Scotland, Northern Irelad and Wale) can be supplied.
      The data response, either a ResponseDTO or an AFError, will be published as the output.  The failure
      type is never, as the network error is contained in the output.
+     The default area is England, but alternatives (Scotland, Northern Irelad and Wale) can be supplied.
      */
     func retrieveFromWebAPI(area: AreaName = .england) -> AnyPublisher<DataResponse<ResponseDTO, AFError>, Never> {
         return sessionManager.request(url, method: .get, parameters: getParametersForArea(), encoding: URLEncoding.default, headers: nil)
@@ -67,9 +73,12 @@ class CoronavirusServiceAPI: ServiceAPIProtocol {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-
+    
 }
 
+/**
+ Enum for the permitted area names used in REST API service GET requests.
+ */
 enum AreaName {
     case england
     case scotland

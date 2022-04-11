@@ -10,21 +10,27 @@ import Combine
 import CoreData
 import Alamofire
 
+/**
+ Default repository to act as a mediator between the remote REST API, the local CoreData database and the ViewModel.
+ */
 class DefaultRepository: Repository {
     
     let persistenceContainer: NSPersistentContainer!
     let repositoryUtils: RepositoryUtils!
     
+    /*
+     Publishers.
+     */
     @Published var newVaccinations: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
     @Published var cumVaccinations: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
     @Published var uptakePercentages: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
-
+    @Published var isLoading: Bool = false
     var newVaccinationsPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinations }
     var cumVaccinationsPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinations }
     var uptakePercentagesPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentages }
-    
-    @Published var isLoading: Bool = false
     var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     init() {
         self.persistenceContainer = PersistenceController.shared.container
@@ -32,8 +38,16 @@ class DefaultRepository: Repository {
         updatePublishers()
     }
     
-    private var cancellables: Set<AnyCancellable> = []
+    deinit {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+    }
     
+    /**
+     Refreshes the data from the REST API, and updates the local database accordingly.
+     Also calls updatePublishers() to publish the current data held in the database to the UI domain.
+     */
     func refreshVaccinationData() {
         isLoading = true
         let api = CoronavirusServiceAPI()
@@ -51,6 +65,9 @@ class DefaultRepository: Repository {
         cancellable.store(in: &cancellables)
     }
     
+    /**
+     Publishes the current data held in the database to the UI domain.
+     */
     private func updatePublishers() {
         let latestDatabaseEntities = self.repositoryUtils.retrieveEntitiesAndConvertToDomainObjects()
         self.newVaccinations = latestDatabaseEntities.newVaccinations
@@ -58,9 +75,4 @@ class DefaultRepository: Repository {
         self.uptakePercentages = latestDatabaseEntities.uptakePercentages
     }
 
-    deinit {
-        for cancellable in cancellables {
-            cancellable.cancel()
-        }
-    }
 }

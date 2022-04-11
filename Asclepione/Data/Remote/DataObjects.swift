@@ -8,6 +8,9 @@
 import Foundation
 import Alamofire
 
+/**
+ Wrapper object for the VaccinationDataDTO. Empty responses are permissable.
+ */
 struct ResponseDTO: Decodable, EmptyResponse {
     static func emptyValue() -> ResponseDTO {
         return ResponseDTO(data: nil)
@@ -17,6 +20,9 @@ struct ResponseDTO: Decodable, EmptyResponse {
     
 }
 
+/**
+ Data transfer object for the vaccination data obtained from the Coronavirus Open Data API (APIv1).
+ */
 struct VaccinationDataDTO: Decodable {
     let date: String
     let areaName: String

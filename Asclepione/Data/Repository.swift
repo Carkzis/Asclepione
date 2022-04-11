@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Protocol for mediating data flow between the remote and local stores, and the UI.
+ */
 protocol Repository {
     func refreshVaccinationData()
     var newVaccinationsPublisher: Published<NewVaccinationsDomainObject>.Publisher { get }
