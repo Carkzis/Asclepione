@@ -12,13 +12,16 @@ import Combine
 @testable import Asclepione
 
 class RepositoryLocalDataSourceTests: XCTestCase {
+    
     var sut: FakeRepository!
     var managedObjectContext: NSManagedObjectContext!
     
+    /**
+     Publishers
+     */
     var newVaccinations: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
     var cumVaccinations: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
     var uptakePercentages: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
-    
     private var isNewVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
         sut.newVaccinationsPublisher
             .eraseToAnyPublisher()
@@ -37,7 +40,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         sut = FakeRepository()
         managedObjectContext = PersistenceController.shared.container.viewContext
     }
-
+    
     override func tearDownWithError() throws {
         sut = nil
         managedObjectContext = nil
@@ -54,10 +57,10 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         do {
             let newVaccinationsData = try managedObjectContext.fetch(newVaccinationsFetchRequest)
             XCTAssertTrue(newVaccinationsData.count == 1)
-
+            
             let cumVaccinationsData = try managedObjectContext.fetch(cumVaccinationsFetchRequest)
             XCTAssertTrue(cumVaccinationsData.count == 1)
-
+            
             let percentagesData = try managedObjectContext.fetch(percentagesFetchRequest)
             XCTAssertTrue(percentagesData.count == 1)
         } catch {
@@ -77,10 +80,10 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         do {
             let newVaccinationsData = try managedObjectContext.fetch(newVaccinationsFetchRequest)
             XCTAssertTrue(newVaccinationsData.count > 1)
-
+            
             let cumVaccinationsData = try managedObjectContext.fetch(cumVaccinationsFetchRequest)
             XCTAssertTrue(cumVaccinationsData.count > 1)
-
+            
             let percentagesData = try managedObjectContext.fetch(percentagesFetchRequest)
             XCTAssertTrue(percentagesData.count > 1)
         } catch {
@@ -110,7 +113,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         }
     }
     
-    func testEntitiesRetrievedOnRefreshAndConvertedToDomainObjectsAndPublishedByCombineOnInitialisation() throws {
+    func testEntitiesRetrievedOnRefreshAndConvertedToDomainObjectsAndPublishedByCombine() throws {
         // Given a FakeRepository and a blank in-memory database.
         sut.multipleUniqueDataItemsReceived = true
         let newVaccExpectation = XCTestExpectation(description: "Retrieve new vaccination data from database via Publisher.")
@@ -137,7 +140,7 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         }
     }
     
-    func testLatestEntitiesRetrievedFromTheDatabaseAndPublishedByCombineOnInitialisation() throws {
+    func testLatestEntitiesRetrievedFromTheDatabaseAndPublishedByCombine() throws {
         /*
          Given a FakeRepository and a blank in-memory database, each data entry will have a different date
          starting at "1900-01-01" and ending at "1900-01-{amountOfDatabaseEntries}".
@@ -173,9 +176,9 @@ class RepositoryLocalDataSourceTests: XCTestCase {
     }
     
     private func verifyEntitiesConvertedToDomainObjects(newVaccinations: NewVaccinationsDomainObject,
-                                                cumVaccinations: CumulativeVaccinationsDomainObject,
-                                                uptakePercentages: UptakePercentageDomainObject,
-                                                newDataReceived: Bool) {
+                                                        cumVaccinations: CumulativeVaccinationsDomainObject,
+                                                        uptakePercentages: UptakePercentageDomainObject,
+                                                        newDataReceived: Bool) {
         let items: Int
         if newDataReceived {
             items = 8
@@ -185,8 +188,8 @@ class RepositoryLocalDataSourceTests: XCTestCase {
         
         // If we receive new data, use the unique response date, otherwise use the non-unique response.
         let expectedDateAsString = newDataReceived ?
-            ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.date :
-            ResponseDTO.retrieveResponseData(amountOfItems: items).data?.last?.date
+        ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.date :
+        ResponseDTO.retrieveResponseData(amountOfItems: items).data?.last?.date
         let expectedDateAsDate = transformStringIntoDate(dateAsString: expectedDateAsString!)
         let expectedCountry = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.areaName
         let expectedNewVaccinations = ResponseDTO.retrieveUniqueResponseData(amountOfItems: items).data?.last?.newPeopleWithThirdDose

@@ -13,10 +13,12 @@ class CoronavirusAPITests: XCTestCase {
     
     private var sut: ServiceAPIProtocol!
 
-    // Get a session configured to use the FakeURLProtocol.
+    /*
+     Get a session configured to use the FakeServiceAPI.
+     */
     let sessionManager: Session = {
         let config: URLSessionConfiguration = URLSessionConfiguration.default
-        config.protocolClasses = [FakeURLProtocol.self]
+        config.protocolClasses = [FakeServiceAPI.self]
         return Session(configuration: config)
     }()
     
@@ -30,7 +32,7 @@ class CoronavirusAPITests: XCTestCase {
     
     func testSimulatingSuccessfulNetworkCallReturnsResultSuccessStateAsTrue() throws {
         // Given a succesful response.
-        FakeURLProtocol.getSuccessfulResponse()
+        FakeServiceAPI.getSuccessfulResponse()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
         
         // When we get a result from the mocked API.
@@ -48,7 +50,7 @@ class CoronavirusAPITests: XCTestCase {
     
     func testSimulatingNetworkCallWithErrorsReturnsResultFailureStateAsTrue() throws {
         // Given that we simulate a network call response with errors.
-        FakeURLProtocol.getResponseWithErrors()
+        FakeServiceAPI.getResponseWithErrors()
         let expectation = XCTestExpectation(description: "Perform a request to the fake API.")
         
         // When we get a result from the mocked API.

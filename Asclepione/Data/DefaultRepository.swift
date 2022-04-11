@@ -67,6 +67,9 @@ class DefaultRepository: Repository {
     
     /**
      Publishes the current data held in the database to the UI domain.
+     NOTE: These could potentially end up out of sync, date wise, as they are held in different tables.
+     This should be an unlikely occurance, that is rectified the next time the tables are updated.
+     This is preferable to raising an exception.
      */
     private func updatePublishers() {
         let latestDatabaseEntities = self.repositoryUtils.retrieveEntitiesAndConvertToDomainObjects()
@@ -74,5 +77,5 @@ class DefaultRepository: Repository {
         self.cumVaccinations = latestDatabaseEntities.cumVaccinations
         self.uptakePercentages = latestDatabaseEntities.uptakePercentages
     }
-
+    
 }

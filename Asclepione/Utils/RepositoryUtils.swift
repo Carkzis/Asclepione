@@ -31,13 +31,6 @@ class RepositoryUtils {
     }
     
     /**
-     Saves the newly created entities into the database.
-     */
-    private func insertResultsIntoLocalDatabase() {
-        PersistenceController.shared.save()
-    }
-    
-    /**
      Creates NewVaccinations entities from the vaccination data obtained from the REST API.
      */
     private func convertDTOToNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
@@ -117,6 +110,13 @@ class RepositoryUtils {
         } else {
             return false
         }
+    }
+    
+    /**
+     Saves the newly created entities into the database.
+     */
+    private func insertResultsIntoLocalDatabase() {
+        PersistenceController.shared.save()
     }
     
     /**

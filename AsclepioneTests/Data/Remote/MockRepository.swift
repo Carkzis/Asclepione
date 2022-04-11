@@ -15,24 +15,31 @@ import Combine
  */
 class MockRepository: Repository {
     
-    @Published var newVaccinations: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
-    @Published var cumVaccinations: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
-    @Published var uptakePercentages: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
-    var newVaccinationsPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinations }
-    var cumVaccinationsPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinations }
-    var uptakePercentagesPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentages }
-    
-    @Published var isLoading: Bool = false
-    var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
-    
     var networkError = false
     var emptyDatabase = false
     var responseData: ResponseDTO? = nil
-    
     var newVaccinationsEntities: [NewVaccinationsEntity] = []
     var cumulativeVaccinationsEntities: [CumulativeVaccinationsEntity] = []
     var uptakePercentagesEntities: [UptakePercentagesEntity] = []
     
+    /*
+     Publishers.
+     */
+    @Published var newVaccinations: NewVaccinationsDomainObject = NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+    @Published var cumVaccinations: CumulativeVaccinationsDomainObject = CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+    @Published var uptakePercentages: UptakePercentageDomainObject = UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
+    @Published var isLoading: Bool = false
+    var newVaccinationsPublisher: Published<NewVaccinationsDomainObject>.Publisher { $newVaccinations }
+    var cumVaccinationsPublisher: Published<CumulativeVaccinationsDomainObject>.Publisher { $cumVaccinations }
+    var uptakePercentagesPublisher: Published<UptakePercentageDomainObject>.Publisher { $uptakePercentages }
+    var isLoadingPublisher: Published<Bool>.Publisher { $isLoading }
+    
+    /**
+     Mocks refreshing data, including the publishing of network status.
+     Does not provide data if the networkError flag is set to true.
+     Publishes domain objects with nil parameters if the emptyDatabase flag is set to true.
+     Adds mock data to the responseData public variable in other cases.
+     */
     func refreshVaccinationData() {
         isLoading = true
         if networkError == true {
@@ -50,6 +57,10 @@ class MockRepository: Repository {
         }
     }
     
+    /**
+     Unwraps a ResponseDTO containing mock data, and converts the data into mock NewVaccinations,
+     CumulativeVaccinanations and UptakePercentages entities.
+     */
     private func convertDTOToEntities(dto: ResponseDTO) {
         let unwrappedDTO = unwrapDTO(dtoToUnwrap: dto)
         let latestNewVaccinations = convertDTOToNewVaccinations(unwrappedDTO: unwrappedDTO)
@@ -58,31 +69,9 @@ class MockRepository: Repository {
         insertResultsIntoLocalDatabase(latestNewVaccinations, latestCumulativeVaccinations, latestUptakePercentages)
     }
     
-    private func insertResultsIntoLocalDatabase(_ latestNewVaccinations: [NewVaccinationsEntity],
-                                                _ latestCumulativeVaccinations: [CumulativeVaccinationsEntity],
-                                                _ latestUptakePercentages: [UptakePercentagesEntity]) {
-        // Mock insertion into database using arrays instead.
-        newVaccinationsEntities = latestNewVaccinations
-        cumulativeVaccinationsEntities = latestCumulativeVaccinations
-        uptakePercentagesEntities = latestUptakePercentages
-        
-        retrieveEntitiesAndConvertToDomainObjects()
-    }
-    
-    private func retrieveEntitiesAndConvertToDomainObjects() {
-        newVaccinations = newVaccinationsEntities.map { entity in
-            NewVaccinationsDomainObject(country: entity.areaName, date: entity.date, newVaccinations: Int(entity.newVaccinations))
-        }.last ?? NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
-        
-        cumVaccinations = cumulativeVaccinationsEntities.map { entity in
-            CumulativeVaccinationsDomainObject(country: entity.areaName, date: entity.date, cumulativeVaccinations: Int(entity.cumulativeVaccinations))
-        }.last ?? CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
-        
-        uptakePercentages = uptakePercentagesEntities.map { entity in
-            UptakePercentageDomainObject(country: entity.areaName, date: entity.date, thirdDoseUptakePercentage: Int(entity.thirdDoseUptakePercentage))
-        }.last ?? UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
-    }
-    
+    /**
+     Creates mock NewVaccinations entities from the mock vaccination data obtained provided.
+     */
     private func convertDTOToNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [NewVaccinationsEntity] {
         return unwrappedDTO.map {
             let vaccination = MockNewVaccinations()
@@ -97,6 +86,9 @@ class MockRepository: Repository {
         }
     }
     
+    /**
+     Creates mock CumulativeVaccinations entities from the mock vaccination data obtained provided.
+     */
     private func convertDTOToCumulativeVaccinations(unwrappedDTO: [VaccinationDataDTO]) -> [CumulativeVaccinationsEntity] {
         return unwrappedDTO.map {
             let vaccination = MockCumulativeVaccinations()
@@ -111,6 +103,9 @@ class MockRepository: Repository {
         }
     }
     
+    /**
+     Creates mock UptakePercentage entities from the mock vaccination data obtained provided.
+     */
     private func convertDTOToUptakePercentages(unwrappedDTO: [VaccinationDataDTO]) -> [UptakePercentagesEntity] {
         return unwrappedDTO.map {
             let vaccination = MockUptakePercentages()
@@ -122,6 +117,38 @@ class MockRepository: Repository {
             vaccination.thirdDoseUptakePercentage = $0.thirdDoseUptakePercentage!
             return vaccination
         }
+    }
+    
+    /**
+     Mocks saving the results into a database, by adding them to public arrays for each entity type.
+     */
+    private func insertResultsIntoLocalDatabase(_ latestNewVaccinations: [NewVaccinationsEntity],
+                                                _ latestCumulativeVaccinations: [CumulativeVaccinationsEntity],
+                                                _ latestUptakePercentages: [UptakePercentagesEntity]) {
+        // Mock insertion into database using arrays instead.
+        newVaccinationsEntities = latestNewVaccinations
+        cumulativeVaccinationsEntities = latestCumulativeVaccinations
+        uptakePercentagesEntities = latestUptakePercentages
+        
+        retrieveEntitiesAndConvertToDomainObjects()
+    }
+    
+    /**
+     Retrieves the entities from the public arrays imitatating a database, and converts them to a domain objects.
+     These are published using Combine.
+     */
+    private func retrieveEntitiesAndConvertToDomainObjects() {
+        newVaccinations = newVaccinationsEntities.map { entity in
+            NewVaccinationsDomainObject(country: entity.areaName, date: entity.date, newVaccinations: Int(entity.newVaccinations))
+        }.last ?? NewVaccinationsDomainObject(country: nil, date: nil, newVaccinations: nil)
+        
+        cumVaccinations = cumulativeVaccinationsEntities.map { entity in
+            CumulativeVaccinationsDomainObject(country: entity.areaName, date: entity.date, cumulativeVaccinations: Int(entity.cumulativeVaccinations))
+        }.last ?? CumulativeVaccinationsDomainObject(country: nil, date: nil, cumulativeVaccinations: nil)
+        
+        uptakePercentages = uptakePercentagesEntities.map { entity in
+            UptakePercentageDomainObject(country: entity.areaName, date: entity.date, thirdDoseUptakePercentage: Int(entity.thirdDoseUptakePercentage))
+        }.last ?? UptakePercentageDomainObject(country: nil, date: nil, thirdDoseUptakePercentage: nil)
     }
     
 }

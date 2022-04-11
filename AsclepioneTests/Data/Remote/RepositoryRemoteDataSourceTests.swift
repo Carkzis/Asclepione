@@ -14,6 +14,9 @@ class RepositoryRemoteDataSourceTests: XCTestCase {
     
     var sut: MockRepository!
     
+    /*
+     Publishers.
+     */
     var isLoading: Bool = false
     private var isLoadingPublisher: AnyPublisher<Bool, Never> {
         sut.isLoadingPublisher

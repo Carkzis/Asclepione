@@ -15,13 +15,15 @@ class AsclepioneViewModelTests: XCTestCase {
     var sut: AsclepioneViewModel!
     var repository: MockRepository!
     
+    /*
+     Publishers.
+     */
     @Published var country: String = ""
     @Published var date: String = ""
     @Published var newVaccinations: String = ""
     @Published var cumVaccinations: String = ""
     @Published var uptakePercentages: String = ""
-    private var cancellables: Set<AnyCancellable> = []
-    
+    var isLoading: Bool = false
     private var isCountryPublisher: AnyPublisher<String, Never> {
         sut.$country
             .eraseToAnyPublisher()
@@ -42,12 +44,11 @@ class AsclepioneViewModelTests: XCTestCase {
         sut.$uptakePercentages
             .eraseToAnyPublisher()
     }
-    
-    var isLoading: Bool = false
     private var isLoadingPublisher: AnyPublisher<Bool, Never> {
         sut.$isLoading
             .eraseToAnyPublisher()
     }
+    private var cancellables: Set<AnyCancellable> = []
     
     override func setUpWithError() throws {
         repository = MockRepository()
@@ -192,6 +193,9 @@ class AsclepioneViewModelTests: XCTestCase {
         XCTAssert(!resultList[3])
     }
     
+    /**
+     Returns the cancellables for all Publishers associated with vaccination data.
+     */
     func getCancellables(countryExpectation: XCTestExpectation, dateExpectation: XCTestExpectation, newVaccExpectation: XCTestExpectation, cumVaccExpectation: XCTestExpectation, uptakePercentageExpectation: XCTestExpectation) -> Set<AnyCancellable> {
         return [isCountryPublisher
                     .receive(on: RunLoop.main)

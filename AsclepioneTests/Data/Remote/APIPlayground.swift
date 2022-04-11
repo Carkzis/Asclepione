@@ -9,11 +9,10 @@ import XCTest
 @testable import Alamofire
 @testable import Asclepione
 
+/**
+ Note: This test requires an internet connection.  Queries vaccination data from https://api.coronavirus.data.gov.uk/v1/data.
+ */
 class APIPlayground: XCTestCase {
-    
-    /**
-     Note: This requires an internet connection.  Queries vaccination data from https://api.coronavirus.data.gov.uk/v1/data.
-     */
     
     private var sut: ServiceAPIProtocol!
 

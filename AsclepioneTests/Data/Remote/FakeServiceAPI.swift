@@ -8,7 +8,10 @@
 import Foundation
 import Alamofire
 
-class FakeURLProtocol: URLProtocol {
+/**
+Fake service API that imitates the behaviour of handling retrieval of data from a REST API, without calling a real REST API.
+ */
+class FakeServiceAPI: URLProtocol {
     
     private var currentTask: URLSessionTask?
     static var response: MockResponse!
@@ -61,7 +64,7 @@ class FakeURLProtocol: URLProtocol {
      Change the mocked response to a generic error.
      */
     static func getResponseWithErrors() {
-        FakeURLProtocol.response = MockResponse.error(MockError.somethingWrong)
+        FakeServiceAPI.response = MockResponse.error(MockError.somethingWrong)
     }
 
     /**
@@ -70,7 +73,7 @@ class FakeURLProtocol: URLProtocol {
     static func getSuccessfulResponse() {
         let statusCode = 200
         let httpResponse = HTTPURLResponse(url: URL(string: "http://a.website.com")!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!
-        FakeURLProtocol.response = MockResponse.response(httpResponse)
+        FakeServiceAPI.response = MockResponse.response(httpResponse)
     }
     
     /**
@@ -89,7 +92,7 @@ class FakeURLProtocol: URLProtocol {
     }
 }
 
-extension FakeURLProtocol: URLSessionDataDelegate {
+extension FakeServiceAPI: URLSessionDataDelegate {
     /**
      This will indicate to the client that the protocol implementation did load the data.
      */
@@ -102,7 +105,7 @@ extension FakeURLProtocol: URLSessionDataDelegate {
      as well as what the response was.
      */
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        switch FakeURLProtocol.response {
+        switch FakeServiceAPI.response {
         case .error(let error)?:
             client?.urlProtocol(self, didFailWithError: error)
         case .response(let httpResponse)?:
