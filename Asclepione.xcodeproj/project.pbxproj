@@ -34,9 +34,8 @@
 		E58BC64E27BA59E10042E620 /* DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58BC64D27BA59E10042E620 /* DataObjects.swift */; };
 		E597634327E4DD1400E35183 /* RepositoryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597634227E4DD1400E35183 /* RepositoryUtils.swift */; };
 		E597634727E4F1B400E35183 /* AsclepioneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597634627E4F1B400E35183 /* AsclepioneViewModel.swift */; };
-		E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedModels.swift */; };
+		E5B3072927BFAEA10047090B /* MockedDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551118227BAC14A007AE418 /* MockedDTOs.swift */; };
 		E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */; };
-		E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072C27BFB9620047090B /* TestUtils.swift */; };
 		E5B3072F27BFC4950047090B /* CoronavirusServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */; };
 		E5B3073127BFD7030047090B /* CoronavirusAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */; };
 		E5B3073327BFFE540047090B /* ServiceAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3073227BFFE540047090B /* ServiceAPIProtocol.swift */; };
@@ -85,7 +84,7 @@
 		E53778B927B2DE0C00AFE512 /* AsclepioneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsclepioneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53778BD27B2DE0C00AFE512 /* AsclepioneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITests.swift; sourceTree = "<group>"; };
 		E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		E551118227BAC14A007AE418 /* MockedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedModels.swift; sourceTree = "<group>"; };
+		E551118227BAC14A007AE418 /* MockedDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedDTOs.swift; sourceTree = "<group>"; };
 		E55359AC27D258DE005F0643 /* MockedEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedEntities.swift; sourceTree = "<group>"; };
 		E57B2D9B27D8100D007E1D37 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E57B2D9D27D81317007E1D37 /* RepositoryLocalDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryLocalDataSourceTests.swift; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 		E597634227E4DD1400E35183 /* RepositoryUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryUtils.swift; sourceTree = "<group>"; };
 		E597634627E4F1B400E35183 /* AsclepioneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsclepioneViewModel.swift; sourceTree = "<group>"; };
 		E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLProtocol.swift; sourceTree = "<group>"; };
-		E5B3072C27BFB9620047090B /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusServiceAPI.swift; sourceTree = "<group>"; };
 		E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronavirusAPITests.swift; sourceTree = "<group>"; };
 		E5B3073227BFFE540047090B /* ServiceAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPIProtocol.swift; sourceTree = "<group>"; };
@@ -177,21 +175,11 @@
 		E53778A127B2DE0A00AFE512 /* Asclepione */ = {
 			isa = PBXGroup;
 			children = (
-				E51A5C9127D22E8700E499BD /* Entities */,
-				E5B3073227BFFE540047090B /* ServiceAPIProtocol.swift */,
-				E53778A227B2DE0A00AFE512 /* AsclepioneApp.swift */,
-				E53778A427B2DE0A00AFE512 /* ContentView.swift */,
-				E53778A627B2DE0C00AFE512 /* Assets.xcassets */,
+				E5808893280418B00074C99A /* Utils */,
+				E58088902804181B0074C99A /* Data */,
+				E580888F280417860074C99A /* ViewModels */,
+				E580888E280416740074C99A /* UI */,
 				E53778A827B2DE0C00AFE512 /* Preview Content */,
-				E58BC64B27BA579D0042E620 /* DefaultRepository.swift */,
-				E58BC64D27BA59E10042E620 /* DataObjects.swift */,
-				E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */,
-				E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */,
-				E51A5C7727D2196100E499BD /* PersistenceController.swift */,
-				E57B2D9B27D8100D007E1D37 /* DataUtils.swift */,
-				E597634227E4DD1400E35183 /* RepositoryUtils.swift */,
-				E597634627E4F1B400E35183 /* AsclepioneViewModel.swift */,
-				E581318127F218FE00EE8826 /* DomainObjects.swift */,
 			);
 			path = Asclepione;
 			sourceTree = "<group>";
@@ -207,17 +195,8 @@
 		E53778B227B2DE0C00AFE512 /* AsclepioneTests */ = {
 			isa = PBXGroup;
 			children = (
-				E551118227BAC14A007AE418 /* MockedModels.swift */,
-				E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */,
-				E5B3072C27BFB9620047090B /* TestUtils.swift */,
-				E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */,
-				E5001AFF27C694E400A71509 /* APIPlayground.swift */,
-				E51A5C7027D2086400E499BD /* MockRepository.swift */,
-				E51A5C7227D210DE00E499BD /* RepositoryRemoteDataSourceTests.swift */,
-				E55359AC27D258DE005F0643 /* MockedEntities.swift */,
-				E57B2D9D27D81317007E1D37 /* RepositoryLocalDataSourceTests.swift */,
-				E57B2D9F27D814E1007E1D37 /* FakeRepository.swift */,
-				E580888C280087330074C99A /* AsclepioneViewModelTests.swift */,
+				E5808897280419D50074C99A /* ViewModels */,
+				E58088942804191C0074C99A /* Data */,
 			);
 			path = AsclepioneTests;
 			sourceTree = "<group>";
@@ -229,6 +208,104 @@
 				E53778BF27B2DE0C00AFE512 /* AsclepioneUITestsLaunchTests.swift */,
 			);
 			path = AsclepioneUITests;
+			sourceTree = "<group>";
+		};
+		E580888E280416740074C99A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E53778A427B2DE0A00AFE512 /* ContentView.swift */,
+				E53778A227B2DE0A00AFE512 /* AsclepioneApp.swift */,
+				E53778A627B2DE0C00AFE512 /* Assets.xcassets */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E580888F280417860074C99A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E581318127F218FE00EE8826 /* DomainObjects.swift */,
+				E597634627E4F1B400E35183 /* AsclepioneViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E58088902804181B0074C99A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E58088922804183F0074C99A /* Remote */,
+				E5808891280418380074C99A /* Local */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5808891280418380074C99A /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				E51A5C9127D22E8700E499BD /* Entities */,
+				E51A5C7727D2196100E499BD /* PersistenceController.swift */,
+				E51A5C7427D2170F00E499BD /* Model.xcdatamodeld */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		E58088922804183F0074C99A /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				E5B3073227BFFE540047090B /* ServiceAPIProtocol.swift */,
+				E5B3072E27BFC4950047090B /* CoronavirusServiceAPI.swift */,
+				E58BC64B27BA579D0042E620 /* DefaultRepository.swift */,
+				E58BC64D27BA59E10042E620 /* DataObjects.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		E5808893280418B00074C99A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E597634227E4DD1400E35183 /* RepositoryUtils.swift */,
+				E57B2D9B27D8100D007E1D37 /* DataUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E58088942804191C0074C99A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5808896280419740074C99A /* Remote */,
+				E58088952804196D0074C99A /* Local */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E58088952804196D0074C99A /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2D9D27D81317007E1D37 /* RepositoryLocalDataSourceTests.swift */,
+				E51A5C7027D2086400E499BD /* MockRepository.swift */,
+				E55359AC27D258DE005F0643 /* MockedEntities.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		E5808896280419740074C99A /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				E551118227BAC14A007AE418 /* MockedDTOs.swift */,
+				E5B3072A27BFAF2A0047090B /* FakeURLProtocol.swift */,
+				E5B3073027BFD7030047090B /* CoronavirusAPITests.swift */,
+				E5001AFF27C694E400A71509 /* APIPlayground.swift */,
+				E51A5C7227D210DE00E499BD /* RepositoryRemoteDataSourceTests.swift */,
+				E57B2D9F27D814E1007E1D37 /* FakeRepository.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		E5808897280419D50074C99A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E580888C280087330074C99A /* AsclepioneViewModelTests.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		FA675F05A15FC8885669F1B7 /* Pods */ = {
@@ -507,10 +584,9 @@
 				E580888D280087330074C99A /* AsclepioneViewModelTests.swift in Sources */,
 				E5B3073127BFD7030047090B /* CoronavirusAPITests.swift in Sources */,
 				E57B2D9E27D81317007E1D37 /* RepositoryLocalDataSourceTests.swift in Sources */,
-				E5B3072927BFAEA10047090B /* MockedModels.swift in Sources */,
+				E5B3072927BFAEA10047090B /* MockedDTOs.swift in Sources */,
 				E51A5C7127D2086400E499BD /* MockRepository.swift in Sources */,
 				E5B3072B27BFAF2A0047090B /* FakeURLProtocol.swift in Sources */,
-				E5B3072D27BFB9620047090B /* TestUtils.swift in Sources */,
 				E5001B0027C694E400A71509 /* APIPlayground.swift in Sources */,
 				E51A5C7327D210DE00E499BD /* RepositoryRemoteDataSourceTests.swift in Sources */,
 				E57B2DA027D814E1007E1D37 /* FakeRepository.swift in Sources */,

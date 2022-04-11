@@ -72,6 +72,21 @@ class FakeURLProtocol: URLProtocol {
         let httpResponse = HTTPURLResponse(url: URL(string: "http://a.website.com")!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!
         FakeURLProtocol.response = MockResponse.response(httpResponse)
     }
+    
+    /**
+     Enum for the type of response we receive.
+     */
+    enum MockResponse {
+        case error(Error)
+        case response(HTTPURLResponse)
+    }
+
+    /**
+     Enum for errors return in test HTTP requests.
+     */
+    enum MockError: Error {
+        case somethingWrong
+    }
 }
 
 extension FakeURLProtocol: URLSessionDataDelegate {
