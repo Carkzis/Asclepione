@@ -13,7 +13,6 @@ class AsclepioneViewModel: ObservableObject {
     
     // TODO: Add launch screen!
     // TODO: Need to add UI tests!
-    // TODO: Add notes to top of methods!
     // TODO: Documentation!
     // TODO: Icons!
     
