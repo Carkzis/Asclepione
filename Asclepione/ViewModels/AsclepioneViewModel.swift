@@ -11,7 +11,6 @@ import SwiftUI
 
 class AsclepioneViewModel: ObservableObject {
     
-    // TODO: Add launch screen!
     // TODO: Need to add UI tests!
     // TODO: Documentation!
     // TODO: Icons!
