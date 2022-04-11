@@ -8,6 +8,9 @@
 import Foundation
 import CoreData
 
+/**
+ Utility methods for the Repository classes.
+ */
 class RepositoryUtils {
     let persistenceContainer: NSPersistentContainer!
     
@@ -15,6 +18,10 @@ class RepositoryUtils {
         self.persistenceContainer = persistenceContainer
     }
     
+    /**
+     Unwraps a ResponseDTO obtained from the REST API, converts the vaccination data into NewVaccinations,
+     CumulativeVaccinanations and UptakePercentages entities, and inserts them into the database.
+     */
     func convertDTOToEntities(dto: ResponseDTO) {
         let unwrappedDTO = unwrapDTO(dtoToUnwrap: dto)
         convertDTOToNewVaccinations(unwrappedDTO: unwrappedDTO)
@@ -23,10 +30,16 @@ class RepositoryUtils {
         insertResultsIntoLocalDatabase()
     }
     
+    /**
+     Saves the newly created entities into the database.
+     */
     private func insertResultsIntoLocalDatabase() {
         PersistenceController.shared.save()
     }
     
+    /**
+     Creates NewVaccinations entities from the vaccination data obtained from the REST API.
+     */
     private func convertDTOToNewVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
         unwrappedDTO.forEach {
             let uniqueId = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
@@ -44,6 +57,9 @@ class RepositoryUtils {
         }
     }
     
+    /**
+     Creates CumulativeVaccinations entities from the vaccination data obtained from the REST API.
+     */
     private func convertDTOToCumulativeVaccinations(unwrappedDTO: [VaccinationDataDTO]) {
         unwrappedDTO.forEach {
             let uniqueId = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
@@ -61,13 +77,16 @@ class RepositoryUtils {
         }
     }
     
+    /**
+     Creates UptakePercentage entities from the vaccination data obtained from the REST API.
+     */
     private func convertDTOToUptakePercentages(unwrappedDTO: [VaccinationDataDTO]) {
         unwrappedDTO.forEach {
             let uniqueId = createReproducibleUniqueID(date: $0.date, areaName: $0.areaName)
             if (isNewData(uniqueId: uniqueId, entityName: UptakePercentages.entityName)) {
                 let newEntry = NSEntityDescription.insertNewObject(
                     forEntityName: UptakePercentages.entityName, into: persistenceContainer.viewContext) as! UptakePercentages
-            
+                
                 newEntry.id = uniqueId
                 newEntry.areaName = $0.areaName
                 newEntry.date = transformStringIntoDate(dateAsString: $0.date)
@@ -78,6 +97,9 @@ class RepositoryUtils {
         }
     }
     
+    /**
+     Checks whether there is a duplicate entity with the database, and returns false if so, and true if it is a new data entry.
+     */
     private func isNewData(uniqueId: String, entityName: String) -> Bool {
         let requestPredicate = NSPredicate(format: "id = %@", uniqueId)
         var results = 0
@@ -97,6 +119,10 @@ class RepositoryUtils {
         }
     }
     
+    /**
+     Retrieves the latest entities from the database, and converts them to a domain objects for use with the UI.
+     These are packaged within a DomainObjects struct.
+     */
     func retrieveEntitiesAndConvertToDomainObjects() -> DomainObjects {
         let newVaccinations = retrieveNewVaccinationEntitiesAndConvertToDomainObjects()
         let cumVaccinations = retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects()
@@ -104,6 +130,9 @@ class RepositoryUtils {
         return DomainObjects(newVaccinations: newVaccinations, cumVaccinations: cumVaccinations, uptakePercentages: uptakePercentages)
     }
     
+    /**
+     Retrieves the latest NewVaccinations entry from the database, and converts it to a domain objects for use with the UI.
+     */
     private func retrieveNewVaccinationEntitiesAndConvertToDomainObjects() -> NewVaccinationsDomainObject {
         let newVaccinationsFetchRequest = NSFetchRequest<NewVaccinations>(entityName: NewVaccinations.entityName)
         let sortDescriptor = NSSortDescriptor(key: #keyPath(NewVaccinations.date), ascending: false)
@@ -122,6 +151,9 @@ class RepositoryUtils {
         }
     }
     
+    /**
+     Retrieves the latest CumulativeVaccinations entry from the database, and converts it to a domain objects for use with the UI.
+     */
     private func retrieveCumulativeVaccinationEntitiesAndConvertToDomainObjects() -> CumulativeVaccinationsDomainObject {
         let cumVaccinationsFetchRequest = NSFetchRequest<CumulativeVaccinations>(entityName: CumulativeVaccinations.entityName)
         let sortDescriptor = NSSortDescriptor(key: #keyPath(CumulativeVaccinations.date), ascending: false)
@@ -140,6 +172,9 @@ class RepositoryUtils {
         }
     }
     
+    /**
+     Retrieves the latest UptakePercentage entry from the database, and converts it to a domain objects for use with the UI.
+     */
     private func retrieveUptakePercentageEntitiesAndConvertToDomainObjects() -> UptakePercentageDomainObject {
         let uptakePercentageFetchRequest = NSFetchRequest<UptakePercentages>(entityName: UptakePercentages.entityName)
         let sortDescriptor = NSSortDescriptor(key: #keyPath(UptakePercentages.date), ascending: false)
@@ -158,10 +193,13 @@ class RepositoryUtils {
         }
     }
     
+    /**
+     This holds the latest domain object for each type of entity.
+     */
     struct DomainObjects {
         let newVaccinations: NewVaccinationsDomainObject
         let cumVaccinations: CumulativeVaccinationsDomainObject
         let uptakePercentages: UptakePercentageDomainObject
     }
-        
+    
 }
