@@ -20,16 +20,15 @@ class AsclepioneViewModel: ObservableObject {
     private var repository: Repository!
     var cancellables: Set<AnyCancellable> = []
     
+    /*
+     Publishers.
+     */
     @Published var country: String = ""
     @Published var date: String = ""
     @Published var newVaccinations: String = ""
     @Published var cumVaccinations: String = ""
     @Published var uptakePercentages: String = ""
-    
-    /**
-     Important note to future Marc, these take the repository and publish the value.  Do not both receive the value here, and then receive again
-     when subscribing to the value.  Receive once.
-     */
+    @Published var isLoading: Bool = false
     private var newVaccinationsPublisher: AnyPublisher<NewVaccinationsDomainObject, Never> {
         repository.newVaccinationsPublisher
             .eraseToAnyPublisher()
@@ -42,8 +41,6 @@ class AsclepioneViewModel: ObservableObject {
         repository.uptakePercentagesPublisher
             .eraseToAnyPublisher()
     }
-    
-    @Published var isLoading: Bool = false
     private var isLoadingPublisher: AnyPublisher<Bool, Never> {
         repository.isLoadingPublisher
             .eraseToAnyPublisher()
@@ -64,6 +61,16 @@ class AsclepioneViewModel: ObservableObject {
         }
     }
     
+    /**
+     Refreshes the repository, resulting in a REST API call and an updation of the local database data publishers.
+     */
+    func refreshVaccinationData() {
+        repository.refreshVaccinationData()
+    }
+    
+    /**
+     Sets up the Publishers that publish vaccination data to the UI.
+     */
     private func setUpVaccinationDataPublishers() {
         newVaccinationsPublisher
             .receive(on: RunLoop.main)
@@ -94,6 +101,9 @@ class AsclepioneViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /**
+     Sets up the Publisher that publishes the data loading state to the UI.
+     */
     private func setUpLoadingStatePublisher() {
         isLoadingPublisher
             .receive(on: RunLoop.main)
@@ -103,10 +113,16 @@ class AsclepioneViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /**
+     Sets a country to the country publisher, or "???" if the value is nil.
+     */
     private func setAndPublishCountry(country: String?) {
         self.country = country ?? "???"
     }
     
+    /**
+     Sets a date to the date publisher as a String, or "???" if the value is nil.
+     */
     private func setAndPublishDate(date: Date?) {
         if let unwrappedDate = date {
             let dateAsString = transformDateIntoString(dateAsDate: unwrappedDate)
@@ -116,7 +132,4 @@ class AsclepioneViewModel: ObservableObject {
         }
     }
     
-    func refreshVaccinationData() {
-        repository.refreshVaccinationData()
-    }
 }

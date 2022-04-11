@@ -58,7 +58,7 @@ func transformDateIntoString(dateAsDate: Date) -> String {
 }
 
 /**
- Formats an Int as a decimal style String e.g. 1000 becomes "1,000".
+ Formats an Int as a decimal style String e.g. 1000 becomes "1,000". Returns "0" if the formatted value is nil.
  */
 func formatNumberAsDecimalStyle(numberToFormat: Int) -> String {
     let numberFormatter = NumberFormatter()
