@@ -42,7 +42,9 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding(8)
+                .accessibilityIdentifier("titleText")
             Text("Keep track of the nation's vaccination uptake!")
+                .accessibilityIdentifier("subtitleText")
         }
     }
     
@@ -50,9 +52,11 @@ struct ContentView: View {
         HStack(alignment: .center) {
             Text("Country:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("countryText")
             PlaceholderTextView(
                 placeholderText: Text("End of the World"), text: $viewModel.country)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("countryData")
         }
     }
     
@@ -60,9 +64,11 @@ struct ContentView: View {
         HStack(alignment: .center) {
             Text("Date:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("dateText")
             PlaceholderTextView(
                 placeholderText: Text("End of Time"), text: $viewModel.date)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("dateData")
         }
     }
     
@@ -70,9 +76,11 @@ struct ContentView: View {
         HStack(alignment: .center) {
             Text("New Vaccinations:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("newVaccText")
             PlaceholderTextView(
                 placeholderText: Text(">9000"), text: $viewModel.newVaccinations)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("newVaccData")
         }
     }
     
@@ -80,9 +88,11 @@ struct ContentView: View {
         HStack(alignment: .center) {
             Text("Cumulative Vaccinations:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("cumVaccText")
             PlaceholderTextView(
                 placeholderText: Text(">9000"), text: $viewModel.cumVaccinations)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("cumVaccData")
         }
     }
     
@@ -90,9 +100,11 @@ struct ContentView: View {
         HStack(alignment: .center) {
             Text("Uptake Percentage:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("uptakePercentageText")
             PlaceholderTextView(
                 placeholderText: Text("110%"), text: $viewModel.uptakePercentages)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
+                .accessibilityIdentifier("uptakePercentageData")
         }
     }
     
@@ -102,6 +114,7 @@ struct ContentView: View {
         }
         .padding(16)
         .border(.white)
+        .accessibilityIdentifier("refreshButton")
     }
     
     @ViewBuilder
