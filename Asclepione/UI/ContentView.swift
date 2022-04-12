@@ -54,7 +54,7 @@ struct ContentView: View {
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
                 .accessibilityIdentifier("countryText")
             PlaceholderTextView(
-                placeholderText: Text("End of the World"), text: $viewModel.country)
+                placeholderText: Text("???"), text: $viewModel.country)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
                 .accessibilityIdentifier("countryData")
         }
@@ -66,7 +66,7 @@ struct ContentView: View {
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
                 .accessibilityIdentifier("dateText")
             PlaceholderTextView(
-                placeholderText: Text("End of Time"), text: $viewModel.date)
+                placeholderText: Text("???"), text: $viewModel.date)
                 .frame(width: righthandWidth, height: textFieldHeight, alignment: .center)
                 .accessibilityIdentifier("dateData")
         }
