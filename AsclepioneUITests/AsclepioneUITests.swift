@@ -8,8 +8,6 @@
 import XCTest
 import Foundation
 
-@testable import Asclepione
-
 class AsclepioneUITests: XCTestCase {
 
     override func setUpWithError() throws {

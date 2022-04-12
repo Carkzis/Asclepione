@@ -120,7 +120,9 @@ struct ContentView: View {
     @ViewBuilder
     var progressView: some View {
         ProgressView()
+            .accessibilityIdentifier("refreshProgress")
             .hidden($viewModel.isLoading.wrappedValue)
+            
     }
     
     private func refreshData() {
