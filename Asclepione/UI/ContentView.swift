@@ -125,7 +125,7 @@ struct PlaceholderTextView: View {
             if text == "" {
                 placeholderText
             } else {
-                TextField("", text: $text)
+                Text($text.wrappedValue)
                     .font(fontStyle)
             }
         }

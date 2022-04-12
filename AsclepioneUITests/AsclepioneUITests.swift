@@ -28,6 +28,28 @@ class AsclepioneUITests: XCTestCase {
         app.launch()
 
         // Use recording to get started writing UI tests.
+        app.staticTexts["Country:"].tap()
+        app.windows.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .textField).element(boundBy: 0).tap()
+        app.staticTexts["Date:"].tap()
+        
+        let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+        element.children(matching: .textField).element(boundBy: 1).tap()
+        app.staticTexts["New Vaccinations:"].tap()
+        element.children(matching: .textField).element(boundBy: 2).tap()
+        app.staticTexts["Cumulative Vaccinations:"].tap()
+        element.children(matching: .textField).element(boundBy: 3).tap()
+        app.staticTexts["Uptake Percentage:"].tap()
+        element.children(matching: .textField).element(boundBy: 4).tap()
+        
+        let refreshDataButton = app.buttons["Refresh data?"]
+        refreshDataButton.tap()
+        app/*@START_MENU_TOKEN@*/.buttons["Return"]/*[[".keyboards",".buttons[\"return\"]",".buttons[\"Return\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        let element2 = app.children(matching: .window).element(boundBy: 1).children(matching: .other).element
+        element2.tap()
+        refreshDataButton.tap()
+        element2.tap()
+        element2.tap()
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
