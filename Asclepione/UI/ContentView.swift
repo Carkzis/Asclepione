@@ -74,7 +74,7 @@ struct ContentView: View {
     
     var newVaccinationsView: some View {
         HStack(alignment: .center) {
-            Text("New Vaccinations:")
+            Text("New Third Doses:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
                 .accessibilityIdentifier("newVaccText")
             PlaceholderTextView(
@@ -86,7 +86,7 @@ struct ContentView: View {
     
     var cumulativeVaccinationsView: some View {
         HStack(alignment: .center) {
-            Text("Cumulative Vaccinations:")
+            Text("Cumulative Third Doses:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
                 .accessibilityIdentifier("cumVaccText")
             PlaceholderTextView(
@@ -98,7 +98,7 @@ struct ContentView: View {
     
     var uptakePercentageView: some View {
         HStack(alignment: .center) {
-            Text("Uptake Percentage:")
+            Text("Third Dose Uptake Percentage:")
                 .frame(width: lefthandWidth, height: textFieldHeight, alignment: .center)
                 .accessibilityIdentifier("uptakePercentageText")
             PlaceholderTextView(
@@ -150,7 +150,7 @@ struct PlaceholderTextView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-.previewInterfaceOrientation(.landscapeLeft)
+.previewInterfaceOrientation(.portrait)
     }
 }
 
