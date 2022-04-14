@@ -1,5 +1,5 @@
 # Asclepione
-An app to keep track of the nation's vaccination uptake!
+Keep track of the nation's vaccination uptake!
 
 # Description
 This is an app that obtains vaccination data from the Coronavirus Open Data API (APIv1) (link in acknowledgments), stores it in a local database on the device and displays it to the user. Currently, it displays the third vaccinations doses taken in a day, the cumulative third vaccination doses taken within a week and the vaccination uptake percentage of the third dose, all within England.  At the time of writing (14 April 2021), this was the latest dose widely available to the population; the fourth dose is only available to older and vulnerable people.  In future, the data for the rest of the UK could be displayed, as well as showing data by first, second and third dose, as well as future doses as they become more widely available.
