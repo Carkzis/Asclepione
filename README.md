@@ -29,6 +29,7 @@ Marc Jowett (carkzis.apps@gmail.com)
 
 ## Version History
 * 1.0
+  * Initial Release.  See [commits](https://github.com/Carkzis/Asclepione/commits/main).
 
 ## Acknowledgements
 * Coronavirus Open Data API (APIv1) (https://api.coronavirus.data.gov.uk/v1/data) for providing the data.
