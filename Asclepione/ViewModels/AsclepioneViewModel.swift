@@ -11,10 +11,6 @@ import SwiftUI
 
 class AsclepioneViewModel: ObservableObject {
     
-    // TODO: Need to add UI tests!
-    // TODO: Documentation!
-    // TODO: Icons!
-    
     private var repository: Repository!
     var cancellables: Set<AnyCancellable> = []
     
